@@ -33,5 +33,8 @@ ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 RUN npm i -g yarn 
 
 # confirm installation
+RUN yarn -v
 RUN node -v
 RUN npm -v
+
+EXPOSE 3000
