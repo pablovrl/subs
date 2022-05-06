@@ -3,22 +3,11 @@ import {
   Flex,
   IconButton,
   useDisclosure,
-  Stack,
   HStack,
 } from "@chakra-ui/react";
 import NavbarLink from "./NavbarLink";
-import { FaTimes, FaBars, FaShoppingBag, FaUserAlt } from "react-icons/fa";
-
-const categories = [
-  "Entretenimiento",
-  "Comida",
-  "Hombre",
-  "Mujer",
-  "Niños",
-  "Libros",
-  "Hogar",
-  "Adultos",
-];
+import { FaBars, FaUserAlt } from "react-icons/fa";
+import HamburgerMenu from "./HamburgerMenu";
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -39,27 +28,8 @@ export default function Navbar() {
             onClick={onOpen}
           />
         </HStack>
-        {isOpen ? (
-          <Box bg="white" position="absolute" top={0} left={0} w="full" p={2}>
-            <Box>
-              <Flex justifyContent="end">
-                <IconButton
-                  bg={"white"}
-                  size={"lg"}
-                  aria-label="Close menu"
-                  icon={<FaTimes />}
-                  onClick={onClose}
-                />
-              </Flex>
-            </Box>
-            <Stack ml={8}>
-              {categories.map((categorie) => (
-                <NavbarLink text={categorie} href="/" fontSize={"2xl"} />
-              ))}
-            </Stack>
-          </Box>
-        ) : null}
       </Flex>
+      <HamburgerMenu isOpen={isOpen} onClose={onClose}/>
     </Box>
   );
 }
