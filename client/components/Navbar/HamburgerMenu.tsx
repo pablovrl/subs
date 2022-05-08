@@ -22,7 +22,7 @@ interface HamburgerMenuProps {
 export default function HamburgerMenu({ isOpen, onClose }: HamburgerMenuProps) {
 	return (
 		<Slide direction="right" in={isOpen}>
-			<Box bg="white" position="absolute" top={0} left={0} w="full" p={2}>
+			<Box bg="white" w="full" p={2}>
 				<Box>
 					<Flex justifyContent="end">
 						<IconButton
