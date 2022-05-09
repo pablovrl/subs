@@ -1,13 +1,12 @@
 import React from "react";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import type { NextPage } from "next";
+import CustomerFavorites from "../components/CustomerFavorites";
 
 const Home: NextPage = () => {
 	return (
 		<Box>
-			<Flex justifyContent={"center"}>
-				<Text fontSize={"3xl"}>Index</Text>
-			</Flex>
+			<CustomerFavorites />
 		</Box>
 	);
 };

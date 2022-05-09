@@ -8,7 +8,7 @@ export default function Navbar() {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	return (
-		<Box px={2} mb={2}>
+		<Box px={2}>
 			<Flex alignItems={"center"} justifyContent={"space-between"}>
 				<Box>Logo</Box>
 				<HStack spacing={"20px"}>
