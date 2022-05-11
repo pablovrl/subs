@@ -8,7 +8,7 @@ export default function CustomerFavorites() {
 			<Text fontSize={"xl"} textAlign={"center"} mb={5}>
 				Favoritos de los Compradores
 			</Text>
-			<SimpleGrid columns={3} mx={8} spacing={2} zIndex={1}>
+			<SimpleGrid columns={3} mx={2} spacing={2} zIndex={1}>
 				<CategoryWithName text="Juegos" />
 				<CategoryWithName text="Ropa" />
 				<CategoryWithName text="Libros" />
