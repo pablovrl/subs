@@ -1,24 +1,28 @@
 import { db } from "../config/database";
-import { DataTypes, HasOne } from "sequelize";
+import { DataTypes } from "sequelize";
 
-const User = db.define(
-  "user",
+const Vendedor = db.define(
+  "vendedor",
   {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    firstName: {
+    nombreCompleto: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    lastName: {
+    nombreTienda: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    imagenTienda: {
+      type: DataTypes.BLOB,
+      allowNull: true,
     },
   },
   { timestamps: false }
 );
 
-export default User;
+export default Vendedor;

@@ -1,11 +1,15 @@
 import express from "express";
-import userRouter from "./routes/UserRoute";
 import { db } from "./config/database";
+import router from "./routes";
+import Periodo from "./models/periodo";
+import Pertenece from "./models/pertenece";
+
+console.log(Periodo.tableName, Pertenece.tableName);
 
 const app = express();
 app.use(express.json());
-app.use("/api/user", userRouter);
-db.sync();
+app.use("/api", router);
+db.sync({ force: true });
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
