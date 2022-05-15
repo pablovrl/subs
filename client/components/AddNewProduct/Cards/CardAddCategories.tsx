@@ -1,6 +1,5 @@
 import React from "react";
 import { Flex, Text, Box } from "@chakra-ui/react";
-
 import Select from "../Select";
 
 interface CardAddCategoriesProps {
