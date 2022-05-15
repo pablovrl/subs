@@ -21,4 +21,23 @@ const checkDatabaseConnection = async () => {
   }
 };
 
+
+const insertData = async () => {
+  await db.sync({ force: true });
+  await db.query(
+    "INSERT INTO credencials VALUES (null, 'pablovillarroel135@gmail.com', 'colocolo123', 'cliente');"
+  );
+  await db.query(
+    "INSERT INTO vendedors VALUES (1, 'Pablo Villarroel', 'Pablo Shop', null, 1);"
+  );
+  await db.query(
+    "INSERT INTO productos VALUES (null, 'Video Games Box', 'Detalle', 30, 1);"
+  );
+  await db.query(
+    "INSERT INTO productos VALUES (null, 'Japanese Candy Box', 'Detalle', 30, 1);"
+  )
+};
+
+insertData();
+
 export { db, checkDatabaseConnection };
