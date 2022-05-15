@@ -15,7 +15,7 @@ interface ButtonLinkProps {
 	fontSize?: TypographyProps["fontSize"];
 }
 
-export default function NavbarLink({
+export default function ButtonLinkProps({
 	text,
 	href,
 	icon,
