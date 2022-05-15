@@ -1,6 +1,5 @@
 import { db } from "../config/database";
 import { DataTypes } from "sequelize";
-import Credencial from "./credencial";
 
 const Vendedor = db.define(
   "vendedor",
