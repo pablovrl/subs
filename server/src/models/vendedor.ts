@@ -19,7 +19,7 @@ const Vendedor = db.define(
     },
     imagenTienda: {
       type: DataTypes.BLOB,
-      allowNull: false,
+      allowNull: true,
     },
   },
   { timestamps: false }
