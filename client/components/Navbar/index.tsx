@@ -24,7 +24,7 @@ export default function Navbar() {
 					/>
 				</HStack>
 			</Flex>
-			<HamburgerMenu isOpen={isOpen} onClose={onClose} />
+			{isOpen && <HamburgerMenu isOpen={isOpen} onClose={onClose} />}
 		</Box>
 	);
 }
