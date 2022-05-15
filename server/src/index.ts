@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { db } from "./config/database";
 import router from "./routes";
 import Periodo from "./models/periodo";
@@ -7,6 +8,12 @@ import Pertenece from "./models/pertenece";
 console.log(Periodo.tableName, Pertenece.tableName);
 
 const app = express();
+app.use(
+  cors({
+    origin: "*",
+  })
+);
+
 app.use(express.json());
 app.use("/api", router);
 db.sync({ force: true });
