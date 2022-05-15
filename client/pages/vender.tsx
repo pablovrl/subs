@@ -33,7 +33,7 @@ const Vender: NextPage = () => {
 						textAlign={"center"}
 						paddingX={5}
 					>
-						SusCL es el primer y único Marketplace de chile para emprendedores
+						susCL es el primer y único Marketplace de chile para emprendedores
 						de cajas de suscripción. Aprovecha ahora y concéntrate en tu pasión,
 						nosotros haremos el resto. ! ES TOTALMENTE GRATIS ¡
 					</Text>
