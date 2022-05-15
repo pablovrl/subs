@@ -17,7 +17,7 @@ const Vender: NextPage = () => {
 						paddingX={5}
 						marginTop={1}
 					>
-						Miles de compradores están esperando para comprar tu caja
+						Miles de compradores están esperando para comprar tu caja.
 					</Text>
 				</Flex>
 				<Flex justifyContent={"center"} marginTop={5}>
@@ -33,9 +33,9 @@ const Vender: NextPage = () => {
 						textAlign={"center"}
 						paddingX={5}
 					>
-						xxxxxxx es el primer y unico Marketplace de chile para emprendedores
-						de cajas de suscripción. Aprovecha ahora y concentrate en tu pasión,
-						nosotros haremos el resto. !ES TOTALMENTE GRATIS¡
+						SusCL es el primer y único Marketplace de chile para emprendedores
+						de cajas de suscripción. Aprovecha ahora y concéntrate en tu pasión,
+						nosotros haremos el resto. ! ES TOTALMENTE GRATIS ¡
 					</Text>
 				</Flex>
 				<Flex justifyContent={"center"} marginTop={10} paddingBottom={10}>
@@ -51,7 +51,7 @@ const Vender: NextPage = () => {
 						paddingX={5}
 						marginTop={1}
 					>
-						Vende tus cajas aquí y aprovecha las ventajas de la aplicacion.
+						Vende tus cajas aquí y aprovecha las ventajas de la aplicación.
 					</Text>
 				</Flex>
 				<Flex justifyContent={"center"} marginTop={5}>
