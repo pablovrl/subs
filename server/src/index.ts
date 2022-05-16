@@ -2,6 +2,9 @@ import express from "express";
 import cors from "cors";
 import { db } from "./config/database";
 import router from "./routes";
+import Categoria from "./models/categoria";
+
+console.log(Categoria.tableName);
 
 const app = express();
 app.use(
