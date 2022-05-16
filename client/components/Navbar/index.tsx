@@ -12,7 +12,7 @@ export default function Navbar() {
 			<Flex alignItems={"center"} justifyContent={"space-between"}>
 				<Box>Logo</Box>
 				<HStack spacing={"20px"}>
-					<NavbarLink text="Vender" href="/" />
+					<NavbarLink text="Vender" href="/vender" />
 					<HStack>
 						<NavbarLink text="Iniciar Sesión" href="/" icon={<FaUserAlt />} />
 					</HStack>

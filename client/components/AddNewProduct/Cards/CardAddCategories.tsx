@@ -1,0 +1,44 @@
+import React from "react";
+import { Flex, Text, Box } from "@chakra-ui/react";
+import Select from "../Select";
+
+interface CardAddCategoriesProps {
+	name: string;
+	handleChange: React.ChangeEventHandler<HTMLSelectElement>;
+}
+
+export default function CardAddCategories({
+	name,
+	handleChange,
+}: CardAddCategoriesProps) {
+	return (
+		<>
+			<Flex marginTop={"5"} justifyContent={"center"}>
+				<Box
+					w={"21em"}
+					justifyContent={"center"}
+					borderRadius={"10px"}
+					borderWidth={"1px"}
+					paddingBottom={"6"}
+				>
+					<Flex
+						justifyContent={"center"}
+						borderBottomWidth={"1px"}
+						paddingY={"3"}
+					>
+						<Text fontSize={"xl"}>Categoria</Text>
+					</Flex>
+					<Flex justifyContent={"center"} marginTop={"3"}>
+						<Select
+							title="Categoria principal"
+							value={name}
+							text="Seleccione la categoria más relacionada con el producto."
+							fontSizeText={"sm"}
+							onChange={handleChange}
+						/>
+					</Flex>
+				</Box>
+			</Flex>
+		</>
+	);
+}
