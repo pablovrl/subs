@@ -69,7 +69,7 @@ const Vender: NextPage = () => {
 						marginTop={1}
 					>
 						¡Unete a la aplicacion junto con varios comerciantes que hacen
-						crecer sus negocios gracias a xxxxxxxxx.
+						crecer sus negocios gracias a susCL.
 					</Text>
 				</Flex>
 				<Flex justifyContent={"center"} marginTop={5} paddingBottom={5}>
