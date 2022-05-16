@@ -4,7 +4,7 @@ import Vendedor from "../models/vendedor";
 
 const createProducto = async (req: Request, res: Response) => {
   try {
-    const producto = await Producto.create(req.body);
+    const producto = await Producto.create({ ...req.body, vendedorId: 1 });
     return res.status(201).json(producto);
   } catch (error) {
     return res.status(500).json(error);
