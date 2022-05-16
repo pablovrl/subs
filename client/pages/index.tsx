@@ -1,13 +1,16 @@
 import React from "react";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import type { NextPage } from "next";
+import Navbar from "../components/Navbar";
+import InterestedProducts from "../components/InterestedProducts";
 
 const Home: NextPage = () => {
 	return (
 		<Box>
-			<Flex justifyContent={"center"}>
-				<Text fontSize={"3xl"}>Index</Text>
-			</Flex>
+			<Navbar />
+			<Box mx={4}>
+				<InterestedProducts />
+			</Box>
 		</Box>
 	);
 };
