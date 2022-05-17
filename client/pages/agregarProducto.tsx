@@ -10,9 +10,7 @@ import Button from "../components/AddNewProduct/Button";
 import CardBasic from "../components/AddNewProduct/Cards/CardBasic";
 import CardProductQuantity from "../components/AddNewProduct/Cards/CardProductQuantity";
 import CardPriceProduct from "../components/AddNewProduct/Cards/CardPriceProduct";
-import CardAddImg from "../components/AddNewProduct/Cards/CardAddImg";
 import CardCategories from "../components/AddNewProduct/Cards/CardAddCategories";
-import CardSelectImg from "../components/AddNewProduct/Cards/CardSelectImg";
 
 import type { NextPage } from "next";
 import Validations from "../components/AddNewProduct/Validations";
@@ -91,10 +89,6 @@ const AgregarProducto: NextPage = () => {
 							name={values.category}
 							handleChange={handleChange}
 						/>
-
-						<CardAddImg />
-
-						<CardSelectImg />
 
 						<CardProductQuantity
 							errors={errors}
