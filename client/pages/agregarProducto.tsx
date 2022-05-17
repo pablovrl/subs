@@ -1,34 +1,32 @@
 import React from "react";
 import { Flex, Text, Box } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useRouter } from "next/router";
 
 //*Components
 import Button from "../components/AddNewProduct/Button";
 import CardBasic from "../components/AddNewProduct/Cards/CardBasic";
 import CardProductQuantity from "../components/AddNewProduct/Cards/CardProductQuantity";
 import CardPriceProduct from "../components/AddNewProduct/Cards/CardPriceProduct";
+import CardAddImg from "../components/AddNewProduct/Cards/CardAddImg";
 import CardCategories from "../components/AddNewProduct/Cards/CardAddCategories";
+import CardSelectImg from "../components/AddNewProduct/Cards/CardSelectImg";
 
 import type { NextPage } from "next";
 import Validations from "../components/AddNewProduct/Validations";
-
-interface MyFormValues {
-	name: string;
-	description: string;
-	category: string;
-	labels: string[];
-	stock: string;
-	oneMonth: string;
-	threeMonth: string;
-	sixMonth: string;
-	twelveMonth: string;
-}
+import MyFormValues from "../interfaces/MyFormValues";
+import { setTimeout } from "timers";
 
 const AgregarProducto: NextPage = () => {
+	const router = useRouter();
+
 	const initialValues: MyFormValues = {
 		name: "",
 		description: "",
-		category: "Animales",
+		images: [],
+		category: "1",
 		labels: [],
 		stock: "",
 		oneMonth: "",
@@ -38,7 +36,26 @@ const AgregarProducto: NextPage = () => {
 	};
 
 	const submitForm = (values: MyFormValues) => {
-		console.log(values);
+		axios.post("/api/producto", {
+			nombre: values.name,
+			detalles: values.description,
+			categoriaId: values.category,
+			stock: values.stock,
+		});
+
+		Swal.fire({
+			position: "center",
+			icon: "success",
+			title: "Producto creado con éxito",
+			showConfirmButton: false,
+			timer: 1500,
+		});
+
+		setTimeout(redirect, 1500);
+	};
+
+	const redirect = () => {
+		router.push("/");
 	};
 
 	return (
@@ -74,6 +91,10 @@ const AgregarProducto: NextPage = () => {
 							name={values.category}
 							handleChange={handleChange}
 						/>
+
+						<CardAddImg />
+
+						<CardSelectImg />
 
 						<CardProductQuantity
 							errors={errors}
