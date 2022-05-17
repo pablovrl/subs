@@ -51,7 +51,7 @@ const AgregarProducto: NextPage = () => {
 			timer: 1500,
 		});
 
-		setTimeout(redirect, 1500);
+		setTimeout(redirect, 1200);
 	};
 
 	const redirect = () => {
