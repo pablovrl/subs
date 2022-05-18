@@ -7,8 +7,14 @@ import {
 	Stack,
 } from "@chakra-ui/react";
 
+interface Categoria {
+	id: number;
+	nombre: string;
+}
+
 interface SelectProps {
 	title: string;
+	categories: Categoria[];
 	value: string;
 	onChange: React.ChangeEventHandler<HTMLSelectElement>;
 	text: string;
@@ -18,6 +24,7 @@ interface SelectProps {
 
 export default function Select({
 	title,
+	categories,
 	value,
 	onChange,
 	text,
@@ -30,17 +37,11 @@ export default function Select({
 				<Text fontSize={fontSizeTitle}>{title}</Text>
 			</Flex>
 			<SelectCK value={value} name="category" onChange={onChange}>
-				<option value="Animales">Animales</option>
-				<option value="Entretenimiento">Entretenimiento</option>
-				<option value="Videojuegos">Viedojuegos</option>
-				<option value="Juegos de mesa">Juegos de mesa</option>
-				<option value="Comida">Comida</option>
-				<option value="Libros">Libros</option>
-				<option value="Regalo">Regalo</option>
-				<option value="Maquillaje">Maquillaje</option>
-				<option value="Juegos de mesa">Juegos de mesa</option>
-				<option value="Deporte">Deporte</option>
-				<option value="Sexual">Sexual</option>
+				{categories.map((category) => (
+					<option key={category.id} value={category.id}>
+						{category.nombre}
+					</option>
+				))}
 			</SelectCK>
 			<Flex paddingLeft={"1"}>
 				<Text fontSize={fontSizeText}>{text}</Text>

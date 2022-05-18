@@ -3,14 +3,7 @@ import { Flex, Text, Box } from "@chakra-ui/react";
 import InputText from "../TextInput";
 import TextArea from "../TextArea";
 import { FormikErrors, FormikTouched } from "formik";
-
-interface MyFormValues {
-	name: string;
-	description: string;
-	category: string;
-	labels: string[];
-	quantity: number;
-}
+import MyFormValues from "../../../interfaces/MyFormValues";
 
 interface inputs {
 	name: string;

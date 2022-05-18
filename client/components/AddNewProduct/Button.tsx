@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Box, Text, TypographyProps } from "@chakra-ui/react";
 
 interface ButtonProps {
-	text: string;
+	text?: string;
 	type?: "submit";
 	variant?: string;
 	borderColor?: string;
