@@ -1,16 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Flex, Text, Box } from "@chakra-ui/react";
 import Select from "../Select";
+import axios from "axios";
 
 interface CardAddCategoriesProps {
 	name: string;
 	handleChange: React.ChangeEventHandler<HTMLSelectElement>;
+}
+interface Categoria {
+	id: number;
+	nombre: string;
 }
 
 export default function CardAddCategories({
 	name,
 	handleChange,
 }: CardAddCategoriesProps) {
+	const [categories, setCategories] = useState<Categoria[]>([]);
+
+	useEffect(() => {
+		const getCategoria = async () => {
+			const res = await axios.get("/api/categoria");
+			setCategories(res.data);
+		};
+
+		getCategoria();
+	}, []);
 	return (
 		<>
 			<Flex marginTop={"5"} justifyContent={"center"}>
@@ -31,6 +46,7 @@ export default function CardAddCategories({
 					<Flex justifyContent={"center"} marginTop={"3"}>
 						<Select
 							title="Categoria principal"
+							categories={categories}
 							value={name}
 							text="Seleccione la categoria más relacionada con el producto."
 							fontSizeText={"sm"}
