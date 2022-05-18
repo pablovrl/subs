@@ -1,6 +1,6 @@
 import React from "react";
 import { FormikErrors, FormikTouched } from "formik";
-
+import MyFormValues from "../../../interfaces/MyFormValues";
 import {
 	Flex,
 	Text,
@@ -9,18 +9,6 @@ import {
 	Stack,
 	NumberInputField,
 } from "@chakra-ui/react";
-
-interface MyFormValues {
-	name: string;
-	description: string;
-	category: string;
-	labels: string[];
-	stock: string;
-	oneMonth: string;
-	threeMonth: string;
-	sixMonth: string;
-	twelveMonth: string;
-}
 
 interface CardPriceProductProps {
 	handleChange: React.ChangeEventHandler<HTMLInputElement>;
