@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.post("/upload", saveToUploads.single("file"), (req, res) => {
+app.post("/api/uploads", saveToUploads.single("file"), (req, res) => {
   const file = req.file;
   if (!file) return res.status(400).send("No file uploaded");
   return res.json({ path: file.path });
