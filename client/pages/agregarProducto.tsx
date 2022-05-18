@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Flex, Text, Box } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
+import imgType from "../interfaces/fileInput";
 
 //*Components
 import Button from "../components/AddNewProduct/Button";
@@ -8,6 +9,7 @@ import CardBasic from "../components/AddNewProduct/Cards/CardBasic";
 import CardProductQuantity from "../components/AddNewProduct/Cards/CardProductQuantity";
 import CardPriceProduct from "../components/AddNewProduct/Cards/CardPriceProduct";
 import CardCategories from "../components/AddNewProduct/Cards/CardAddCategories";
+import CardAddImg from "../components/AddNewProduct/Cards/CardAddImg";
 
 import type { NextPage } from "next";
 import Validations from "../components/AddNewProduct/Validations";
@@ -17,6 +19,7 @@ interface MyFormValues {
 	description: string;
 	category: string;
 	labels: string[];
+	images: imgType[];
 	stock: string;
 	oneMonth: string;
 	threeMonth: string;
@@ -25,11 +28,14 @@ interface MyFormValues {
 }
 
 const AgregarProducto: NextPage = () => {
+	const [images, setImages] = useState<imgType[]>([]);
+
 	const initialValues: MyFormValues = {
 		name: "",
 		description: "",
 		category: "Animales",
 		labels: [],
+		images: images,
 		stock: "",
 		oneMonth: "",
 		threeMonth: "",
@@ -70,6 +76,9 @@ const AgregarProducto: NextPage = () => {
 							errors={errors}
 							touched={touched}
 						/>
+
+						<CardAddImg />
+
 						<CardCategories
 							name={values.category}
 							handleChange={handleChange}
