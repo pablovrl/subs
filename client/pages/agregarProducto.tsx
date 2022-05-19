@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { Flex, Text, Box } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
+<<<<<<< HEAD
 import imgType from "../interfaces/fileInput";
+=======
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useRouter } from "next/router";
+>>>>>>> main
 
 //*Components
 import Button from "../components/AddNewProduct/Button";
@@ -13,6 +19,7 @@ import CardAddImg from "../components/AddNewProduct/Cards/CardAddImg";
 
 import type { NextPage } from "next";
 import Validations from "../components/AddNewProduct/Validations";
+<<<<<<< HEAD
 
 interface MyFormValues {
 	name: string;
@@ -29,11 +36,19 @@ interface MyFormValues {
 
 const AgregarProducto: NextPage = () => {
 	const [images, setImages] = useState<imgType[]>([]);
+=======
+import MyFormValues from "../interfaces/MyFormValues";
+import { setTimeout } from "timers";
+
+const AgregarProducto: NextPage = () => {
+	const router = useRouter();
+>>>>>>> main
 
 	const initialValues: MyFormValues = {
 		name: "",
 		description: "",
-		category: "Animales",
+		images: [],
+		category: "1",
 		labels: [],
 		images: images,
 		stock: "",
@@ -44,7 +59,26 @@ const AgregarProducto: NextPage = () => {
 	};
 
 	const submitForm = (values: MyFormValues) => {
-		console.log(values);
+		axios.post("/api/producto", {
+			nombre: values.name,
+			detalles: values.description,
+			categoriaId: values.category,
+			stock: values.stock,
+		});
+
+		Swal.fire({
+			position: "center",
+			icon: "success",
+			title: "Producto creado con éxito",
+			showConfirmButton: false,
+			timer: 1500,
+		});
+
+		setTimeout(redirect, 1200);
+	};
+
+	const redirect = () => {
+		router.push("/");
 	};
 
 	return (
