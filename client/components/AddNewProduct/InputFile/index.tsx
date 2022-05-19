@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Flex, Grid, GridItem, Image, Text, Button } from "@chakra-ui/react";
 import DropZoneComponent from "./InputFile";
 import FileInput from "../../../interfaces/fileInput";
+import axios from "axios";
+//import FormData from "form-data";
 
 export default function fileInput() {
 	const [files, setFiles] = useState<FileInput[]>([]);
@@ -19,6 +21,19 @@ export default function fileInput() {
 			file.id = i + 1;
 		});
 		setFiles(newFiles);
+	};
+
+	const handleClickPost = () => {
+		const data = new FormData();
+		console.log(files[0].img);
+
+		data.append("file", files[0].img );
+
+		axios.post("http://localhost:3001/api/uploads", data, {
+			headers: {
+				"Content-Type": "multipart/form-data",
+			},
+		});
 	};
 
 	return (
@@ -72,6 +87,8 @@ export default function fileInput() {
 			) : (
 				<Text></Text>
 			)}
+
+			<Button onClick={handleClickPost}>PostImg</Button>
 		</>
 	);
 }
