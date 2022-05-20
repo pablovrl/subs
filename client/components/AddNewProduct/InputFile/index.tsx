@@ -4,8 +4,9 @@ import DropZoneComponent from "./InputFile";
 import FileInput from "../../../interfaces/fileInput";
 import { useDispatch } from "react-redux";
 import { addImg, deleteImg } from "../../../redux/addNewProduct/action";
-//import axios from "axios";
-//import FormData from "form-data";
+import axios from "axios";
+import FormData from "form-data";
+
 interface FileInputProps {
 	error: boolean;
 }
@@ -16,11 +17,7 @@ export default function fileInput({ error }: FileInputProps) {
 
 	useEffect(() => {
 		if (files.length !== 0) {
-			let newFiles: FileInput[] = [];
-
-			newFiles = files;
-
-			dispatch(addImg(newFiles));
+			dispatch(addImg(files));
 		}
 	}, [files]);
 
@@ -41,16 +38,18 @@ export default function fileInput({ error }: FileInputProps) {
 	};
 
 	const handleClickPost = () => {
-		dispatch(addImg(files));
 		//* post imagen
-		/* const data = new FormData();
-		data.append("file", files[0].img );
+		const data = new FormData();
+
+		files.map((file, i) => {
+			data.append("file", files[i].img);
+		});
 
 		axios.post("http://localhost:3001/api/uploads", data, {
 			headers: {
 				"Content-Type": "multipart/form-data",
 			},
-		}); */
+		});
 	};
 
 	return (
@@ -96,24 +95,20 @@ export default function fileInput({ error }: FileInputProps) {
 			</Grid>
 
 			{error === true ? (
-				<Flex w={"100%"} justifyContent={"center"} >
-					<Flex w={"88%"} paddingX={3} >
+				<Flex w={"100%"} justifyContent={"center"}>
+					<Flex w={"88%"} paddingX={3}>
 						<Text color={"red"}>Por favor introduzca una imagen.</Text>
 					</Flex>
 				</Flex>
-			):(
-				files.length === 0 ? (
-					<Flex paddingX={4}>
-						<Text textAlign={"center"} color={"red"}>
-							Solo se permiten un máximo de 6 imágenes de tipo jpg, jpeg y png
-						</Text>
-					</Flex>
-				) : (
-					<Text></Text>
-				)
+			) : files.length === 0 ? (
+				<Flex paddingX={4}>
+					<Text textAlign={"center"} color={"red"}>
+						Solo se permiten un máximo de 6 imágenes de tipo jpg, jpeg y png
+					</Text>
+				</Flex>
+			) : (
+				<Text></Text>
 			)}
-
-			
 
 			<Button onClick={handleClickPost}>PostImg</Button>
 		</>
