@@ -23,10 +23,10 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.post("/api/uploads", saveToUploads.single("file"), (req, res) => {
-  const file = req.file;
-  if (!file) return res.status(400).send("No file uploaded");
-  return res.json({ path: file.path });
+app.post("/api/uploads", saveToUploads.array("file", 6), (req, res) => {
+  const files = req.files as Express.Multer.File[];
+  if (!files) return res.status(400).send("No file uploaded");
+  return res.json({ paths: files.map((file) => file.path) });
 });
 
 app.listen(3001, () => {
