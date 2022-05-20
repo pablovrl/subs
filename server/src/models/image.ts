@@ -9,8 +9,12 @@ const Image = db.define(
       primaryKey: true,
       autoIncrement: true,
     },
-    image: {
-      type: DataTypes.BLOB,
+    ruta: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    posicion: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   },
