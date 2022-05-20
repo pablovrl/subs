@@ -2,11 +2,27 @@ import React, { useState, useEffect } from "react";
 import { Flex, Grid, GridItem, Image, Text, Button } from "@chakra-ui/react";
 import DropZoneComponent from "./InputFile";
 import FileInput from "../../../interfaces/fileInput";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addImg, deleteImg } from "../../../redux/addNewProduct/action";
+//import axios from "axios";
 //import FormData from "form-data";
+interface FileInputProps {
+	error: boolean;
+}
 
-export default function fileInput() {
+export default function fileInput({ error }: FileInputProps) {
 	const [files, setFiles] = useState<FileInput[]>([]);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (files.length !== 0) {
+			let newFiles: FileInput[] = [];
+
+			newFiles = files;
+
+			dispatch(addImg(newFiles));
+		}
+	}, [files]);
 
 	const handleClick = (id: number) => {
 		const newFiles: FileInput[] = [];
@@ -21,19 +37,20 @@ export default function fileInput() {
 			file.id = i + 1;
 		});
 		setFiles(newFiles);
+		dispatch(deleteImg(newFiles));
 	};
 
 	const handleClickPost = () => {
-		const data = new FormData();
-		console.log(files[0].img);
-
+		dispatch(addImg(files));
+		//* post imagen
+		/* const data = new FormData();
 		data.append("file", files[0].img );
 
 		axios.post("http://localhost:3001/api/uploads", data, {
 			headers: {
 				"Content-Type": "multipart/form-data",
 			},
-		});
+		}); */
 	};
 
 	return (
@@ -78,15 +95,25 @@ export default function fileInput() {
 				)}
 			</Grid>
 
-			{files.length === 0 ? (
-				<Flex paddingX={4}>
-					<Text textAlign={"center"} color={"red"}>
-						Solo se permiten un máximo de 6 imágenes de tipo jpg, jpeg y png
-					</Text>
+			{error === true ? (
+				<Flex w={"100%"} justifyContent={"center"} >
+					<Flex w={"88%"} paddingX={3} >
+						<Text color={"red"}>Por favor introduzca una imagen.</Text>
+					</Flex>
 				</Flex>
-			) : (
-				<Text></Text>
+			):(
+				files.length === 0 ? (
+					<Flex paddingX={4}>
+						<Text textAlign={"center"} color={"red"}>
+							Solo se permiten un máximo de 6 imágenes de tipo jpg, jpeg y png
+						</Text>
+					</Flex>
+				) : (
+					<Text></Text>
+				)
 			)}
+
+			
 
 			<Button onClick={handleClickPost}>PostImg</Button>
 		</>

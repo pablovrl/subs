@@ -1,8 +1,12 @@
-import React, { SetStateAction } from "react";
+import React from "react";
 import { Flex, Text, Box } from "@chakra-ui/react";
 import InputFile from "../InputFile";
 
-export default function CardAddImg() {
+interface CardAddImgProp {
+	error: boolean
+}
+
+export default function CardAddImg({error}:CardAddImgProp) {
 	return (
 		<>
 			<Flex marginTop={"5"} justifyContent={"center"}>
@@ -27,7 +31,7 @@ export default function CardAddImg() {
 						</Text>
 					</Flex>
 
-					<InputFile />
+					<InputFile error={error} />
 				</Box>
 			</Flex>
 		</>
