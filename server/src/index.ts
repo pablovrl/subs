@@ -15,7 +15,7 @@ app.use(
 );
 
 app.use(express.json());
-app.use("/uploads", express.static("uploads"));
+app.use(express.static("public"));
 app.use("/api", router);
 db.sync({ force: true });
 
@@ -25,8 +25,9 @@ app.get("/", (req, res) => {
 
 app.post("/api/uploads", saveToUploads.array("file", 6), (req, res) => {
   const files = req.files as Express.Multer.File[];
+  console.log(files);
   if (!files) return res.status(400).send("No file uploaded");
-  return res.json({ paths: files.map((file) => file.path) });
+  return res.json({ paths: files.map((file) => "uploads/" + file.filename) });
 });
 
 app.listen(3001, () => {
