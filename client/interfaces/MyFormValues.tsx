@@ -11,7 +11,6 @@ interface MyFormValues {
 	description: string;
 	images: fileInput[];
 	category: string;
-	labels: string[];
 	stock: string;
 	oneMonth: string;
 	threeMonth: string;

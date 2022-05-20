@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Flex, Text, Box } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
-<<<<<<< HEAD
+
 import imgType from "../interfaces/fileInput";
-=======
+import { useSelector } from "react-redux";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
->>>>>>> main
 
 //*Components
 import Button from "../components/AddNewProduct/Button";
@@ -16,41 +15,26 @@ import CardProductQuantity from "../components/AddNewProduct/Cards/CardProductQu
 import CardPriceProduct from "../components/AddNewProduct/Cards/CardPriceProduct";
 import CardCategories from "../components/AddNewProduct/Cards/CardAddCategories";
 import CardAddImg from "../components/AddNewProduct/Cards/CardAddImg";
-
+import MyFormValues from "../interfaces/MyFormValues";
 import type { NextPage } from "next";
 import Validations from "../components/AddNewProduct/Validations";
-<<<<<<< HEAD
-
-interface MyFormValues {
-	name: string;
-	description: string;
-	category: string;
-	labels: string[];
-	images: imgType[];
-	stock: string;
-	oneMonth: string;
-	threeMonth: string;
-	sixMonth: string;
-	twelveMonth: string;
-}
-
-const AgregarProducto: NextPage = () => {
-	const [images, setImages] = useState<imgType[]>([]);
-=======
-import MyFormValues from "../interfaces/MyFormValues";
-import { setTimeout } from "timers";
 
 const AgregarProducto: NextPage = () => {
 	const router = useRouter();
->>>>>>> main
+	const [errorImg, setErrorImg] = useState(false);
+	const state = useSelector((state: any) => state);
+
+	useEffect(() => {
+		if (state.arrayImg.images.length > 0) {
+			setErrorImg(false);
+		}
+	}, [state]);
 
 	const initialValues: MyFormValues = {
 		name: "",
 		description: "",
-		images: [],
+		images: state.arrayImg.images,
 		category: "1",
-		labels: [],
-		images: images,
 		stock: "",
 		oneMonth: "",
 		threeMonth: "",
@@ -59,22 +43,28 @@ const AgregarProducto: NextPage = () => {
 	};
 
 	const submitForm = (values: MyFormValues) => {
-		axios.post("/api/producto", {
-			nombre: values.name,
-			detalles: values.description,
-			categoriaId: values.category,
-			stock: values.stock,
-		});
+		if (state.arrayImg.images.length > 0) {
+			setErrorImg(false);
 
-		Swal.fire({
-			position: "center",
-			icon: "success",
-			title: "Producto creado con éxito",
-			showConfirmButton: false,
-			timer: 1500,
-		});
+			axios.post("/api/producto", {
+				nombre: values.name,
+				detalles: values.description,
+				categoriaId: values.category,
+				stock: values.stock,
+			});
 
-		setTimeout(redirect, 1200);
+			Swal.fire({
+				position: "center",
+				icon: "success",
+				title: "Producto creado con éxito",
+				showConfirmButton: false,
+				timer: 1500,
+			});
+
+			setTimeout(redirect, 1200);
+		} else {
+			setErrorImg(true);
+		}
 	};
 
 	const redirect = () => {
@@ -111,7 +101,7 @@ const AgregarProducto: NextPage = () => {
 							touched={touched}
 						/>
 
-						<CardAddImg />
+						<CardAddImg error={errorImg} />
 
 						<CardCategories
 							name={values.category}

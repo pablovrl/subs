@@ -39,6 +39,8 @@ const baseStyle: React.CSSProperties = {
 };
 
 export default function FileInput({ setFile, files }: FileInputProps) {
+
+
 	const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
 		useDropzone({
 			accept: {
@@ -47,7 +49,7 @@ export default function FileInput({ setFile, files }: FileInputProps) {
 			},
 			onDrop: (acceptedFiles: File[]) => {
 				if (acceptedFiles[0] !== undefined) {
-					//console.log(acceptedFiles);
+				
 					if (files.length < 2) {
 						setFile((old) => [
 							...old,
@@ -58,6 +60,7 @@ export default function FileInput({ setFile, files }: FileInputProps) {
 								state: false,
 							},
 						]);
+
 					} else {
 						Swal.fire({
 							icon: "error",

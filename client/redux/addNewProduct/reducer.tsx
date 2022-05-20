@@ -1,22 +1,29 @@
 import imgType from "../../interfaces/fileInput";
 
-const intialState = {
+interface initial {
+	images: imgType[]
+}
+
+interface act {
+	type: string,
+	payload: imgType
+}
+const intialState:initial = {
 	images: [],
 };
 
-const state = (state = intialState, action: any, payload: any) => {
+const state = (state = intialState, action: act) => {
 	switch (action.type) {
 	case "addImg": {
 		return {
-			images: payload
+			images: action.payload
 		};
 	}
 	case "deleteImg": {
 		return {
-			images: payload
+			images: action.payload
 		};
 	}
-
 	default: {
 		return state;
 	}

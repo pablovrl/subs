@@ -1,5 +1,7 @@
 import * as yup from "yup";
 
+
+
 const validationSchema = yup.object({
 	name: yup
 		.string()
@@ -14,7 +16,7 @@ const validationSchema = yup.object({
 		.max(60, "La descripción tiene que contener menos de 60 letras")
 		.required("Por favor ingrese una descripción")
 		.matches(/^[aA-zZ\s]+$/, "La descripcion solo puede contener letras"),
-
+	
 	stock: yup
 		.string()
 		.required("Por favor ingrese el número de stock de su producto")
