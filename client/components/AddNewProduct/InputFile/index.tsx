@@ -4,8 +4,7 @@ import DropZoneComponent from "./InputFile";
 import FileInput from "../../../interfaces/fileInput";
 import { useDispatch } from "react-redux";
 import {addArrayImg } from "../../../redux/addNewProduct/action";
-import axios from "axios";
-import FormData from "form-data";
+
 
 interface FileInputProps {
 	error: boolean;
@@ -35,21 +34,6 @@ export default function fileInput({ error }: FileInputProps) {
 		});
 		setFiles(newFiles);
 		dispatch(addArrayImg(newFiles));
-	};
-
-	const handleClickPost = () => {
-		//* post imagen
-		const data = new FormData();
-
-		files.map((file, i) => {
-			data.append("file", files[i].img);
-		});
-
-		axios.post("http://localhost:3001/api/uploads", data, {
-			headers: {
-				"Content-Type": "multipart/form-data",
-			},
-		});
 	};
 
 	return (
@@ -109,8 +93,6 @@ export default function fileInput({ error }: FileInputProps) {
 			) : (
 				<Text></Text>
 			)}
-
-			<Button onClick={handleClickPost}>PostImg</Button>
 		</>
 	);
 }

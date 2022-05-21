@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
+import FormData from "form-data";
+import imgType from "../interfaces/fileInput";
 
 //*Components
 import Button from "../components/AddNewProduct/Button";
@@ -48,7 +50,9 @@ const AgregarProducto: NextPage = () => {
 			setErrorImg(false);
 
 			if (state.arrayImg.firstImg === true) {
-				axios
+				postImg();
+
+				/* 	axios
 					.post("/api/producto", {
 						nombre: values.name,
 						detalles: values.description,
@@ -57,7 +61,7 @@ const AgregarProducto: NextPage = () => {
 					})
 					.then((res) => {
 						console.log(res);
-					}); 
+					});  */
 
 				Swal.fire({
 					position: "center",
@@ -74,6 +78,27 @@ const AgregarProducto: NextPage = () => {
 		} else {
 			setErrorImg(true);
 		}
+	};
+
+	const postImg = () => {
+		const data = new FormData();
+		const images = state.arrayImg.sortImg;
+		let links = [];
+
+		images.map((img: imgType, i: number) => {
+			data.append("file", images[i].img);
+		});
+
+		axios
+			.post("http://localhost:3001/api/uploads", data, {
+				headers: {
+					"Content-Type": "multipart/form-data",
+				},
+			})
+			.then((res) => {
+				links = JSON.parse(res.request.response);
+				console.log(links.paths);
+			});
 	};
 
 	const redirect = () => {
