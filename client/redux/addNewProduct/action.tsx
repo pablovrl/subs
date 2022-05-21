@@ -1,17 +1,24 @@
 import imgType from "../../interfaces/fileInput";
 
-const addImg = (img: imgType[]) => {
+const addArrayImg = (img: imgType[]) => {
 	return {
-		type: "addImg",
+		type: "addArrayImg",
 		payload: img,
 	};
 };
 
-const deleteImg = (img: imgType[]) => {
+const addFirstImg = (verificacion: boolean) => {
 	return {
-		type: "deleteImg",
+		type: "addFirstImg",
+		payload: verificacion,
+	};
+};
+
+const addSortImg = (img: imgType[]) => {
+	return {
+		type: "addSortImg",
 		payload: img,
 	};
 };
 
-export { deleteImg, addImg };
+export { addArrayImg, addFirstImg, addSortImg };

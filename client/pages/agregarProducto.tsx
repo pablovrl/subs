@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Flex, Text, Box } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 
-import imgType from "../interfaces/fileInput";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -15,6 +14,7 @@ import CardProductQuantity from "../components/AddNewProduct/Cards/CardProductQu
 import CardPriceProduct from "../components/AddNewProduct/Cards/CardPriceProduct";
 import CardCategories from "../components/AddNewProduct/Cards/CardAddCategories";
 import CardAddImg from "../components/AddNewProduct/Cards/CardAddImg";
+import CardSelectImg from "../components/AddNewProduct/Cards/CardSelectImg";
 import MyFormValues from "../interfaces/MyFormValues";
 import type { NextPage } from "next";
 import Validations from "../components/AddNewProduct/Validations";
@@ -22,6 +22,7 @@ import Validations from "../components/AddNewProduct/Validations";
 const AgregarProducto: NextPage = () => {
 	const router = useRouter();
 	const [errorImg, setErrorImg] = useState(false);
+	const [errorSelectedImg, setErrorSelectedImg] = useState(false);
 	const state = useSelector((state: any) => state);
 
 	useEffect(() => {
@@ -46,22 +47,30 @@ const AgregarProducto: NextPage = () => {
 		if (state.arrayImg.images.length > 0) {
 			setErrorImg(false);
 
-			axios.post("/api/producto", {
-				nombre: values.name,
-				detalles: values.description,
-				categoriaId: values.category,
-				stock: values.stock,
-			});
+			if (state.arrayImg.firstImg === true) {
+				axios
+					.post("/api/producto", {
+						nombre: values.name,
+						detalles: values.description,
+						categoriaId: values.category,
+						stock: values.stock,
+					})
+					.then((res) => {
+						console.log(res);
+					}); 
 
-			Swal.fire({
-				position: "center",
-				icon: "success",
-				title: "Producto creado con éxito",
-				showConfirmButton: false,
-				timer: 1500,
-			});
+				Swal.fire({
+					position: "center",
+					icon: "success",
+					title: "Producto creado con éxito",
+					showConfirmButton: false,
+					timer: 1500,
+				});
 
-			setTimeout(redirect, 1200);
+				//setTimeout(redirect, 1200);
+			} else {
+				setErrorSelectedImg(true);
+			}
 		} else {
 			setErrorImg(true);
 		}
@@ -102,6 +111,8 @@ const AgregarProducto: NextPage = () => {
 						/>
 
 						<CardAddImg error={errorImg} />
+
+						<CardSelectImg error={errorSelectedImg} />
 
 						<CardCategories
 							name={values.category}

@@ -1,9 +1,7 @@
 interface fileInput {
 	id: number;
-	name: string;
-	type: string;
+	img: File;
 	preview: string;
-	state: boolean;
 }
 
 interface MyFormValues {
