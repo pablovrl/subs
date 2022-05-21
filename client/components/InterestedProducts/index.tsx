@@ -8,8 +8,10 @@ import {
 	AlertIcon,
 	AlertTitle,
 	AlertDescription,
+	SimpleGrid,
 } from "@chakra-ui/react";
 import axios from "axios";
+import Image from "next/image";
 
 interface Product {
 	id: number;
@@ -19,6 +21,11 @@ interface Product {
 		id: number;
 		nombreTienda: string;
 	};
+	images: {
+		id: number;
+		ruta: string;
+		posicion: number;
+	}[];
 }
 
 export default function InterestedProducts() {
@@ -59,17 +66,27 @@ export default function InterestedProducts() {
 			<Text mx={"8"} my={4} fontSize={"2xl"} textAlign={"center"}>
 				Esto podría interesarte!
 			</Text>
-
-			{products.map((product: Product) => (
-				<Box key={product.id} mb={4}>
-					<Box mb={1} w="xs" h="200px" bg={"gray.100"} rounded={"2xl"} />
-					<Text>{product.nombre}</Text>
-					<Text fontSize={"xs"}>por {product.vendedor.nombreTienda}</Text>
-					<Button my={2} variant={"outline"} colorScheme={"green"}>
-						Suscribirse
-					</Button>
-				</Box>
-			))}
+			<SimpleGrid columns={{ base: 1, md: 3 }} spacing={{md: 14}}>
+				{products.map((product: Product) => (
+					<Box key={product.id} mb={4}>
+						{product.images.length > 0 ? (
+							<Image
+								loader={() => `http://localhost:3001/${product.images[0].ruta}`}
+								src={`http://localhost:3001/${product.images[0].ruta}`}
+								width="320px"
+								height="200"
+							/>
+						) : (
+							<Box mb={1} w="xs" h="200px" bg={"gray.100"} rounded={"2xl"} />
+						)}
+						<Text>{product.nombre}</Text>
+						<Text fontSize={"xs"}>por {product.vendedor.nombreTienda}</Text>
+						<Button my={2} variant={"outline"} colorScheme={"green"}>
+							Suscribirse
+						</Button>
+					</Box>
+				))}
+			</SimpleGrid>
 		</Flex>
 	);
 }
