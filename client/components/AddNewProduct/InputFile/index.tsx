@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, MouseEventHandler } from "react";
 import { Flex, Grid, GridItem, Image, Text, Button } from "@chakra-ui/react";
 import DropZoneComponent from "./InputFile";
 import FileInput from "../../../interfaces/fileInput";
 import { useDispatch } from "react-redux";
-import { addImg, deleteImg } from "../../../redux/addNewProduct/action";
+import {addArrayImg } from "../../../redux/addNewProduct/action";
 import axios from "axios";
 import FormData from "form-data";
 
@@ -17,7 +17,7 @@ export default function fileInput({ error }: FileInputProps) {
 
 	useEffect(() => {
 		if (files.length !== 0) {
-			dispatch(addImg(files));
+			dispatch(addArrayImg(files));
 		}
 	}, [files]);
 
@@ -34,7 +34,7 @@ export default function fileInput({ error }: FileInputProps) {
 			file.id = i + 1;
 		});
 		setFiles(newFiles);
-		dispatch(deleteImg(newFiles));
+		dispatch(addArrayImg(newFiles));
 	};
 
 	const handleClickPost = () => {
@@ -103,7 +103,7 @@ export default function fileInput({ error }: FileInputProps) {
 			) : files.length === 0 ? (
 				<Flex paddingX={4}>
 					<Text textAlign={"center"} color={"red"}>
-						Solo se permiten un máximo de 6 imágenes de tipo jpg, jpeg y png
+						Solo se permiten un máximo de 4 imágenes de tipo jpg, jpeg y png
 					</Text>
 				</Flex>
 			) : (
