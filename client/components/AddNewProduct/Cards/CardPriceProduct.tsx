@@ -27,7 +27,7 @@ export default function CardPricesProduct({
 		<>
 			<Flex marginTop={"5"} justifyContent={"center"}>
 				<Box
-					w={"21em"}
+					w={{ base: "21em", md: "45vw", lg: "48vw" }}
 					justifyContent={"center"}
 					borderRadius={"10px"}
 					borderWidth={"1px"}
@@ -48,9 +48,12 @@ export default function CardPricesProduct({
 						</Text>
 					</Flex>
 					<Flex marginTop={"4"} paddingX={"6"} justifyContent={"center"}>
-						<Stack>
-							<Flex alignItems={"center"} justifyContent={"space-between"}>
-								<Text marginLeft={"1"}>1 Mes</Text>
+						<Stack w={{ base: "100%", md: "80%" }}>
+							<Flex
+								alignItems={"center"}
+								justifyContent={{ base: "space-between", md: "space-around" }}
+							>
+								<Text marginLeft={{ base: 1, md: 3 }}>1 Mes</Text>
 								<NumberInput w={"60%"}>
 									<NumberInputField
 										name="oneMonth"
@@ -61,11 +64,20 @@ export default function CardPricesProduct({
 								</NumberInput>
 							</Flex>
 							{touched.oneMonth && errors.oneMonth && (
-								<Flex w={"88%"} marginLeft={2}>
-									<Text color={"red"}>{errors.oneMonth}</Text>
+								<Flex
+									w={"100%"}
+									justifyContent={{ base: "space-between", md: "space-around" }}
+								>
+									<Text opacity={0}>1 Meses</Text>
+									<Text color={"red"} w={"60%"}>
+										{errors.oneMonth}
+									</Text>
 								</Flex>
 							)}
-							<Flex alignItems={"center"} justifyContent={"space-between"}>
+							<Flex
+								alignItems={"center"}
+								justifyContent={{ base: "space-between", md: "space-around" }}
+							>
 								<Text textAlign={"center"}>3 Meses</Text>
 								<NumberInput w={"60%"}>
 									<NumberInputField
@@ -77,11 +89,20 @@ export default function CardPricesProduct({
 								</NumberInput>
 							</Flex>
 							{touched.threeMonth && errors.threeMonth && (
-								<Flex w={"88%"} marginLeft={2}>
-									<Text color={"red"}>{errors.threeMonth}</Text>
+								<Flex
+									w={"100%"}
+									justifyContent={{ base: "space-between", md: "space-around" }}
+								>
+									<Text opacity={0}>3 Meses</Text>
+									<Text color={"red"} w={"60%"}>
+										{errors.threeMonth}
+									</Text>
 								</Flex>
 							)}
-							<Flex alignItems={"center"} justifyContent={"space-between"}>
+							<Flex
+								alignItems={"center"}
+								justifyContent={{ base: "space-between", md: "space-around" }}
+							>
 								<Text textAlign={"center"}>6 Meses</Text>
 								<NumberInput w={"60%"}>
 									<NumberInputField
@@ -93,11 +114,20 @@ export default function CardPricesProduct({
 								</NumberInput>
 							</Flex>
 							{touched.sixMonth && errors.sixMonth && (
-								<Flex w={"88%"} marginLeft={2}>
-									<Text color={"red"}>{errors.sixMonth}</Text>
+								<Flex
+									w={"100%"}
+									justifyContent={{ base: "space-between", md: "space-around" }}
+								>
+									<Text opacity={0}>6 Meses</Text>
+									<Text color={"red"} w={"60%"}>
+										{errors.sixMonth}
+									</Text>
 								</Flex>
 							)}
-							<Flex alignItems={"center"} justifyContent={"space-between"}>
+							<Flex
+								alignItems={"center"}
+								justifyContent={{ base: "space-between", md: "space-around" }}
+							>
 								<Text textAlign={"center"}>12 Meses</Text>
 								<NumberInput w={"60%"}>
 									<NumberInputField
@@ -109,8 +139,14 @@ export default function CardPricesProduct({
 								</NumberInput>
 							</Flex>
 							{touched.twelveMonth && errors.twelveMonth && (
-								<Flex w={"88%"} marginLeft={2}>
-									<Text color={"red"}>{errors.twelveMonth}</Text>
+								<Flex
+									w={"100%"}
+									justifyContent={{ base: "space-between", md: "space-around" }}
+								>
+									<Text opacity={0}>12 Meses</Text>
+									<Text color={"red"} w={"60%"}>
+										{errors.twelveMonth}
+									</Text>
 								</Flex>
 							)}
 						</Stack>

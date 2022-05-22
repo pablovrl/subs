@@ -30,7 +30,7 @@ export default function CardAddCategories({
 		<>
 			<Flex marginTop={"5"} justifyContent={"center"}>
 				<Box
-					w={"21em"}
+					w={{base: "21em", md: "45vw" ,lg: "48vw"}}
 					justifyContent={"center"}
 					borderRadius={"10px"}
 					borderWidth={"1px"}

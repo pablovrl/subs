@@ -30,7 +30,7 @@ export default function cardBasic({
 		<>
 			<Flex marginTop={"5"} justifyContent={"center"}>
 				<Box
-					w={"21em"}
+					w={{base: "21em", md: "45vw" ,lg: "48vw"}}
 					justifyContent={"center"}
 					borderRadius={"10px"}
 					borderWidth={"1px"}
@@ -41,10 +41,10 @@ export default function cardBasic({
 						borderBottomWidth={"1px"}
 						paddingY={"3"}
 					>
-						<Text fontSize={"xl"}>Información básica</Text>
+						<Text fontSize={{base: "xl"}}>Información básica</Text>
 					</Flex>
 					<Flex alignItems={"center"} flexDirection={"column"}>
-						<Flex marginTop={"3"} w={"88%"} justifyContent={"center"}>
+						<Flex marginTop={{base: 2, md: 3}} w={"88%"} justifyContent={"center"}>
 							<InputText
 								title="Nombre"
 								name="name"
@@ -61,13 +61,11 @@ export default function cardBasic({
 						)}
 					</Flex>
 					<Flex alignItems={"center"} flexDirection={"column"}>
-						<Flex marginTop={"3"} w={"88%"} justifyContent={"center"}>
+						<Flex marginTop={{base: 1, md: 3}} w={"88%"} justifyContent={"center"}>
 							<TextArea
 								title="Descripción"
 								name="description"
-								placeHolder="Ingrese la descripcíon del producto"
-								//text="Esta es la descripcion que vera el comprador cuando revise el producto."
-								//fontSizeText="sm"
+								placeHolder="Ingrese la descripción del producto"
 								value={description}
 								handleBlur={handleBlurTextArea}
 								onChange={handleChangeTextArea}

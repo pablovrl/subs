@@ -27,7 +27,7 @@ export default function CardProductQuantify({
 		<>
 			<Flex marginTop={"5"} justifyContent={"center"}>
 				<Box
-					w={"21em"}
+					w={{base: "21em", md: "45vw" ,lg: "48vw"}}
 					justifyContent={"center"}
 					borderWidth={"1px"}
 					borderRadius={"10px"}
@@ -41,7 +41,7 @@ export default function CardProductQuantify({
 						<Text fontSize={"xl"}>Inventario</Text>
 					</Flex>
 					<Flex justifyContent={"center"} marginTop={"3"}>
-						<Stack w={"88%"}>
+						<Stack w={{base: "88%", md: "80%"}}>
 							<Flex marginLeft={2} marginTop={2}>
 								<Text>Cantidad de stock disponible</Text>
 							</Flex>

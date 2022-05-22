@@ -110,70 +110,74 @@ const AgregarProducto: NextPage = () => {
 			<Flex justifyContent={"center"} marginTop={"5"}>
 				<Text fontSize={"3xl"}>Nuevo producto</Text>
 			</Flex>
-			<Formik
-				initialValues={initialValues}
-				validationSchema={Validations}
-				onSubmit={submitForm}
-			>
-				{({
-					values,
-					errors,
-					touched,
-					handleSubmit,
-					handleChange,
-					handleBlur,
-				}) => (
-					<Form onSubmit={handleSubmit}>
-						<CardBasic
-							name={values.name}
-							description={values.description}
-							handleChangeInput={handleChange}
-							handleChangeTextArea={handleChange}
-							handleBlurInput={handleBlur}
-							handleBlurTextArea={handleBlur}
-							errors={errors}
-							touched={touched}
-						/>
-
-						<CardAddImg error={errorImg} />
-
-						<CardSelectImg error={errorSelectedImg} />
-
-						<CardCategories
-							name={values.category}
-							handleChange={handleChange}
-						/>
-
-						<CardProductQuantity
-							errors={errors}
-							touched={touched}
-							handleBlur={handleBlur}
-							handleChange={handleChange}
-						/>
-
-						<CardPriceProduct
-							errors={errors}
-							touched={touched}
-							handleBlur={handleBlur}
-							handleChange={handleChange}
-						/>
-
-						<Flex
-							w={"100%"}
-							marginTop={"5"}
-							marginBottom={"5"}
-							justifyContent="center"
-						>
-							<Button
-								type="submit"
-								variant="outline"
-								text="Crear"
-								borderColor="#e2e8f0"
+			<Flex width={{base: "100%"}} justifyContent={{base: "center", md: "start"}} paddingLeft={{base: "0", md: "4.5vw"}}>
+				<Formik
+					initialValues={initialValues}
+					validationSchema={Validations}
+					onSubmit={submitForm}
+				>
+					{({
+						values,
+						errors,
+						touched,
+						handleSubmit,
+						handleChange,
+						handleBlur,
+					}) => (
+						<Form onSubmit={handleSubmit}>
+							<CardBasic
+								name={values.name}
+								description={values.description}
+								handleChangeInput={handleChange}
+								handleChangeTextArea={handleChange}
+								handleBlurInput={handleBlur}
+								handleBlurTextArea={handleBlur}
+								errors={errors}
+								touched={touched}
 							/>
-						</Flex>
-					</Form>
-				)}
-			</Formik>
+
+							<CardCategories
+								name={values.category}
+								handleChange={handleChange}
+							/>
+
+							<CardAddImg error={errorImg} />
+
+							
+
+							<CardProductQuantity
+								errors={errors}
+								touched={touched}
+								handleBlur={handleBlur}
+								handleChange={handleChange}
+							/>
+
+							<CardSelectImg error={errorSelectedImg} />
+
+							<CardPriceProduct
+								errors={errors}
+								touched={touched}
+								handleBlur={handleBlur}
+								handleChange={handleChange}
+							/>
+
+							<Flex
+								w={"100%"}
+								marginTop={"5"}
+								marginBottom={"5"}
+								justifyContent="center"
+							>
+								<Button
+									type="submit"
+									variant="outline"
+									text="Crear"
+									borderColor="#e2e8f0"
+								/>
+							</Flex>
+						</Form>
+					)}
+				</Formik>
+			</Flex>
 		</Box>
 	);
 };

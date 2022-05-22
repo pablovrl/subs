@@ -133,8 +133,8 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 			);
 		} else {
 			return (
-				<Flex marginTop={"4"} paddingX={"6"}>
-					<Text>Se necesita que ingrese por lo menos una imagen</Text>
+				<Flex marginTop={"4"} paddingX={"6"} justifyContent={{base: "start", md: "center"}}>
+					<Text>Se necesita que ingrese por lo menos una imagen.</Text>
 				</Flex>
 			);
 		}
@@ -144,7 +144,7 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 		<>
 			<Flex marginTop={"5"} justifyContent={"center"}>
 				<Box
-					w={"21em"}
+					w={{base: "21em", md: "45vw" ,lg: "48vw"}}
 					justifyContent={"center"}
 					borderRadius={"10px"}
 					borderWidth={"1px"}
