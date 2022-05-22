@@ -37,7 +37,7 @@ const createProducto = async (req: Request, res: Response) => {
 };
 
 const getProductos = async (req: Request, res: Response) => {
-  const productos = await Producto.findAll({ include: Vendedor });
+  const productos = await Producto.findAll({ include: [Vendedor, Image] });
   return res.json(productos);
 };
 

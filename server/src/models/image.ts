@@ -1,5 +1,10 @@
 import { db } from "../config/database";
-import { DataTypes } from "sequelize";
+import {
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+  Model,
+} from "sequelize";
 
 const Image = db.define(
   "image",
