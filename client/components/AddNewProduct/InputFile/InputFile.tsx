@@ -22,11 +22,9 @@ const rejectStyle = {
 };
 
 const baseStyle: React.CSSProperties = {
-	width: "84%",
 	display: "flex",
 	flexDirection: "column",
 	alignItems: "center",
-	padding: "20px 5px 20px 5px",
 	marginTop: 10,
 	borderWidth: 2,
 	borderRadius: 10,
@@ -99,13 +97,13 @@ export default function FileInput({ setFile, files }: FileInputProps) {
 
 	return (
 		<>
-			<Flex {...getRootProps({ style })}>
+			<Flex {...getRootProps({ style,})} width={{base: "84%", md: "22em"}} paddingY={{base: 5, md: 35}} marginX={{base: 10}} >
 				<Flex>
 					<input
 						{...getInputProps()}
 						onChange={(e) => console.log(e.currentTarget)}
 					/>
-					<Flex flexDirection={"column"} alignItems={"center"} paddingX={8}>
+					<Flex flexDirection={"column"} alignItems={"center"} >
 						<Image src="./addPhoto.png" w={14} h={14} />
 						<Text marginTop={2} textAlign={"center"}>
 							Suelte o haga clic aquí para cargar las imagenes de su producto.

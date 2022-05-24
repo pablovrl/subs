@@ -3,8 +3,7 @@ import { Flex, Grid, GridItem, Image, Text, Button } from "@chakra-ui/react";
 import DropZoneComponent from "./InputFile";
 import FileInput from "../../../interfaces/fileInput";
 import { useDispatch } from "react-redux";
-import {addArrayImg } from "../../../redux/addNewProduct/action";
-
+import { addArrayImg } from "../../../redux/addNewProduct/action";
 
 interface FileInputProps {
 	error: boolean;
@@ -47,30 +46,31 @@ export default function fileInput({ error }: FileInputProps) {
 				<DropZoneComponent setFile={setFiles} files={files} />
 			</Flex>
 
-			<Grid paddingX={4} templateColumns="repeat(4, 1fr)" gap={6}>
+			<Grid
+				marginX={4}
+				templateColumns={{ base: "repeat(4, 2fr)", md: "repeat(4, 0.8fr)" }}
+				marginTop={{ base: "1em", md: "0.5em" }}
+				gap={6}
+			>
 				{files.length !== 0 ? (
 					files.map((file) => (
-						<GridItem key={file.id} colSpan={1} h="12">
-							<Button
-								bgColor={"red"}
-								color={"white"}
-								position={"absolute"}
-								marginLeft={10}
-								marginTop={-2}
-								borderRadius={100}
-								size={"xs"}
-								onClick={() => handleClick(file.id)}
-							>
-								x
-							</Button>
+						<GridItem key={file.id} colSpan={1} h={16}>
+							<Flex w={"100%"} h={"100%"} justifyContent={"center"}>
+								<Button
+									bgColor={"red"}
+									color={"white"}
+									borderRadius={100}
+									position={"absolute"}
+									marginTop={{ base: "0.4em", sm: "-0.5", md: "-2" }}
+									marginLeft={{ base: "3.8em", sm: "5.5em", md: "7em" }}
+									size={"xs"}
+									onClick={() => handleClick(file.id)}
+								>
+									x
+								</Button>
 
-							<Image
-								key={file.id}
-								src={file.preview}
-								w={"100%"}
-								h={"100%"}
-								objectFit={"contain"}
-							/>
+								<Image key={file.id} src={file.preview} objectFit={"contain"} />
+							</Flex>
 						</GridItem>
 					))
 				) : (
@@ -85,8 +85,12 @@ export default function fileInput({ error }: FileInputProps) {
 					</Flex>
 				</Flex>
 			) : files.length === 0 ? (
-				<Flex paddingX={4}>
-					<Text textAlign={"center"} color={"red"}>
+				<Flex paddingX={2} w={"100%"} justifyContent={"center"}>
+					<Text
+						textAlign={"center"}
+						color={"red"}
+						width={{ base: "84%", md: "18em" }}
+					>
 						Solo se permiten un máximo de 4 imágenes de tipo jpg, jpeg y png
 					</Text>
 				</Flex>
