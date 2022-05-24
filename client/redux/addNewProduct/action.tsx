@@ -21,4 +21,13 @@ const addSortImg = (img: imgType[]) => {
 	};
 };
 
-export { addArrayImg, addFirstImg, addSortImg };
+//* categories 
+
+const addCategories = (categories: string[]) => {
+	return {
+		type: "addCategories",
+		payload: categories
+	};
+};
+
+export { addArrayImg, addFirstImg, addSortImg,addCategories };

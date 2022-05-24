@@ -13,7 +13,7 @@ interface act {
 const intialState:initial = {
 	images: [],
 	sortImg: [],
-	firstImg: false
+	firstImg: false,
 };
 
 const state = (state = intialState, action: act) => {
