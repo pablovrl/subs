@@ -39,6 +39,7 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 
 			if (imgSelected === undefined) {
 				dispatch(addFirstImg(false));
+				dispatch(addSortImg([]));
 			} else {
 				dispatch(addFirstImg(true));
 
@@ -75,11 +76,14 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 							<Image
 								src={imgSelected.preview}
 								alt={imgSelected.img.name}
+								borderRadius={8}
 								w={"80%"}
 								h={"50%"}
 							/>
 						) : (
-							<Text>aun no se selecciona la imagen</Text>
+							<Flex w={"100%"} justifyContent={"center"} marginY={"20"}>
+								<Text>Aún no se selecciona la portada.</Text>
+							</Flex>
 						)}
 					</Flex>
 
@@ -93,26 +97,30 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 							images.map((img: imgType) => (
 								<GridItem key={img.preview} colSpan={1} h="12">
 									{img === imgSelected ? (
-										<Flex borderWidth={4} borderColor={"red"}>
-											<Image
-												src={img.preview}
-												alt={img.img.name}
-												onClick={() => handleClickImg(img)}
-												w={"100%"}
-												h={"100%"}
-												objectFit={"contain"}
-											/>
+										<Flex w={"100%"} h={"100%"} justifyContent={"center"}>
+											<Flex borderWidth={4} borderColor={"red"} borderRadius={10}>
+												<Image
+													src={img.preview}
+													borderRadius={6}
+													borderWidth={4}
+													borderColor={"red"}
+													alt={img.img.name}
+													onClick={() => handleClickImg(img)}
+													objectFit={"contain"}
+												/>
+											</Flex>
 										</Flex>
 									) : (
-										<Flex>
-											<Image
-												src={img.preview}
-												alt={img.img.name}
-												onClick={() => handleClickImg(img)}
-												w={"100%"}
-												h={"100%"}
-												objectFit={"contain"}
-											/>
+										<Flex w={"100%"} h={"100%"} justifyContent={"center"}>
+											<Flex>
+												<Image
+													src={img.preview}
+													alt={img.img.name}
+													borderRadius={6}
+													onClick={() => handleClickImg(img)}
+													objectFit={"contain"}
+												/>
+											</Flex>
 										</Flex>
 									)}
 								</GridItem>
@@ -125,15 +133,24 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 					{error === true ? (
 						<Flex w={"100%"} justifyContent={"center"}>
 							<Flex w={"88%"} paddingX={3}>
-								<Text color={"red"}>Por favor seleccione una imagen para la portada de su producto.</Text>
+								<Text color={"red"}>
+									Por favor seleccione una imagen para la portada de su
+									producto.
+								</Text>
 							</Flex>
 						</Flex>
-					) : (<Text></Text>)}
+					) : (
+						<Text></Text>
+					)}
 				</>
 			);
 		} else {
 			return (
-				<Flex marginTop={"4"} paddingX={"6"} justifyContent={{base: "start", md: "center"}}>
+				<Flex
+					marginTop={"4"}
+					paddingX={"6"}
+					justifyContent={{ base: "start", md: "center" }}
+				>
 					<Text>Se necesita que ingrese por lo menos una imagen.</Text>
 				</Flex>
 			);
@@ -144,7 +161,8 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 		<>
 			<Flex marginTop={"5"} justifyContent={"center"}>
 				<Box
-					w={{base: "21em", md: "45vw" ,lg: "48vw"}}
+					w={{base: "21em",sm:"26em", md: "30em" ,lg: "48vw"}}
+					boxShadow={"md"}
 					justifyContent={"center"}
 					borderRadius={"10px"}
 					borderWidth={"1px"}

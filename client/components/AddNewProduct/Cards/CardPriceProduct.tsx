@@ -27,7 +27,8 @@ export default function CardPricesProduct({
 		<>
 			<Flex marginTop={"5"} justifyContent={"center"}>
 				<Box
-					w={{ base: "21em", md: "45vw", lg: "48vw" }}
+					w={{ base: "21em", sm: "26em", md: "30em", lg: "48vw" }}
+					boxShadow={"md"}
 					justifyContent={"center"}
 					borderRadius={"10px"}
 					borderWidth={"1px"}
@@ -41,8 +42,8 @@ export default function CardPricesProduct({
 						<Text fontSize={"xl"}>Precios del producto</Text>
 					</Flex>
 
-					<Flex marginTop={"4"} paddingX={"6"}>
-						<Text>
+					<Flex marginTop={"4"} w={"100%"} justifyContent={"center"}>
+						<Text w={{ base: "100%", md: "80%" }} paddingX={"8"}>
 							En este apartado debes introducir el valor de tu producto
 							dependiendo los meses de suscripción.
 						</Text>
@@ -58,6 +59,7 @@ export default function CardPricesProduct({
 									<NumberInputField
 										name="oneMonth"
 										placeholder="Precio 1 mes"
+										maxLength={7}
 										onChange={handleChange}
 										onBlur={handleBlur}
 									/>
@@ -82,6 +84,7 @@ export default function CardPricesProduct({
 								<NumberInput w={"60%"}>
 									<NumberInputField
 										name="threeMonth"
+										maxLength={7}
 										placeholder="Precio 3 meses"
 										onChange={handleChange}
 										onBlur={handleBlur}
@@ -107,6 +110,7 @@ export default function CardPricesProduct({
 								<NumberInput w={"60%"}>
 									<NumberInputField
 										name="sixMonth"
+										maxLength={7}
 										placeholder="Precio 6 meses"
 										onChange={handleChange}
 										onBlur={handleBlur}
@@ -132,6 +136,7 @@ export default function CardPricesProduct({
 								<NumberInput w={"60%"}>
 									<NumberInputField
 										name="twelveMonth"
+										maxLength={7}
 										placeholder="Precio 12 meses"
 										onChange={handleChange}
 										onBlur={handleBlur}

@@ -30,7 +30,8 @@ export default function cardBasic({
 		<>
 			<Flex marginTop={"5"} justifyContent={"center"}>
 				<Box
-					w={{base: "21em", md: "45vw" ,lg: "48vw"}}
+					w={{base: "21em",sm:"26em", md: "30em" ,lg: "48vw"}}
+					boxShadow={"md"}
 					justifyContent={"center"}
 					borderRadius={"10px"}
 					borderWidth={"1px"}

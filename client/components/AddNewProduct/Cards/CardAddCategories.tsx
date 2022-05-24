@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Flex, Text, Box } from "@chakra-ui/react";
 import Select from "../Select";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addCategories } from "../../../redux/addNewProduct/action";
 
 interface CardAddCategoriesProps {
 	name: string;
@@ -17,11 +19,13 @@ export default function CardAddCategories({
 	handleChange,
 }: CardAddCategoriesProps) {
 	const [categories, setCategories] = useState<Categoria[]>([]);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const getCategoria = async () => {
 			const res = await axios.get("/api/categoria");
 			setCategories(res.data);
+			dispatch(addCategories(res.data));
 		};
 
 		getCategoria();
@@ -30,7 +34,8 @@ export default function CardAddCategories({
 		<>
 			<Flex marginTop={"5"} justifyContent={"center"}>
 				<Box
-					w={{base: "21em", md: "45vw" ,lg: "48vw"}}
+					w={{base: "21em",sm:"26em", md: "30em" ,lg: "48vw"}}
+					boxShadow={"md"}
 					justifyContent={"center"}
 					borderRadius={"10px"}
 					borderWidth={"1px"}
@@ -48,7 +53,7 @@ export default function CardAddCategories({
 							title="Categoria principal"
 							categories={categories}
 							value={name}
-							text="Seleccione la categoria más relacionada con el producto."
+							text="Seleccione la categoria más relacionada con su producto."
 							fontSizeText={"sm"}
 							onChange={handleChange}
 						/>
