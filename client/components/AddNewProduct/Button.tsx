@@ -9,12 +9,14 @@ interface ButtonProps {
 	color?: string;
 	icon?: React.ReactElement;
 	fontSize?: TypographyProps["fontSize"];
+	form?: string;
 }
 
 export default function ButtonLinkProps({
 	text,
 	type,
 	variant,
+	form,
 	icon,
 	borderColor,
 	fontSize,
@@ -26,6 +28,7 @@ export default function ButtonLinkProps({
 			type={type}
 			variant={variant}
 			borderColor={borderColor}
+			form={form}
 		>
 			{icon && <Box mr={2}>{icon}</Box>}
 			<Text fontSize={fontSize}>{text}</Text>
