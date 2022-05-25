@@ -24,12 +24,13 @@ export default function TextArea({
 }: TextAreaProps) {
 	return (
 		<Stack w={"100%"}>
-			<Flex marginLeft={"2"} marginTop={"2"}>
+			<Flex marginLeft={{base: 1, md: 2}} marginTop={{base: 1,md: 2}}>
 				<Text fontSize={fontSizeTitle}>{title}</Text>
 			</Flex>
 			<Textarea
 				name={name}
 				fontSize={fontSizeInput}
+				height={{base: "3em", md: "8em"}}
 				onChange={onChange}
 				placeholder={placeHolder}
 				value={value}

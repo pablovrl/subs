@@ -1,5 +1,6 @@
 import React from "react";
 import { FormikErrors, FormikTouched } from "formik";
+import MyFormValues from "../../../interfaces/MyFormValues";
 import {
 	Flex,
 	Text,
@@ -8,14 +9,6 @@ import {
 	NumberInputField,
 	Stack,
 } from "@chakra-ui/react";
-
-interface MyFormValues {
-	name: string;
-	description: string;
-	category: string;
-	labels: string[];
-	stock: number;
-}
 
 interface CardProductQuantity {
 	handleChange: React.ChangeEventHandler<HTMLInputElement>;
@@ -34,10 +27,11 @@ export default function CardProductQuantify({
 		<>
 			<Flex marginTop={"5"} justifyContent={"center"}>
 				<Box
-					w={"21em"}
+					w={{base: "21em",sm:"26em", md: "30em" ,lg: "48vw"}}
+					boxShadow={"md"}
 					justifyContent={"center"}
-					borderWidth={"1px"}
 					borderRadius={"10px"}
+					borderWidth={"1px"}
 					paddingBottom={"6"}
 				>
 					<Flex
@@ -48,7 +42,7 @@ export default function CardProductQuantify({
 						<Text fontSize={"xl"}>Inventario</Text>
 					</Flex>
 					<Flex justifyContent={"center"} marginTop={"3"}>
-						<Stack w={"88%"}>
+						<Stack w={{ base: "88%", md: "80%" }}>
 							<Flex marginLeft={2} marginTop={2}>
 								<Text>Cantidad de stock disponible</Text>
 							</Flex>
@@ -57,6 +51,7 @@ export default function CardProductQuantify({
 								<NumberInputField
 									placeholder="Número de stock del producto"
 									onChange={handleChange}
+									maxLength={7}
 									name="stock"
 									onBlur={handleBlur}
 								/>

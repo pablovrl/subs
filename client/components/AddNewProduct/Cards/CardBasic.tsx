@@ -3,14 +3,7 @@ import { Flex, Text, Box } from "@chakra-ui/react";
 import InputText from "../TextInput";
 import TextArea from "../TextArea";
 import { FormikErrors, FormikTouched } from "formik";
-
-interface MyFormValues {
-	name: string;
-	description: string;
-	category: string;
-	labels: string[];
-	quantity: number;
-}
+import MyFormValues from "../../../interfaces/MyFormValues";
 
 interface inputs {
 	name: string;
@@ -35,12 +28,14 @@ export default function cardBasic({
 }: inputs) {
 	return (
 		<>
-			<Flex marginTop={"5"} justifyContent={"center"}>
+			<Flex marginTop={"5"} justifyContent={"center"} >
 				<Box
-					w={"21em"}
+					w={{base: "21em",sm:"26em", md: "30em" ,lg: "48vw"}}
+					boxShadow={"md"}
 					justifyContent={"center"}
 					borderRadius={"10px"}
 					borderWidth={"1px"}
+					
 					paddingBottom={"6"}
 				>
 					<Flex
@@ -48,10 +43,10 @@ export default function cardBasic({
 						borderBottomWidth={"1px"}
 						paddingY={"3"}
 					>
-						<Text fontSize={"xl"}>Información básica</Text>
+						<Text fontSize={{base: "xl"}}>Información básica</Text>
 					</Flex>
 					<Flex alignItems={"center"} flexDirection={"column"}>
-						<Flex marginTop={"3"} w={"88%"} justifyContent={"center"}>
+						<Flex marginTop={{base: 2, md: 3}} w={"88%"} justifyContent={"center"}>
 							<InputText
 								title="Nombre"
 								name="name"
@@ -68,13 +63,11 @@ export default function cardBasic({
 						)}
 					</Flex>
 					<Flex alignItems={"center"} flexDirection={"column"}>
-						<Flex marginTop={"3"} w={"88%"} justifyContent={"center"}>
+						<Flex marginTop={{base: 1, md: 3}} w={"88%"} justifyContent={"center"}>
 							<TextArea
 								title="Descripción"
 								name="description"
-								placeHolder="Ingrese la descripcíon del producto"
-								//text="Esta es la descripcion que vera el comprador cuando revise el producto."
-								//fontSizeText="sm"
+								placeHolder="Ingrese la descripción del producto"
 								value={description}
 								handleBlur={handleBlurTextArea}
 								onChange={handleChangeTextArea}

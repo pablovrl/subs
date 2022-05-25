@@ -2,12 +2,17 @@ import React from "react";
 import { Flex, Text, Box } from "@chakra-ui/react";
 import InputFile from "../InputFile";
 
-export default function cardBasic() {
+interface CardAddImgProp {
+	error: boolean
+}
+
+export default function CardAddImg({error}:CardAddImgProp) {
 	return (
 		<>
 			<Flex marginTop={"5"} justifyContent={"center"}>
 				<Box
-					w={"21em"}
+					w={{base: "21em",sm:"26em", md: "30em" ,lg: "48vw"}}
+					boxShadow={"md"}
 					justifyContent={"center"}
 					borderRadius={"10px"}
 					borderWidth={"1px"}
@@ -18,15 +23,15 @@ export default function cardBasic() {
 						borderBottomWidth={"1px"}
 						paddingY={"3"}
 					>
-						<Text fontSize={"xl"}>Imagenes</Text>
+						<Text fontSize={"xl"}>Imágenes</Text>
 					</Flex>
-					<Flex marginTop={"4"} paddingX={"6"}>
-						<Text>
-							En este apartado debes que agregar varias imagenes de tu producto,
-							esto hara que tu producto sea más vistoso.
+					<Flex marginTop={"4"} paddingX={{base: 6, md: 8}} w={"100%"} justifyContent={"center"}>
+						<Text width={{base: "84%", md: "24em"}} >
+							En este apartado debes agregar las imágenes de tu producto.
 						</Text>
 					</Flex>
-					<InputFile />
+
+					<InputFile error={error} />
 				</Box>
 			</Flex>
 		</>

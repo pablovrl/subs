@@ -7,12 +7,12 @@ import type { NextPage } from "next";
 const Vender: NextPage = () => {
 	return (
 		<>
-			<Box backgroundColor={"black"}>
+			<Box>
 				<Flex justifyContent={"center"}>
 					<Text
 						fontSize={"3xl"}
 						paddingTop={5}
-						textColor={"white"}
+						textColor={"black"}
 						textAlign={"center"}
 						paddingX={5}
 						marginTop={1}
@@ -22,14 +22,14 @@ const Vender: NextPage = () => {
 				</Flex>
 				<Flex justifyContent={"center"} marginTop={5}>
 					<Image
-						src="https://w0.peakpx.com/wallpaper/561/739/HD-wallpaper-box-machine-tec-abstract-black-blue-ios-lg-red-samsung-technology-vivid.jpg"
+						src="http://holamujer02.akamaized.net/wp-content/uploads/2019/08/Cajas-sorpresas.jpg"
 						alt="Dan Abramov"
 					/>
 				</Flex>
 				<Flex justifyContent={"center"}>
 					<Text
 						fontSize={"2xl"}
-						textColor={"white"}
+						textColor={"black"}
 						textAlign={"center"}
 						paddingX={5}
 					>
