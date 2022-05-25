@@ -75,6 +75,7 @@ export default function InterestedProducts() {
 								src={`http://localhost:3001/${product.images[0].ruta}`}
 								width="320px"
 								height="200"
+								objectFit="cover"
 							/>
 						) : (
 							<Box mb={1} w="xs" h="200px" bg={"gray.100"} rounded={"2xl"} />
