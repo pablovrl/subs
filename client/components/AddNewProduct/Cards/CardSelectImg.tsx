@@ -64,13 +64,6 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 		if (images.length > 0) {
 			return (
 				<>
-					<Flex marginTop={"4"} paddingX={"6"}>
-						<Text>
-							En este apartado debes agregar varias imágenes de tu producto,
-							esto hará que tu producto sea más vistoso.
-						</Text>
-					</Flex>
-
 					<Flex justifyContent={"center"} alignItems={"center"} marginTop={"5"}>
 						{imgSelected !== undefined ? (
 							<Image
@@ -132,7 +125,7 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 
 					{error === true ? (
 						<Flex w={"100%"} justifyContent={"center"}>
-							<Flex w={"88%"} paddingX={3} marginTop={3} justifyContent={"center"}>
+							<Flex w={"88%"} paddingX={3} marginTop={6} justifyContent={"center"}>
 								<Text color={"red"}>
 									Por favor, seleccione una imagen para la portada de su
 									producto.

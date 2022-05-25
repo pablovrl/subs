@@ -44,8 +44,7 @@ export default function CardPricesProduct({
 
 					<Flex marginTop={"4"} w={"100%"} justifyContent={"center"}>
 						<Text w={{ base: "100%", md: "80%" }} paddingX={"8"}>
-							En este apartado debes introducir el valor de tu producto
-							dependiendo los meses de suscripción.
+						En esta sección se requiere que agregues los valores correspondientes según la cantidad de meses que se adquiera tu producto.
 						</Text>
 					</Flex>
 					<Flex marginTop={"4"} paddingX={"6"} justifyContent={"center"}>

@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Flex, Text, Button } from "@chakra-ui/react";
-import { Formik, Form, useFormikContext } from "formik";
+import { Flex, Text, Button, Spinner, Box } from "@chakra-ui/react";
+import { Formik, Form } from "formik";
 import FormObserver from "../components/AddNewProduct/FormObserver";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import FormData from "form-data";
 import imgType from "../interfaces/fileInput";
 import Errors from "../components/AddNewProduct/Errors";
+import { addArrayImg } from "../redux/addNewProduct/action";
 
 //*Components
 import CardBasic from "../components/AddNewProduct/Cards/CardBasic";
@@ -27,7 +28,10 @@ const AgregarProducto: NextPage = () => {
 	const router = useRouter();
 	const [errorImg, setErrorImg] = useState(false);
 	const [basicError, setBasicError] = useState();
+	const [loading, setLoading] = useState(false);
+	const [viewErrors, setViewError] = useState(false);
 	const [errorSelectedImg, setErrorSelectedImg] = useState(false);
+	const dispatch = useDispatch();
 	const state = useSelector((state: any) => state);
 	const [productDatas, setProductDatas] = useState({
 		name: "",
@@ -115,15 +119,20 @@ const AgregarProducto: NextPage = () => {
 		};
 
 		try {
+			setLoading(true);
 			await axios.post("/api/producto", body);
-			setTimeout(redirect, 1000);
+			setLoading(false);
 			Swal.fire({
 				position: "center",
 				icon: "success",
 				title: "Se creo correctamente el producto",
 				showConfirmButton: false,
 				timer: 1500,
+			}).then(()=> {
+				redirect();
+				dispatch(addArrayImg([]));
 			});
+			
 		} catch (error: any) {
 			if (error.response.status === 500) {
 				Swal.fire({
@@ -142,6 +151,7 @@ const AgregarProducto: NextPage = () => {
 	};
 
 	const handleClickCrearProducto = () => {
+		setViewError(true);
 		if (state.arrayImg.images.length > 0) {
 			setErrorImg(false);
 			if (state.arrayImg.firstImg === false) {
@@ -230,11 +240,15 @@ const AgregarProducto: NextPage = () => {
 									justifyContent="center"
 									flexDirection={"column"}
 								>
-									<Errors
-										errors={errors}
-										errorImg={errorImg}
-										errorSelectedImg={errorSelectedImg}
-									/>
+									{viewErrors === true ? (
+										<Errors
+											errors={errors}
+											errorImg={errorImg}
+											errorSelectedImg={errorSelectedImg}
+										/>
+									) : (
+										""
+									)}
 
 									<Button
 										marginTop={6}
@@ -258,8 +272,40 @@ const AgregarProducto: NextPage = () => {
 					refButton={formButton}
 					errors={basicError}
 					errorImg={errorImg}
+					viewErrors={viewErrors}
 					errorSelectedImg={errorSelectedImg}
 				/>
+				{loading && (
+					<Box
+						position={"fixed"}
+						bgColor={"black"}
+						opacity={0.5}
+						w={"100%"}
+						top={"0%"}
+						h={"100%"}
+					>
+						<Flex
+							justifyContent={"center"}
+							height={"100%"}
+							alignItems={"center"}
+						>
+							<Spinner
+								thickness="4px"
+								speed="0.6s"
+								emptyColor="gray.400"
+								color="purple.400"
+								size="xl"
+							/>
+							<button
+								onClick={() => {
+									setLoading(false);
+								}}
+							>
+								false
+							</button>
+						</Flex>
+					</Box>
+				)}
 			</Flex>
 		</>
 	);

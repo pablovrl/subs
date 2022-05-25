@@ -46,14 +46,14 @@ export default function CardAddCategories({
 						borderBottomWidth={"1px"}
 						paddingY={"3"}
 					>
-						<Text fontSize={"xl"}>Categoria</Text>
+						<Text fontSize={"xl"}>Categoría</Text>
 					</Flex>
 					<Flex justifyContent={"center"} marginTop={"3"}>
 						<Select
-							title="Categoria principal"
+							title="Categoría principal"
 							categories={categories}
 							value={name}
-							text="Seleccione la categoria más relacionada con su producto."
+							text="Seleccione la categoría más relacionada con su producto."
 							fontSizeText={"sm"}
 							onChange={handleChange}
 						/>

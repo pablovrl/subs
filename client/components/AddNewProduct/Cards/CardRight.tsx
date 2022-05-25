@@ -9,6 +9,7 @@ interface CardRightProps {
 	firstImg: any;
 	refButton: any;
 	errorImg: boolean,
+	viewErrors: boolean,
 	errorSelectedImg: boolean,
 	errors: any
 
@@ -20,6 +21,7 @@ export default function CardRight({
 	firstImg,
 	refButton,
 	errorImg,
+	viewErrors,
 	errorSelectedImg,
 	errors
 }: CardRightProps) {
@@ -27,8 +29,6 @@ export default function CardRight({
 	const handleClick = () => {
 		refButton.current.click();
 	};
-
-
 
 
 	return (
@@ -84,14 +84,14 @@ export default function CardRight({
 					</Flex>
 
 					<Flex marginTop={2}>
-						<Text fontSize={"lg"}>Categoria:</Text>
+						<Text fontSize={"lg"}>Categoría:</Text>
 						<Text fontSize={"lg"} marginLeft={"4"}>
 							{productDatas.category}
 						</Text>
 					</Flex>
 
 					<Flex marginTop={2} height={"auto"} flexDirection={"column"}>
-						<Text fontSize={"lg"}>Imagenes:</Text>
+						<Text fontSize={"lg"}>Imágenes:</Text>
 						<Flex>
 							<Grid
 								templateColumns={{
@@ -114,7 +114,7 @@ export default function CardRight({
 									))
 								) : (
 									<GridItem colSpan={4}>
-										<Text>No se han agregado imagenes</Text>
+										<Text>No se han agregado imágenes.</Text>
 									</GridItem>
 								)}
 							</Grid>
@@ -127,7 +127,7 @@ export default function CardRight({
 						</Text>
 					</Flex>
 					<Flex marginTop={2} flexDirection={"column"}>
-						<Text fontSize={"lg"}>Imagen para la portada:</Text>
+						<Text fontSize={"lg"}>Imagen de portada:</Text>
 						<Flex>
 							{firstImg.length !== 0 ? (
 								<Image
@@ -145,7 +145,7 @@ export default function CardRight({
 						<Text fontSize={"lg"}>Precios del producto:</Text>
 						<Flex marginLeft={2} marginTop={4} w={"100%"}>
 							<Text fontSize={"lg"} marginLeft={6}>
-								1 Mes:{" "}
+								1 Mes:
 							</Text>
 							<Text fontSize={"lg"} marginLeft={4}>
 								{productDatas.oneMonth}
@@ -172,9 +172,9 @@ export default function CardRight({
 					</Flex>
 					<Flex w={"100%"} justifyContent={"center"} paddingY={"1em"} flexDir={"column"}>
 						{
-							errors !== undefined ? (
+							(errors !== undefined && viewErrors === true) ? (
 								<Errors errors={errors} errorImg={errorImg} errorSelectedImg={errorSelectedImg}/>
-							):(<Text>aa</Text>)
+							):("")
 						}
 					
 						<Flex justifyContent={"center"} >

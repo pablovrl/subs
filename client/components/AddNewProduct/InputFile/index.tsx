@@ -89,9 +89,9 @@ export default function fileInput({ error }: FileInputProps) {
 					<Text
 						textAlign={"center"}
 						color={"red"}
-						width={{ base: "84%", md: "18em" }}
+						width={{ base: "84%", md: "20em" }}
 					>
-						Solo se permiten un máximo de 4 imágenes de tipo jpg, jpeg y png
+						Solo se permiten un máximo de 4 imágenes que sean de tipo JPG, JPEG y PNG.
 					</Text>
 				</Flex>
 			) : (

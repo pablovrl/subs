@@ -67,8 +67,8 @@ export default function FileInput({ setFile, files }: FileInputProps) {
 					} else {
 						Swal.fire({
 							icon: "error",
-							title: "Error :(",
-							text: "Alcanzaste el limite de imagenes",
+							title: "Error",
+							text: "Alcanzaste el límite de imágenes",
 							confirmButtonColor: "#3085d6",
 							confirmButtonText: "Volver",
 						});
@@ -76,8 +76,8 @@ export default function FileInput({ setFile, files }: FileInputProps) {
 				} else {
 					Swal.fire({
 						icon: "error",
-						title: "Error :(",
-						text: "No se aceptan este tipo de archivos :(",
+						title: "Error",
+						text: "No se aceptan ese tipo de archivos",
 						confirmButtonColor: "#3085d6",
 						confirmButtonText: "Volver",
 					});
@@ -105,7 +105,7 @@ export default function FileInput({ setFile, files }: FileInputProps) {
 					<Flex flexDirection={"column"} alignItems={"center"} >
 						<Image src="./addPhoto.png" w={14} h={14} />
 						<Text marginTop={2} textAlign={"center"}>
-							Suelte o haga clic aquí para cargar las imagenes de su producto.
+							Suelte o haga clic aquí para cargar las imágenes de su producto.
 						</Text>
 					</Flex>
 				</Flex>

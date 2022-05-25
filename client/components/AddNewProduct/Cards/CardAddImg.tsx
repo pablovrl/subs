@@ -23,12 +23,11 @@ export default function CardAddImg({error}:CardAddImgProp) {
 						borderBottomWidth={"1px"}
 						paddingY={"3"}
 					>
-						<Text fontSize={"xl"}>Imagenes</Text>
+						<Text fontSize={"xl"}>Imágenes</Text>
 					</Flex>
 					<Flex marginTop={"4"} paddingX={{base: 6, md: 8}} w={"100%"} justifyContent={"center"}>
-						<Text width={{base: "84%", md: "26em"}} >
-							En este apartado debes agregar varias imágenes de tu producto,
-							esto hará que tu producto sea más vistoso.
+						<Text width={{base: "84%", md: "24em"}} >
+							En este apartado debes agregar las imágenes de tu producto.
 						</Text>
 					</Flex>
 
