@@ -101,7 +101,6 @@ export default function FileInput({ setFile, files }: FileInputProps) {
 				<Flex>
 					<input
 						{...getInputProps()}
-						onChange={(e) => console.log(e.currentTarget)}
 					/>
 					<Flex flexDirection={"column"} alignItems={"center"} >
 						<Image src="./addPhoto.png" w={14} h={14} />

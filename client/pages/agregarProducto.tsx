@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Flex, Text, Box } from "@chakra-ui/react";
-import { Formik, Form } from "formik";
+import React, { useState, useEffect, useRef } from "react";
+import { Flex, Text, Button } from "@chakra-ui/react";
+import { Formik, Form, useFormikContext } from "formik";
 import FormObserver from "../components/AddNewProduct/FormObserver";
 
 import { useSelector } from "react-redux";
@@ -9,9 +9,9 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import FormData from "form-data";
 import imgType from "../interfaces/fileInput";
+import Errors from "../components/AddNewProduct/Errors";
 
 //*Components
-import Button from "../components/AddNewProduct/Button";
 import CardBasic from "../components/AddNewProduct/Cards/CardBasic";
 import CardProductQuantity from "../components/AddNewProduct/Cards/CardProductQuantity";
 import CardPriceProduct from "../components/AddNewProduct/Cards/CardPriceProduct";
@@ -26,6 +26,7 @@ import Validations from "../components/AddNewProduct/Validations";
 const AgregarProducto: NextPage = () => {
 	const router = useRouter();
 	const [errorImg, setErrorImg] = useState(false);
+	const [basicError, setBasicError] = useState();
 	const [errorSelectedImg, setErrorSelectedImg] = useState(false);
 	const state = useSelector((state: any) => state);
 	const [productDatas, setProductDatas] = useState({
@@ -39,10 +40,15 @@ const AgregarProducto: NextPage = () => {
 		sixMonth: "",
 		twelveMonth: "",
 	});
+	const formButton = useRef(null);
 
 	useEffect(() => {
 		if (state.arrayImg.images.length > 0) {
 			setErrorImg(false);
+		}
+
+		if (state.arrayImg.firstImg === true) {
+			setErrorSelectedImg(false);
 		}
 	}, [state]);
 
@@ -109,7 +115,7 @@ const AgregarProducto: NextPage = () => {
 		};
 
 		try {
-			const res = await axios.post("/api/producto", body);
+			await axios.post("/api/producto", body);
 			setTimeout(redirect, 1000);
 			Swal.fire({
 				position: "center",
@@ -135,12 +141,25 @@ const AgregarProducto: NextPage = () => {
 		router.push("/");
 	};
 
+	const handleClickCrearProducto = () => {
+		if (state.arrayImg.images.length > 0) {
+			setErrorImg(false);
+			if (state.arrayImg.firstImg === false) {
+				setErrorSelectedImg(true);
+			} else {
+				setErrorSelectedImg(false);
+			}
+		} else {
+			setErrorImg(true);
+		}
+	};
+
 	return (
 		<>
 			{/* <Flex position={"absolute"} zIndex={-1} bgColor={"red"} w={"40em"} h={"40em"}>
 				<Flex  />
 			</Flex> */}
-			<Flex justifyContent={"center"} marginTop={"5"}>
+			<Flex justifyContent={"center"} marginTop={"5"} id={"basic"}>
 				<Text fontSize={"xx-large"}>Nuevo producto</Text>
 			</Flex>
 			<Flex flexDirection={"row"}>
@@ -164,7 +183,11 @@ const AgregarProducto: NextPage = () => {
 							handleBlur,
 						}) => (
 							<Form onSubmit={handleSubmit} id="form">
-								<FormObserver setProductDatas={setProductDatas} />
+								<FormObserver
+									setProductDatas={setProductDatas}
+									setBasicError={setBasicError}
+									basicError={basicError}
+								/>
 
 								<CardBasic
 									name={values.name}
@@ -205,14 +228,24 @@ const AgregarProducto: NextPage = () => {
 									marginTop={"5"}
 									display={{ base: "flex", lg: "none" }}
 									justifyContent="center"
+									flexDirection={"column"}
 								>
-									<Button
-										type="submit"
-										variant="outline"
-										text="Crear producto"
-										form="form"
-										borderColor="#e2e8f0"
+									<Errors
+										errors={errors}
+										errorImg={errorImg}
+										errorSelectedImg={errorSelectedImg}
 									/>
+
+									<Button
+										marginTop={6}
+										type="submit"
+										ref={formButton}
+										variant="outline"
+										borderColor="#e2e8f0"
+										onClick={handleClickCrearProducto}
+									>
+										Crear producto
+									</Button>
 								</Flex>
 							</Form>
 						)}
@@ -222,6 +255,10 @@ const AgregarProducto: NextPage = () => {
 					productDatas={productDatas}
 					imgs={state.arrayImg.images}
 					firstImg={state.arrayImg.sortImg}
+					refButton={formButton}
+					errors={basicError}
+					errorImg={errorImg}
+					errorSelectedImg={errorSelectedImg}
 				/>
 			</Flex>
 		</>

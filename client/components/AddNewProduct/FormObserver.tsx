@@ -5,14 +5,28 @@ import { useSelector } from "react-redux";
 
 interface FormObserverProps {
 	setProductDatas: React.Dispatch<SetStateAction<MyFormValues>>;
+	setBasicError: any;
+	basicError: any;
 }
 
-const FormObserver = ({ setProductDatas }: FormObserverProps) => {
+const FormObserver = ({
+	setProductDatas,
+	basicError,
+	setBasicError
+
+
+}: FormObserverProps) => {
 	const categories = useSelector(
 		(state: any) => state.arrayCategories.categories
 	);
 
-	const { values } = useFormikContext<MyFormValues>();
+	const { values, errors} = useFormikContext<MyFormValues>();
+
+	useEffect(() => {
+		setBasicError(errors);
+	}, [errors]);
+	
+
 	useEffect(() => {
 		if (categories.length > 0) {
 			const product = values;
@@ -23,22 +37,23 @@ const FormObserver = ({ setProductDatas }: FormObserverProps) => {
 				}
 			}
 
-			if(values.oneMonth === ""){
+			if (values.oneMonth === "") {
 				product.oneMonth = "0";
 			}
-			if(values.threeMonth === ""){
+			if (values.threeMonth === "") {
 				product.threeMonth = "0";
 			}
-			if(values.sixMonth === ""){
+			if (values.sixMonth === "") {
 				product.sixMonth = "0";
 			}
-			if(values.twelveMonth === ""){
+			if (values.twelveMonth === "") {
 				product.twelveMonth = "0";
 			}
-
 			setProductDatas(product);
+
 		}
 	}, [values, categories]);
+	
 	return null;
 };
 

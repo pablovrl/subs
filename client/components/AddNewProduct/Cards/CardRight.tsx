@@ -1,23 +1,40 @@
 import React from "react";
-import { Flex, Text, Grid, GridItem, Image } from "@chakra-ui/react";
+import { Flex, Text, Grid, GridItem, Image, Button } from "@chakra-ui/react";
 import porductType from "../../../interfaces/MyFormValues";
-import Button from "../../../components/AddNewProduct/Button";
+import Errors from "../Errors";
 
 interface CardRightProps {
 	productDatas: porductType;
 	imgs: any;
 	firstImg: any;
+	refButton: any;
+	errorImg: boolean,
+	errorSelectedImg: boolean,
+	errors: any
+
 }
 
 export default function CardRight({
 	productDatas,
 	imgs,
 	firstImg,
+	refButton,
+	errorImg,
+	errorSelectedImg,
+	errors
 }: CardRightProps) {
+	
+	const handleClick = () => {
+		refButton.current.click();
+	};
+
+
+
+
 	return (
 		<Flex
 			w={{ base: "0%", md: "40%", lg: "40%" }}
-			display={{base: "none", lg: "flex"}}
+			display={{ base: "none", lg: "flex" }}
 			marginTop={4}
 			justifyContent={"center"}
 		>
@@ -26,10 +43,11 @@ export default function CardRight({
 				boxShadow={"2xl"}
 				borderRadius={"15"}
 				borderWidth={"1px"}
-				w={{base: "36vw", xl: "32vw"}}
-				h={"40em"} overflowY={"scroll"} overflowX={"hidden"}
+				w={{ base: "36vw", xl: "32vw" }}
+				h={"40em"}
+				overflowY={"scroll"}
+				overflowX={"hidden"}
 				justifyContent={"center"}
-				
 			>
 				<Flex w={"92%"} flexDirection={"column"} h={"auto"}>
 					<Flex
@@ -152,15 +170,18 @@ export default function CardRight({
 							</Text>
 						</Flex>
 					</Flex>
-					<Flex w={"100%"} justifyContent={"center"} paddingY={"1em"}>
-						<Flex justifyContent={"center"}>
-							<Button
-								type="submit"
-								variant="outline"
-								text="Crear producto"
-								form="form"
-								borderColor="#e2e8f0"
-							/>
+					<Flex w={"100%"} justifyContent={"center"} paddingY={"1em"} flexDir={"column"}>
+						{
+							errors !== undefined ? (
+								<Errors errors={errors} errorImg={errorImg} errorSelectedImg={errorSelectedImg}/>
+							):(<Text>aa</Text>)
+						}
+					
+						<Flex justifyContent={"center"} >
+						
+							<Button type="submit" variant="outline" borderColor="#e2e8f0" onClick={handleClick}  marginTop={6}>
+								Crear producto
+							</Button>
 						</Flex>
 					</Flex>
 				</Flex>

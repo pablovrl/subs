@@ -28,13 +28,14 @@ export default function cardBasic({
 }: inputs) {
 	return (
 		<>
-			<Flex marginTop={"5"} justifyContent={"center"}>
+			<Flex marginTop={"5"} justifyContent={"center"} >
 				<Box
 					w={{base: "21em",sm:"26em", md: "30em" ,lg: "48vw"}}
 					boxShadow={"md"}
 					justifyContent={"center"}
 					borderRadius={"10px"}
 					borderWidth={"1px"}
+					
 					paddingBottom={"6"}
 				>
 					<Flex

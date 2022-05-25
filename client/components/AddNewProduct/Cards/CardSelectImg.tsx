@@ -132,9 +132,9 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 
 					{error === true ? (
 						<Flex w={"100%"} justifyContent={"center"}>
-							<Flex w={"88%"} paddingX={3}>
+							<Flex w={"88%"} paddingX={3} marginTop={3} justifyContent={"center"}>
 								<Text color={"red"}>
-									Por favor seleccione una imagen para la portada de su
+									Por favor, seleccione una imagen para la portada de su
 									producto.
 								</Text>
 							</Flex>

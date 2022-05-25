@@ -80,8 +80,8 @@ export default function fileInput({ error }: FileInputProps) {
 
 			{error === true ? (
 				<Flex w={"100%"} justifyContent={"center"}>
-					<Flex w={"88%"} paddingX={3}>
-						<Text color={"red"}>Por favor introduzca una imagen.</Text>
+					<Flex w={"88%"} paddingX={3} justifyContent={"center"}>
+						<Text color={"red"}>Por favor, introduzca una imagen.</Text>
 					</Flex>
 				</Flex>
 			) : files.length === 0 ? (
