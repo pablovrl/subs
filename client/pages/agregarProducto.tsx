@@ -125,7 +125,7 @@ const AgregarProducto: NextPage = () => {
 			Swal.fire({
 				position: "center",
 				icon: "success",
-				title: "Se creo correctamente el producto",
+				title: "Se creó correctamente el producto",
 				showConfirmButton: false,
 				timer: 1500,
 			}).then(()=> {
@@ -138,7 +138,7 @@ const AgregarProducto: NextPage = () => {
 				Swal.fire({
 					position: "center",
 					icon: "error",
-					title: "error",
+					title: "Hubo un error en la creación del producto",
 					showConfirmButton: false,
 					timer: 1500,
 				});
