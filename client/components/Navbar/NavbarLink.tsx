@@ -16,17 +16,16 @@ export default function NavbarLink({
 	fontSize,
 }: NavbarLinkProps) {
 	return (
-		<>
-			<Link href={href}>
-				<CLink
-					display={"flex"}
-					alignItems={"center"}
-					_hover={{ textDecoration: "none" }}
-				>
-					{icon && <Box mr={2}>{icon}</Box>}
-					<Text fontSize={fontSize}>{text}</Text>
-				</CLink>
-			</Link>
-		</>
+		<Link href={href}>
+			<CLink
+				pl={8}
+				display={"flex"}
+				alignItems={"center"}
+				_hover={{ textDecoration: "none" }}
+			>
+				{icon && <Box mr={2}>{icon}</Box>}
+				<Text fontSize={fontSize}>{text}</Text>
+			</CLink>
+		</Link>
 	);
 }
