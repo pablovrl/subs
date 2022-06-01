@@ -40,6 +40,6 @@ const insertData = async () => {
   );
 };
 
-insertData();
+// insertData();
 
 export { db, checkDatabaseConnection };

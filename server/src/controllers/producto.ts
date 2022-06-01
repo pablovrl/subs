@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import Vendedor from "../models/vendedor";
 import Pertenece from "../models/pertenece";
 import Image from "../models/image";
+import Categoria from "../models/categoria";
 
 const createProducto = async (req: Request, res: Response) => {
   const producto = {
@@ -37,7 +38,20 @@ const createProducto = async (req: Request, res: Response) => {
 };
 
 const getProductos = async (req: Request, res: Response) => {
-  const productos = await Producto.findAll({ include: [Vendedor, Image] });
+  const categoryId = req.query.categoria;
+  if (categoryId) {
+    const productos = await Producto.findAll({
+      include: [
+        { model: Categoria, where: { id: categoryId } },
+        Vendedor,
+        Image,
+      ],
+    });
+    return res.json(productos);
+  }
+  const productos = await Producto.findAll({
+    include: [Categoria, Vendedor, Image],
+  });
   return res.json(productos);
 };
 
