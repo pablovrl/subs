@@ -108,7 +108,7 @@ export default function InterestedProducts({
 						<Text>{product.nombre}</Text>
 						<Text fontSize={"xs"}>por {product.vendedor.nombreTienda}</Text>
 						<Button my={2} variant={"outline"} colorScheme={"green"}>
-							Suscribirse
+							Ver Detalles
 						</Button>
 					</Box>
 				))}
