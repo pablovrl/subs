@@ -10,11 +10,15 @@ import {
 	DrawerOverlay,
 	DrawerContent,
 	DrawerCloseButton,
+	Text,
+	Link as CLink,
+	Container,
 } from "@chakra-ui/react";
 import NavbarLink from "./NavbarLink";
 import { FaBars, FaTimes, FaUserAlt } from "react-icons/fa";
 import Category from "../../interfaces/Category";
 import axios from "axios";
+import Link from "next/link";
 
 export default function Navbar() {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -43,8 +47,16 @@ export default function Navbar() {
 			</Box>
 			<Stack>
 				{categories.map((categorie) => (
-					<Box py={1} key={categorie.id} _hover={{ backgroundColor: "#B8F1B0" }}>
-						<NavbarLink text={categorie.nombre} href="/" fontSize={"2xl"} />
+					<Box
+						py={1}
+						key={categorie.id}
+						_hover={{ backgroundColor: "#B8F1B0" }}
+					>
+						<NavbarLink
+							text={categorie.nombre}
+							href={`/categoria/${categorie.id}`}
+							fontSize={"2xl"}
+						/>
 					</Box>
 				))}
 			</Stack>
@@ -63,22 +75,28 @@ export default function Navbar() {
 
 	return (
 		<Box px={2}>
-			<Flex alignItems={"center"} justifyContent={"space-between"}>
-				<Box>Logo</Box>
-				<HStack spacing={"20px"}>
-					<NavbarLink text="Agregar producto" href="/agregarProducto" />
-					<HStack>
-						<NavbarLink text="Iniciar Sesión" href="/" icon={<FaUserAlt />} />
+			<Container maxW="container.xl">
+				<Flex alignItems={"center"} justifyContent={"space-between"}>
+					<Link href={"/"}>
+						<CLink px={4}>
+							<Text fontSize={"4xl"}>Logo</Text>
+						</CLink>
+					</Link>
+					<HStack spacing={"20px"}>
+						<NavbarLink text="Agregar producto" href="/agregarProducto" />
+						<HStack>
+							<NavbarLink text="Iniciar Sesión" href="/" icon={<FaUserAlt />} />
+						</HStack>
+						<IconButton
+							bg={"white"}
+							aria-label="Open Menu"
+							icon={<FaBars />}
+							onClick={onOpen}
+						/>
 					</HStack>
-					<IconButton
-						bg={"white"}
-						aria-label="Open Menu"
-						icon={<FaBars />}
-						onClick={onOpen}
-					/>
-				</HStack>
-			</Flex>
-			{desktopCategories()}
+				</Flex>
+				{desktopCategories()}
+			</Container>
 		</Box>
 	);
 }
