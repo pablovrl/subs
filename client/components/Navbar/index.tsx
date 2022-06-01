@@ -22,7 +22,6 @@ export default function Navbar() {
 
 	useEffect(() => {
 		const getCategories = async () => {
-			console.log("calling API");
 			const res = await axios.get("/api/categoria");
 			setCategories(res.data);
 		};
@@ -44,7 +43,7 @@ export default function Navbar() {
 			</Box>
 			<Stack>
 				{categories.map((categorie) => (
-					<Box key={categorie.id} _hover={{ backgroundColor: "#B8F1B0" }}>
+					<Box py={1} key={categorie.id} _hover={{ backgroundColor: "#B8F1B0" }}>
 						<NavbarLink text={categorie.nombre} href="/" fontSize={"2xl"} />
 					</Box>
 				))}
