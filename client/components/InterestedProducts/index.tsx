@@ -30,9 +30,11 @@ interface Product {
 }
 
 export default function InterestedProducts({
-	categoryId,
+	filter,
+	query,
 }: {
-	categoryId?: number;
+	filter?: string | string[];
+	query?: string | string[];
 }) {
 	const [products, setProducts] = useState<Product[]>([]);
 	const [loading, setLoading] = useState(false);
@@ -40,20 +42,18 @@ export default function InterestedProducts({
 	useEffect(() => {
 		const getProducts = async () => {
 			setLoading(true);
-			const link = categoryId
-				? `api/producto?categoria=${categoryId}`
-				: "api/producto";
+			const link = filter ? `api/producto?${filter}=${query}` : "api/producto";
 			const prod = await axios.get(link);
 			setProducts(prod.data);
 			setLoading(false);
 		};
 		getProducts();
-	}, [categoryId]);
+	}, [filter, query]);
 
 	if (loading) {
 		return (
 			<Flex h="40rem" alignItems="center" justifyContent="center">
-				<Spinner size="xl" />;
+				<Spinner size="xl" />
 			</Flex>
 		);
 	}

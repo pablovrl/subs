@@ -4,6 +4,7 @@ import Vendedor from "../models/vendedor";
 import Pertenece from "../models/pertenece";
 import Image from "../models/image";
 import Categoria from "../models/categoria";
+import { Op } from "sequelize";
 
 const createProducto = async (req: Request, res: Response) => {
   const producto = {
@@ -39,6 +40,8 @@ const createProducto = async (req: Request, res: Response) => {
 
 const getProductos = async (req: Request, res: Response) => {
   const categoryId = req.query.categoria;
+  const search = req.query.nombre;
+
   if (categoryId) {
     const productos = await Producto.findAll({
       include: [
@@ -49,6 +52,33 @@ const getProductos = async (req: Request, res: Response) => {
     });
     return res.json(productos);
   }
+
+  if (search) {
+    const productsByName = await Producto.findAll({
+      include: [{ model: Categoria }, Vendedor, Image],
+      where: {
+        nombre: {
+          [Op.substring]: `%${search}%`,
+        },
+      },
+    });
+
+    const productsByCategory = await Producto.findAll({
+      include: [
+        {
+          model: Categoria,
+          where: { nombre: { [Op.substring]: `%${search}%` } },
+        },
+        Vendedor,
+        Image,
+      ],
+    });
+
+    const productos = [...new Set([...productsByName, ...productsByCategory])];
+
+    return res.json(productos);
+  }
+
   const productos = await Producto.findAll({
     include: [Categoria, Vendedor, Image],
   });

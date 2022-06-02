@@ -54,7 +54,7 @@ export default function Navbar() {
 					>
 						<NavbarLink
 							text={categorie.nombre}
-							href={`/categoria/${categorie.id}`}
+							href={`/buscar/categoria?query=${categorie.id}`}
 							fontSize={"2xl"}
 						/>
 					</Box>
