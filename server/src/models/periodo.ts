@@ -22,4 +22,7 @@ const Periodo = db.define(
   { timestamps: false }
 );
 
+Producto.hasMany(Periodo);
+Periodo.belongsTo(Producto);
+
 export default Periodo;
