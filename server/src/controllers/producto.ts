@@ -5,15 +5,16 @@ import Pertenece from "../models/pertenece";
 import Image from "../models/image";
 import Categoria from "../models/categoria";
 import { Op } from "sequelize";
+import Periodo from "../models/periodo";
 
 const createProducto = async (req: Request, res: Response) => {
-  const producto = {
-    nombre: req.body.nombre,
-    detalles: req.body.detalles,
-    stock: req.body.stock,
-  };
+  const { nombre, detalles, stock, categoriaId, imagenes, periodos } = req.body;
 
-  const imagenes: string[] = req.body.imagenes;
+  const producto = {
+    nombre,
+    detalles,
+    stock,
+  };
 
   try {
     const newProducto: any = await Producto.create({
@@ -21,17 +22,26 @@ const createProducto = async (req: Request, res: Response) => {
       vendedorId: 1,
     });
     await Pertenece.create({
-      categoriumId: req.body.categoriaId,
+      categoriumId: categoriaId,
       productoId: newProducto.id,
     });
 
-    imagenes.forEach((img, i) => {
+    imagenes.forEach((img: string, i: number) => {
       Image.create({
         ruta: img,
         posicion: i + 1,
         productoId: newProducto.id,
       });
     });
+
+    periodos.forEach((periodo: { duracion: string; precio: number }) => {
+      Periodo.create({
+        duracion: periodo.duracion,
+        precio: periodo.precio,
+        productoId: newProducto.id,
+      });
+    });
+
     return res.status(201).json(newProducto);
   } catch (error) {
     return res.status(500).json(error);
@@ -80,9 +90,21 @@ const getProductos = async (req: Request, res: Response) => {
   }
 
   const productos = await Producto.findAll({
-    include: [Categoria, Vendedor, Image],
+    include: [Categoria, Vendedor, Image, Periodo],
   });
   return res.json(productos);
 };
 
-export { createProducto, getProductos };
+const getProductoById = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const producto = await Producto.findByPk(id, {
+      include: [Categoria, Vendedor, Image, Periodo],
+    });
+    return res.json(producto);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
+export { createProducto, getProductos, getProductoById };
