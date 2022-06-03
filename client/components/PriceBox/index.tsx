@@ -3,7 +3,7 @@ import { Box, Text } from "@chakra-ui/react";
 
 interface PriceBoxProps {
 	id: number;
-	currentSelected: number;
+	currentSelected: number | undefined;
 	handleChangePrice: (id: number) => void;
 	months: string;
 	price: number;

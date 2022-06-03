@@ -25,7 +25,7 @@ const ProductDetails: NextPage = () => {
 	const { id } = router.query;
 	const [product, setProduct] = React.useState<Product>();
 	const [loading, setLoading] = React.useState(false);
-	const [selectedPrice, setSelectedPrice] = useState<number>(1);
+	const [selectedPrice, setSelectedPrice] = useState<number>();
 
 	const handleChangePrice = (id: number) => {
 		setSelectedPrice(id);
@@ -88,7 +88,11 @@ const ProductDetails: NextPage = () => {
 									/>
 								))}
 							</SimpleGrid>
-							<Button my="4" colorScheme={"green"}>
+							<Button
+								my="4"
+								colorScheme={"green"}
+								disabled={selectedPrice ? false : true}
+							>
 								Comprar ahora
 							</Button>
 						</Flex>
