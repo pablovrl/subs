@@ -13,21 +13,8 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import Image from "next/image";
-
-interface Product {
-	id: number;
-	nombre: string;
-	stock: number;
-	vendedor: {
-		id: number;
-		nombreTienda: string;
-	};
-	images: {
-		id: number;
-		ruta: string;
-		posicion: number;
-	}[];
-}
+import Product from "../../interfaces/Product";
+import Link from "next/link";
 
 export default function InterestedProducts({
 	filter,
@@ -88,29 +75,36 @@ export default function InterestedProducts({
 			direction={"column"}
 			alignItems="center"
 		>
-			<SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ md: 14 }}>
+			<SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ md: 3 }}>
 				{products.map((product: Product) => (
-					<Box key={product.id} mb={4}>
-						{product.images.length > 0 ? (
-							<Image
-								loader={() => `http://localhost:3001/${product.images[0].ruta}`}
-								src={`http://localhost:3001/${product.images[0].ruta}`}
-								width="320px"
-								height="200px"
-								objectFit="cover"
-							/>
-						) : (
-							<img
-								src="https://profesional.tarkett.es/media/img/M/THH_25121917_25131917_25126917_25136917_001.jpg"
-								style={{ width: "320px", height: "200px", objectFit: "cover" }}
-							/>
-						)}
-						<Text>{product.nombre}</Text>
-						<Text fontSize={"xs"}>por {product.vendedor.nombreTienda}</Text>
-						<Button my={2} variant={"outline"} colorScheme={"green"}>
-							Ver Detalles
-						</Button>
-					</Box>
+					<Link key={product.id} href={`/producto/${product.id}`}>
+						<Box mb={4} cursor="pointer">
+							{product.images.length > 0 ? (
+								<Box cursor={"pointer"}>
+									<Image
+										loader={() =>
+											`http://localhost:3001/${product.images[0].ruta}`
+										}
+										src={`http://localhost:3001/${product.images[0].ruta}`}
+										width="600"
+										height="400"
+										objectFit="cover"
+									/>
+								</Box>
+							) : (
+								<img
+									src="https://profesional.tarkett.es/media/img/M/THH_25121917_25131917_25126917_25136917_001.jpg"
+									style={{
+										width: "320px",
+										height: "200px",
+										objectFit: "cover",
+									}}
+								/>
+							)}
+							<Text>{product.nombre}</Text>
+							<Text fontSize={"xs"}>por {product.vendedor.nombreTienda}</Text>
+						</Box>
+					</Link>
 				))}
 			</SimpleGrid>
 		</Flex>
