@@ -34,13 +34,15 @@ const createProducto = async (req: Request, res: Response) => {
       });
     });
 
-    periodos.forEach((periodo: { duracion: string; precio: number }) => {
-      Periodo.create({
-        duracion: periodo.duracion,
-        precio: periodo.precio,
-        productoId: newProducto.id,
+    if (periodos) {
+      periodos.forEach((periodo: { duracion: string; precio: number }) => {
+        Periodo.create({
+          duracion: periodo.duracion,
+          precio: periodo.precio,
+          productoId: newProducto.id,
+        });
       });
-    });
+    }
 
     return res.status(201).json(newProducto);
   } catch (error) {
