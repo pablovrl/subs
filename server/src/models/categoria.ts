@@ -20,5 +20,6 @@ const Categoria = db.define(
 );
 
 Categoria.belongsToMany(Producto, { through: Pertenece });
+Producto.belongsToMany(Categoria, { through: Pertenece });
 
 export default Categoria;

@@ -1,11 +1,7 @@
 import express from "express";
 import cors from "cors";
-import { db } from "./config/database";
 import router from "./routes";
-import Categoria from "./models/categoria";
 import saveToUploads from "./config/multer";
-
-console.log(Categoria.tableName);
 
 const app = express();
 app.use(
@@ -14,10 +10,22 @@ app.use(
   })
 );
 
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
+  res.header(
+    "Access-Control-Allow-Headers",
+    "x-access-token, Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
 app.use(express.json());
 app.use(express.static("public"));
 app.use("/api", router);
-db.sync({ force: true });
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

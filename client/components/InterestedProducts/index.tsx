@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	Box,
 	Button,
@@ -9,6 +9,7 @@ import {
 	AlertTitle,
 	AlertDescription,
 	SimpleGrid,
+	Spinner,
 } from "@chakra-ui/react";
 import axios from "axios";
 import Image from "next/image";
@@ -28,16 +29,34 @@ interface Product {
 	}[];
 }
 
-export default function InterestedProducts() {
-	const [products, setProducts] = React.useState<Product[]>([]);
+export default function InterestedProducts({
+	filter,
+	query,
+}: {
+	filter?: string | string[];
+	query?: string | string[];
+}) {
+	const [products, setProducts] = useState<Product[]>([]);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		const getProducts = async () => {
-			const prod = await axios.get("/api/producto");
+			setLoading(true);
+			const link = filter ? `api/producto?${filter}=${query}` : "api/producto";
+			const prod = await axios.get(link);
 			setProducts(prod.data);
+			setLoading(false);
 		};
 		getProducts();
-	}, []);
+	}, [filter, query]);
+
+	if (loading) {
+		return (
+			<Flex h="40rem" alignItems="center" justifyContent="center">
+				<Spinner size="xl" />
+			</Flex>
+		);
+	}
 
 	if (products.length === 0)
 		return (
@@ -61,12 +80,15 @@ export default function InterestedProducts() {
 				</AlertDescription>
 			</Alert>
 		);
+
 	return (
-		<Flex justifyContent={"center"} direction={"column"} alignItems="center">
-			<Text mx={"8"} my={4} fontSize={"2xl"} textAlign={"center"}>
-				Esto podría interesarte!
-			</Text>
-			<SimpleGrid columns={{ base: 1, md: 3 }} spacing={{md: 14}}>
+		<Flex
+			pt={4}
+			justifyContent={"center"}
+			direction={"column"}
+			alignItems="center"
+		>
+			<SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ md: 14 }}>
 				{products.map((product: Product) => (
 					<Box key={product.id} mb={4}>
 						{product.images.length > 0 ? (
@@ -74,16 +96,19 @@ export default function InterestedProducts() {
 								loader={() => `http://localhost:3001/${product.images[0].ruta}`}
 								src={`http://localhost:3001/${product.images[0].ruta}`}
 								width="320px"
-								height="200"
+								height="200px"
 								objectFit="cover"
 							/>
 						) : (
-							<Box mb={1} w="xs" h="200px" bg={"gray.100"} rounded={"2xl"} />
+							<img
+								src="https://profesional.tarkett.es/media/img/M/THH_25121917_25131917_25126917_25136917_001.jpg"
+								style={{ width: "320px", height: "200px", objectFit: "cover" }}
+							/>
 						)}
 						<Text>{product.nombre}</Text>
 						<Text fontSize={"xs"}>por {product.vendedor.nombreTienda}</Text>
 						<Button my={2} variant={"outline"} colorScheme={"green"}>
-							Suscribirse
+							Ver Detalles
 						</Button>
 					</Box>
 				))}
