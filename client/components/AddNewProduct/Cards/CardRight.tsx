@@ -8,11 +8,10 @@ interface CardRightProps {
 	imgs: any;
 	firstImg: any;
 	refButton: any;
-	errorImg: boolean,
-	viewErrors: boolean,
-	errorSelectedImg: boolean,
-	errors: any
-
+	errorImg: boolean;
+	viewErrors: boolean;
+	errorSelectedImg: boolean;
+	errors: any;
 }
 
 export default function CardRight({
@@ -23,45 +22,42 @@ export default function CardRight({
 	errorImg,
 	viewErrors,
 	errorSelectedImg,
-	errors
+	errors,
 }: CardRightProps) {
-	
 	const handleClick = () => {
 		refButton.current.click();
 	};
-
 
 	return (
 		<Flex
 			w={{ base: "0%", md: "40%", lg: "40%" }}
 			display={{ base: "none", lg: "flex" }}
-			marginTop={4}
 			justifyContent={"center"}
 		>
 			<Flex
 				position={"fixed"}
 				boxShadow={"2xl"}
-				borderRadius={"15"}
 				borderWidth={"1px"}
-				w={{ base: "36vw", xl: "32vw" }}
-				h={"40em"}
-				overflowY={"scroll"}
+				w={{ base: "36vw", xl: "36vw" }}
+				h={"100vh"}
 				overflowX={"hidden"}
+				overflowY={"auto"}
 				justifyContent={"center"}
 			>
-				<Flex w={"92%"} flexDirection={"column"} h={"auto"}>
+				<Flex w={"100%"} flexDirection={"column"} h={"auto"}>
 					<Flex
 						justifyContent={"center"}
 						borderBottomWidth={"1px"}
-						paddingY={"3"}
+						paddingY={"1.4em"}
 					>
-						<Text fontSize={"xl"}>Datos del producto</Text>
+						<Text fontSize={"3xl"}>Datos del producto</Text>
 					</Flex>
 					<Flex
 						marginTop={4}
 						w={"100%"}
 						height={"auto"}
 						wordBreak={"break-word"}
+						marginLeft={"2em"}
 					>
 						<Text fontSize={"lg"}>Nombre:</Text>
 						<Flex marginLeft={"4"} w={"70%"}>
@@ -73,24 +69,27 @@ export default function CardRight({
 						w={"100%"}
 						height={"auto"}
 						wordBreak={"break-word"}
-						flexDirection={"column"}
+						marginLeft={"2em"}
 					>
-						<Text fontSize={"lg"} float={"left"}>
-							Descripción:
+						<Text fontSize={"lg"} float={"left"} w={"92%"}>
+							Descripción: {productDatas.description}
 						</Text>
-						<Flex w={"100%"}>
-							<Text fontSize={"lg"}>{productDatas.description}</Text>
-						</Flex>
+						
 					</Flex>
 
-					<Flex marginTop={2}>
+					<Flex marginTop={2} marginLeft={"2em"}>
 						<Text fontSize={"lg"}>Categoría:</Text>
 						<Text fontSize={"lg"} marginLeft={"4"}>
 							{productDatas.category}
 						</Text>
 					</Flex>
 
-					<Flex marginTop={2} height={"auto"} flexDirection={"column"}>
+					<Flex
+						marginTop={2}
+						height={"auto"}
+						flexDirection={"column"}
+						marginLeft={"2em"}
+					>
 						<Text fontSize={"lg"}>Imágenes:</Text>
 						<Flex>
 							<Grid
@@ -113,20 +112,22 @@ export default function CardRight({
 										</GridItem>
 									))
 								) : (
-									<GridItem colSpan={4}>
+									<GridItem colSpan={4} marginLeft={2}>
 										<Text>No se han agregado imágenes.</Text>
 									</GridItem>
 								)}
 							</Grid>
 						</Flex>
 					</Flex>
-					<Flex marginTop={2}>
-						<Text fontSize={"lg"}>Stock:</Text>
+					<Flex marginTop={2} marginLeft={"2em"}>
+						<Text fontSize={"lg"} >
+							Stock:
+						</Text>
 						<Text fontSize={"lg"} marginLeft={4}>
 							{productDatas.stock}
 						</Text>
 					</Flex>
-					<Flex marginTop={2} flexDirection={"column"}>
+					<Flex marginTop={2} flexDirection={"column"} marginLeft={"2em"}>
 						<Text fontSize={"lg"}>Imagen de portada:</Text>
 						<Flex>
 							{firstImg.length !== 0 ? (
@@ -137,12 +138,13 @@ export default function CardRight({
 									h={"auto"}
 								/>
 							) : (
-								<Text>Aún no se selecciona foto para la portada</Text>
+								<Text marginLeft={3}>Aún no se selecciona foto para la portada</Text>
 							)}
 						</Flex>
 					</Flex>
-					<Flex marginTop={2} flexDirection={"column"}>
+					<Flex marginTop={2} flexDirection={"column"} marginLeft={"2em"}>
 						<Text fontSize={"lg"}>Precios del producto:</Text>
+
 						<Flex marginLeft={2} marginTop={4} w={"100%"}>
 							<Text fontSize={"lg"} marginLeft={6}>
 								1 Mes:
@@ -170,16 +172,33 @@ export default function CardRight({
 							</Text>
 						</Flex>
 					</Flex>
-					<Flex w={"100%"} justifyContent={"center"} paddingY={"1em"} flexDir={"column"}>
-						{
-							(errors !== undefined && viewErrors === true) ? (
-								<Errors errors={errors} errorImg={errorImg} errorSelectedImg={errorSelectedImg}/>
-							):("")
-						}
-					
-						<Flex justifyContent={"center"} >
-						
-							<Button type="submit" variant="outline" borderColor="#e2e8f0" onClick={handleClick}  marginTop={6}>
+					<Flex
+						w={"100%"}
+						justifyContent={"center"}
+						paddingY={"1em"}
+						alignItems={"center"}
+						flexDir={"column"}
+					>
+						{errors !== undefined && viewErrors === true ? (
+							<Flex w={"90%"} >
+								<Errors
+									errors={errors}
+									errorImg={errorImg}
+									errorSelectedImg={errorSelectedImg}
+								/>
+							</Flex>
+						) : (
+							""
+						)}
+
+						<Flex justifyContent={"center"}>
+							<Button
+								type="submit"
+								variant="outline"
+								borderColor="#e2e8f0"
+								onClick={handleClick}
+								marginTop={viewErrors === true ? (8) : (20)}
+							>
 								Crear producto
 							</Button>
 						</Flex>

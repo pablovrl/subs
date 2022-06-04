@@ -12,7 +12,7 @@ export default function Errors({
 	errorSelectedImg,
 }: ErrorsProps) {
 	return (
-		<Flex flexDirection={"column"}>
+		<Flex flexDirection={"column"} w={"100%"}>
 			{errors.name && (
 				<Flex w={"88%"} marginLeft={1} marginTop={0.5}>
 					<Text color={"red"}>{errors.name}</Text>

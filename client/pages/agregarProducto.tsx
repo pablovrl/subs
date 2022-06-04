@@ -128,11 +128,10 @@ const AgregarProducto: NextPage = () => {
 				title: "Se creó correctamente el producto",
 				showConfirmButton: false,
 				timer: 1500,
-			}).then(()=> {
+			}).then(() => {
 				redirect();
 				dispatch(addArrayImg([]));
 			});
-			
 		} catch (error: any) {
 			if (error.response.status === 500) {
 				Swal.fire({
@@ -169,16 +168,18 @@ const AgregarProducto: NextPage = () => {
 			{/* <Flex position={"absolute"} zIndex={-1} bgColor={"red"} w={"40em"} h={"40em"}>
 				<Flex  />
 			</Flex> */}
-			<Flex justifyContent={"center"} marginTop={"5"} id={"basic"}>
-				<Text fontSize={"xx-large"}>Nuevo producto</Text>
-			</Flex>
+
 			<Flex flexDirection={"row"}>
 				<Flex
 					width={{ base: "100%", lg: "60%" }}
 					justifyContent={{ base: "center", lg: "start" }}
 					paddingLeft={{ base: "0vw", lg: "6vw" }}
 					paddingBottom={"2em"}
+					flexDirection={"column"}
 				>
+					<Flex justifyContent={"center"} marginTop={"5"} id={"basic"}>
+						<Text fontSize={"xx-large"}>Nuevo producto</Text>
+					</Flex>
 					<Formik
 						initialValues={initialValues}
 						validationSchema={Validations}
