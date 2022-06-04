@@ -116,6 +116,24 @@ const AgregarProducto: NextPage = () => {
 			stock: values.stock,
 			categoriaId: categoriaId,
 			imagenes: links,
+			periodos: [
+				{
+					duracion: "1",
+					precio: values.oneMonth,
+				},
+				{
+					duracion: "3",
+					precio: values.threeMonth,
+				},
+				{
+					duracion: "6",
+					precio: values.sixMonth,
+				},
+				{
+					duracion: "12",
+					precio: values.twelveMonth,
+				},
+			],
 		};
 
 		try {
@@ -128,11 +146,10 @@ const AgregarProducto: NextPage = () => {
 				title: "Se creó correctamente el producto",
 				showConfirmButton: false,
 				timer: 1500,
-			}).then(()=> {
+			}).then(() => {
 				redirect();
 				dispatch(addArrayImg([]));
 			});
-			
 		} catch (error: any) {
 			if (error.response.status === 500) {
 				Swal.fire({
