@@ -1,15 +1,23 @@
 import React from "react";
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { Provider } from "react-redux";
 import axios from "axios";
 import store from "../redux/store";
+import "@fontsource/dm-sans";
 axios.defaults.baseURL = "http://localhost:3001";
+
+const theme = extendTheme({
+	fonts: {
+		heading: "DM Sans",
+		body: "DM Sans",
+	},
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
-		<ChakraProvider>
+		<ChakraProvider theme={theme}>
 			<Provider store={store}>
 				<Component {...pageProps} />
 			</Provider>

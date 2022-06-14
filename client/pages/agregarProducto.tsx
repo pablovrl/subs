@@ -116,6 +116,24 @@ const AgregarProducto: NextPage = () => {
 			stock: values.stock,
 			categoriaId: categoriaId,
 			imagenes: links,
+			periodos: [
+				{
+					duracion: "1",
+					precio: values.oneMonth,
+				},
+				{
+					duracion: "3",
+					precio: values.threeMonth,
+				},
+				{
+					duracion: "6",
+					precio: values.sixMonth,
+				},
+				{
+					duracion: "12",
+					precio: values.twelveMonth,
+				},
+			],
 		};
 
 		try {
