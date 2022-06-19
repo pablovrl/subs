@@ -212,7 +212,6 @@ const AgregarProducto: NextPage = () => {
 								/>
 
 								<CardCategories
-									name={values.category}
 									handleChange={handleChange}
 								/>
 

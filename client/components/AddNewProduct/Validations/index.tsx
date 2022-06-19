@@ -6,14 +6,14 @@ const validationSchema = yup.object({
 		.min(3, "El nombre debe contener mínimo 3 letras.")
 		.max(50, "El nombre debe contener menos de 15 letras.")
 		.required("Por favor, ingresa un nombre.")
-		.matches(/^[aA-zZ\s]+$/, "El nombre solo puede contener letras y espacios."),
+		.matches(/^[aA-zZÀ-ÿ\s]+$/, "El nombre solo puede contener letras y espacios."),
 
 	description: yup
 		.string()
 		.min(10, "La descripción debe contener mínimo 10 letras.")
 		.max(200, "La descripción debe contener menos de 60 letras.")
 		.required("Por favor, ingrese una descripción.")
-		.matches(/^[A-Za-z0-9À-ÿ,\u00f1\u00d1.]+$/g, "La descripción solo puede contener letras, números, puntos y coma."),
+		.matches(/^[A-Za-z0-9À-ÿ /,\u00f1\u00d1.]+$/g, "La descripción solo puede contener letras, números, puntos y comas."),
 	
 	stock: yup
 		.string()

@@ -15,7 +15,6 @@ interface Categoria {
 interface SelectProps {
 	title: string;
 	categories: Categoria[];
-	value: string;
 	onChange: React.ChangeEventHandler<HTMLSelectElement>;
 	text: string;
 	fontSizeTitle?: TypographyProps["fontSize"];
@@ -25,7 +24,6 @@ interface SelectProps {
 export default function Select({
 	title,
 	categories,
-	value,
 	onChange,
 	text,
 	fontSizeTitle,
@@ -38,7 +36,6 @@ export default function Select({
 			</Flex>
 
 			<SelectCK
-				value={value}
 				name="category"
 				onChange={onChange}
 				w={{ base: "100%", sm: "16em", md: "80%" }}

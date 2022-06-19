@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import { addCategories } from "../../../redux/addNewProduct/action";
 
 interface CardAddCategoriesProps {
-	name: string;
 	handleChange: React.ChangeEventHandler<HTMLSelectElement>;
 }
 interface Categoria {
@@ -15,7 +14,6 @@ interface Categoria {
 }
 
 export default function CardAddCategories({
-	name,
 	handleChange,
 }: CardAddCategoriesProps) {
 	const [categories, setCategories] = useState<Categoria[]>([]);
@@ -52,7 +50,6 @@ export default function CardAddCategories({
 						<Select
 							title="Categoría principal"
 							categories={categories}
-							value={name}
 							text="Seleccione la categoría más relacionada con su producto."
 							fontSizeText={"sm"}
 							onChange={handleChange}
