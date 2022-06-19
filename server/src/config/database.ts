@@ -30,12 +30,6 @@ const insertData = async () => {
     "INSERT INTO vendedors VALUES (1, 'Pablo Villarroel', 'Pablo Shop', null, 1);"
   );
   await db.query(
-    "INSERT INTO productos VALUES (null, 'Video Games Box', 'Detalle', 30, 1);"
-  );
-  await db.query(
-    "INSERT INTO productos VALUES (null, 'Japanese Candy Box', 'Detalle', 30, 1);"
-  );
-  await db.query(
     "INSERT INTO categoria VALUES (null, 'Mascotas'), (null, 'Entretenimiento'), (null, 'Videojuegos'),  (null, 'Juegos de Mesa'), (null, 'Consumibles'), (null, 'Libros'), (null, 'Regalos'), (null, 'Baño y Belleza'), (null, 'Deporte'), (null, 'Adulto');"
   );
 };

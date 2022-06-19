@@ -1,28 +1,24 @@
 import { db } from "../config/database";
 import { DataTypes } from "sequelize";
-import Producto from "./producto";
 
-const Periodo = db.define(
-  "periodo",
+const Suscriptor = db.define(
+  "suscriptor",
   {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    duracion: {
+    nombreCompleto: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    precio: {
-      type: DataTypes.INTEGER,
+    rut: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
   },
   { timestamps: false }
 );
 
-Producto.hasMany(Periodo);
-Periodo.belongsTo(Producto);
-
-export default Periodo;
+export default Suscriptor;
