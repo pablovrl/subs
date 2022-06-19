@@ -238,6 +238,7 @@ const AgregarProducto: NextPage = () => {
 									marginTop={"5"}
 									display={{ base: "flex", lg: "none" }}
 									justifyContent="center"
+									alignItems={"center"}
 									flexDirection={"column"}
 								>
 									{viewErrors === true ? (
@@ -250,16 +251,20 @@ const AgregarProducto: NextPage = () => {
 										""
 									)}
 
-									<Button
-										marginTop={6}
-										type="submit"
-										ref={formButton}
-										variant="outline"
-										borderColor="#e2e8f0"
-										onClick={handleClickCrearProducto}
-									>
-										Crear producto
-									</Button>
+									<Flex w={"100%"} justifyContent={"center"}>
+										<Button
+											marginTop={6}
+											type="submit"
+											ref={formButton}
+											variant="outline"
+											borderColor="#e2e8f0"
+											onClick={handleClickCrearProducto}
+										>
+											Crear producto
+										</Button>
+
+									</Flex>
+								
 								</Flex>
 							</Form>
 						)}
