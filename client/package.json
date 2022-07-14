@@ -17,6 +17,8 @@
     "form-data": "^4.0.0",
     "formik": "^2.2.9",
     "framer-motion": "^6",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^2.3.3",
     "next": "12.1.5",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -25,8 +27,10 @@
     "react-redux": "^8.0.1",
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
+    "sequelize": "^6.21.3",
     "sweetalert2": "^11.4.14",
     "swiper": "^8.2.4",
+    "uuid": "^8.3.2",
     "yup": "^0.32.11"
   },
   "devDependencies": {
