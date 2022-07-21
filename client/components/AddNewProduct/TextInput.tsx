@@ -23,7 +23,7 @@ export default function InputText({
 	fontSizeInput,
 }: InputTextProps) {
 	return (
-		<Stack width={"100%"}>
+		<Stack w={"100%"}>
 			<Flex marginLeft={{base: 1, md: 2}} marginTop={{base: 1, md: 2}}>
 				<Text fontSize={fontSizeTitle}>{title}</Text>
 			</Flex>

@@ -84,6 +84,7 @@ export default function Navbar() {
 					</Link>
 					<HStack spacing={"20px"}>
 						<NavbarLink text="Agregar producto" href="/agregarProducto" />
+						<NavbarLink text="Editar producto" href="/editarProducto" />
 						<HStack>
 							<NavbarLink text="Iniciar Sesión" href="/" icon={<FaUserAlt />} />
 						</HStack>

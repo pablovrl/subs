@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
 import {
 	Box,
+	Button,
 	Flex,
 	Text,
 	Alert,
 	AlertIcon,
 	AlertTitle,
 	AlertDescription,
+  Drawer,
+	DrawerOverlay,
+	DrawerContent,
+	DrawerCloseButton,
+	useDisclosure,
 	SimpleGrid,
 	Spinner,
 } from "@chakra-ui/react";
@@ -14,8 +20,9 @@ import axios from "axios";
 import Image from "next/image";
 import Product from "../../interfaces/Product";
 import Link from "next/link";
+import DrawerEdit from "./DrawerEdit"
 
-export default function InterestedProducts({
+export default function Products({
 	filter,
 	query,
 }: {
@@ -24,17 +31,24 @@ export default function InterestedProducts({
 }) {
 	const [products, setProducts] = useState<Product[]>([]);
 	const [loading, setLoading] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+	const [productEdit, setProductEdit] = useState()
 
 	useEffect(() => {
 		const getProducts = async () => {
-			setLoading(true);
-			const link = filter ? `api/producto?${filter}=${query}` : "api/producto";
-			const prod = await axios.get(link);
+			const prod = await axios.get("api/producto");
 			setProducts(prod.data);
-			setLoading(false);
 		};
 		getProducts();
-	}, [filter, query]);
+	}, []);
+
+
+
+	function handleClickEdit( product: any){
+		setProductEdit(product)
+		onOpen()
+	}
+
 
 	if (loading) {
 		return (
@@ -67,6 +81,16 @@ export default function InterestedProducts({
 			</Alert>
 		);
 
+    const editProduct = () => (
+			<Drawer isOpen={isOpen} onClose={onClose} size="md" placement="left" >
+				<DrawerOverlay />
+				<DrawerContent>
+					<DrawerCloseButton />
+					<DrawerEdit productEdit={productEdit}/>
+				</DrawerContent>
+			</Drawer>
+		);
+
 	return (
 		<Flex
 			pt={4}
@@ -76,7 +100,7 @@ export default function InterestedProducts({
 		>
 			<SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ md: 3 }}>
 				{products.map((product: Product) => (
-					<Link key={product.id} href={`/producto/${product.id}`}>
+					
 						<Box mb={4} cursor="pointer">
 							{product.images.length > 0 ? (
 								<Box cursor={"pointer"}>
@@ -101,11 +125,20 @@ export default function InterestedProducts({
 								/>
 							)}
 							<Text>{product.nombre}</Text>
-							<Text fontSize={"xs"}>por {product.vendedor.nombreTienda}</Text>
+							
+							<Flex w={"100%"} justifyContent={"space-evenly"} mt={4}>
+								<Button onClick={()=> {handleClickEdit(product)}}>
+									Editar
+								</Button>
+								<Button>
+									 Eliminar
+								</Button>
+							</Flex>
 						</Box>
-					</Link>
+            
 				))}
 			</SimpleGrid>
+      {editProduct()}
 		</Flex>
 	);
 }

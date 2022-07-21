@@ -17,6 +17,7 @@ interface SelectProps {
 	categories: Categoria[];
 	onChange: React.ChangeEventHandler<HTMLSelectElement>;
 	text: string;
+	value?: any;
 	fontSizeTitle?: TypographyProps["fontSize"];
 	fontSizeText?: TypographyProps["fontSize"];
 }
@@ -25,6 +26,7 @@ export default function Select({
 	title,
 	categories,
 	onChange,
+	value,
 	text,
 	fontSizeTitle,
 	fontSizeText,
@@ -40,10 +42,16 @@ export default function Select({
 				onChange={onChange}
 				w={{ base: "100%", sm: "16em", md: "80%" }}
 			>
-				{categories.map((category) => (
-					<option key={category.id} value={category.id}>
+
+				{
+				categories.map((category) => (
+					value.id === category.id ? 
+					(<option key={category.id} value={category.id} selected>
 						{category.nombre}
-					</option>
+					</option>) : (<option key={category.id} value={category.id}>
+						{category.nombre}
+					</option>)
+					
 				))}
 			</SelectCK>
 

@@ -109,4 +109,15 @@ const getProductoById = async (req: Request, res: Response) => {
   }
 };
 
-export { createProducto, getProductos, getProductoById };
+const deleteProduct = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const producto = await Producto.findByPk(id);
+    await producto?.destroy()
+    return res.json(producto);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
+export { createProducto, getProductos, getProductoById, deleteProduct };
