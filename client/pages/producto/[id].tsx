@@ -19,6 +19,10 @@ import {
 import Navbar from "../../components/Navbar";
 import FilterInput from "../../components/FilterInput";
 import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
 
 const ProductDetails: NextPage = () => {
 	const router = useRouter();
@@ -56,14 +60,26 @@ const ProductDetails: NextPage = () => {
 				<FilterInput />
 				<Grid templateColumns="repeat(5, 1fr)" mt={8} gap={4}>
 					<GridItem colSpan={{ base: 5, md: 3 }}>
-						<Image
-							loader={() => `http://localhost:3001/${product.images[0].ruta}`}
-							src={`http://localhost:3001/${product.images[0].ruta}`}
-							width={720}
-							height={700}
-							objectFit="cover"
-							style={{ borderRadius: "8px" }}
-						/>
+						<Swiper
+							navigation={true}
+							modules={[Navigation]}
+							loop={product.images.length > 1}
+						>
+							{product.images.map((image) => (
+								<SwiperSlide key={image.id}>
+									<Box px={14}>
+										<Image
+											loader={() => `http://localhost:3001/${image.ruta}`}
+											src={`http://localhost:3001/${image.ruta}`}
+											width={720}
+											height={700}
+											objectFit="cover"
+											style={{ borderRadius: "8px", padding: "100px" }}
+										/>
+									</Box>
+								</SwiperSlide>
+							))}
+						</Swiper>
 					</GridItem>
 					<GridItem colSpan={{ base: 5, md: 2 }}>
 						<Flex
