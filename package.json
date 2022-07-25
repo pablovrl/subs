@@ -1,0 +1,50 @@
+{
+  "name": "cliente",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^1.8.8",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "@fontsource/dm-sans": "^4.5.7",
+    "axios": "^0.27.2",
+    "form-data": "^4.0.0",
+    "formik": "^2.2.9",
+    "framer-motion": "^6",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^2.3.3",
+    "next": "12.1.5",
+    "next-connect": "^0.13.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-dropzone": "^14.2.1",
+    "react-icons": "^4.3.1",
+    "react-redux": "^8.0.1",
+    "redux": "^4.2.0",
+    "redux-devtools-extension": "^2.13.9",
+    "sequelize": "^6.21.3",
+    "sweetalert2": "^11.4.14",
+    "swiper": "^8.2.4",
+    "uuid": "^8.3.2",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "@types/multer": "^1.4.7",
+    "@types/node": "17.0.27",
+    "@types/react": "18.0.6",
+    "@types/react-dom": "18.0.2",
+    "@types/uuid": "^8.3.4",
+    "@typescript-eslint/eslint-plugin": "^5.22.0",
+    "@typescript-eslint/parser": "^5.22.0",
+    "eslint": "8.14.0",
+    "eslint-config-next": "12.1.5",
+    "eslint-plugin-react": "^7.29.4",
+    "typescript": "4.6.3"
+  }
+}
