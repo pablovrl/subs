@@ -1,16 +1,63 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import Producto from "../../config/db/models/producto";
-import Categoria from "../../config/db/models/categoria";
-import Vendedor from "../../config/db/models/vendedor";
-import Image from "../../config/db/models/image";
-import Periodo from "../../config/db/models/periodo";
+import {
+	Producto,
+	Categoria,
+	Vendedor,
+	Image,
+	Periodo,
+	Pertenece,
+} from "../../../config/db/models";
 import { Op } from "sequelize";
 
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
+	if (req.method === "POST") {
+		const { nombre, detalles, stock, categoriaId, imagenes, periodos } =
+			req.body;
+
+		const producto = {
+			nombre,
+			detalles,
+			stock,
+		};
+
+		try {
+			const newProducto: any = await Producto.create({
+				...producto,
+				vendedorId: 1,
+			});
+			await Pertenece.create({
+				categoriumId: categoriaId,
+				productoId: newProducto.id,
+			});
+
+			imagenes.forEach((img: string, i: number) => {
+				Image.create({
+					ruta: img,
+					posicion: i + 1,
+					productoId: newProducto.id,
+				});
+			});
+
+			if (periodos) {
+				periodos.forEach((periodo: { duracion: string; precio: number }) => {
+					Periodo.create({
+						duracion: periodo.duracion,
+						precio: periodo.precio,
+						productoId: newProducto.id,
+					});
+				});
+			}
+
+			return res.status(201).json(newProducto);
+		} catch (error) {
+			return res.status(500).json(error);
+		}
+	}
+
 	const categoryId = req.query.categoria;
 	const search = req.query.nombre;
 
