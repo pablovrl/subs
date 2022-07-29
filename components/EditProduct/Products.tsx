@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import Image from "next/image";
-import Product from "../../interfaces/Product";
+import {Product} from "../../interfaces/Product";
 import Link from "next/link";
 import DrawerEdit from "./DrawerEdit"
 

@@ -45,10 +45,15 @@ export default function Select({
 
 				{
 				categories.map((category) => (
-					value.id === category.id ? 
-					(<option key={category.id} value={category.id} selected>
-						{category.nombre}
-					</option>) : (<option key={category.id} value={category.id}>
+
+					value !== undefined ? (
+						value.id === category.id ? 
+						(<option key={category.id} value={category.id} selected>
+							{category.nombre}
+						</option>) : (<option key={category.id} value={category.id}>
+							{category.nombre}
+						</option>)
+					):(<option key={category.id} value={category.id}>
 						{category.nombre}
 					</option>)
 					
