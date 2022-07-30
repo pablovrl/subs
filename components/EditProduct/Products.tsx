@@ -91,6 +91,11 @@ export default function Products({
 			</Drawer>
 		);
 
+
+		const handleClickDelete = () => {
+			
+		}
+
 	return (
 		<Flex
 			pt={4}
@@ -100,15 +105,14 @@ export default function Products({
 		>
 			<SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ md: 3 }}>
 				{products.map((product: Product) => (
-					
 						<Box mb={4} cursor="pointer">
-							{product.images.length > 0 ? (
+														{product.images.length > 0 ? (
 								<Box cursor={"pointer"}>
 									<Image
 										loader={() =>
-											`http://localhost:3001/${product.images[0].ruta}`
+											`${process.env.URL + "/" + product.images[0].ruta}`
 										}
-										src={`http://localhost:3001/${product.images[0].ruta}`}
+										src={`${process.env.URL + "/" + product.images[0].ruta}`}
 										width="600"
 										height="400"
 										objectFit="cover"
@@ -130,7 +134,7 @@ export default function Products({
 								<Button onClick={()=> {handleClickEdit(product)}}>
 									Editar
 								</Button>
-								<Button>
+								<Button onClick={()=> {handleClickDelete(product)}}>
 									 Eliminar
 								</Button>
 							</Flex>
