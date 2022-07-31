@@ -17,35 +17,38 @@ const validationSchema = yup.object({
 	
 	stock: yup
 		.string()
-		.min(2, "El stock debe ser superior a 10.")
-		.max(7, "El sotck no puede superar las 7 cifras.")
+		.max(7, "El stock no puede superar las 7 cifras.")
 		.required("Por favor, ingrese el número de stock de su producto.")
-		.matches(/^([0-9])*$/, "El precio solo puede contener números."),
+		.matches(/^[0-9]\d*$/, "El stock solo puede contener números")
+		.matches(/^[1-9]\d*$/, "El stock debe ser superior a 0"),
 
-	oneMonth: yup
+	oneMonth: yup 
 		.string()
-		.min(4, "El precio debe ser superior a $1000.")
 		.max(7, "El precio no puede superar las 7 cifras.")
 		.required("Por favor, ingrese un valor.")
-		.matches(/^([0-9])*$/, "El precio solo puede contener números."),
+		.matches(/^[0-9]\d*$/, "El precio solo puede contener números")
+		.matches(/^[1-9]\d*$/, "Introduzca un valor mayor a 1"),
+
 	threeMonth: yup
 		.string()
-		.min(4, "El precio debe ser superior a $1000.")
 		.max(7, "El precio no puede superar las 7 cifras.")
 		.required("Por favor, ingrese un valor.")
-		.matches(/^([0-9])*$/, "El precio solo puede contener números."),
+		.matches(/^[0-9]\d*$/, "El precio solo puede contener números")
+		.matches(/^[1-9]\d*$/, "Introduzca un valor mayor a 1"),
+
 	sixMonth: yup
 		.string()
-		.min(4, "El precio debe ser superior a $1000.")
 		.max(7, "El precio no puede superar las 7 cifras.")
 		.required("Por favor, ingrese un valor.")
-		.matches(/^([0-9])*$/, "El precio solo puede contener números."),
+		.matches(/^[0-9]\d*$/, "El precio solo puede contener números")
+		.matches(/^[1-9]\d*$/, "Introduzca un valor mayor a 1"),
+
 	twelveMonth: yup
 		.string()
-		.min(4, "El precio debe ser superior a $1000.")
 		.max(7, "El precio no puede superar las 7 cifras.")
 		.required("Por favor, ingrese un valor.")
-		.matches(/^([0-9])*$/, "El precio solo puede contener números."),
+		.matches(/^[0-9]\d*$/, "El precio solo puede contener números")
+		.matches(/^[1-9]\d*$/, "Introduzca un valor mayor a 1"),
 });
 
 export default validationSchema;

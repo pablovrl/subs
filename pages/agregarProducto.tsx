@@ -11,6 +11,7 @@ import FormData from "form-data";
 import imgType from "../interfaces/fileInput";
 import Errors from "../components/AddNewProduct/Errors";
 import { addArrayImg } from "../redux/addNewProduct/action";
+import NavBar from "../components/AddNewProduct/NavBarAddProduct/index"
 
 //*Components
 import CardBasic from "../components/AddNewProduct/Cards/CardBasic";
@@ -20,7 +21,6 @@ import CardCategories from "../components/AddNewProduct/Cards/CardAddCategories"
 import CardAddImg from "../components/AddNewProduct/Cards/CardAddImg";
 import CardSelectImg from "../components/AddNewProduct/Cards/CardSelectImg";
 import MyFormValues from "../interfaces/MyFormValues";
-import CardRight from "../components/AddNewProduct/Cards/CardRight";
 import type { NextPage } from "next";
 import Validations from "../components/AddNewProduct/Validations";
 
@@ -69,6 +69,7 @@ const AgregarProducto: NextPage = () => {
 	};
 
 	const submitForm = (values: MyFormValues) => {
+
 		if (state.arrayImg.images.length > 0) {
 			setErrorImg(false);
 
@@ -105,7 +106,7 @@ const AgregarProducto: NextPage = () => {
 		let categoriaId = "";
 
 		for (let i = 0; i < state.arrayCategories.categories.length; i++) {
-			if (values.category === state.arrayCategories.categories[i].nombre) {
+			if (values.category == state.arrayCategories.categories[i].id) {
 				categoriaId = state.arrayCategories.categories[i].id;
 			}
 		}
@@ -173,6 +174,7 @@ const AgregarProducto: NextPage = () => {
 			setErrorImg(false);
 			if (state.arrayImg.firstImg === false) {
 				setErrorSelectedImg(true);
+				console.log("lol")
 			} else {
 				setErrorSelectedImg(false);
 			}
@@ -183,19 +185,16 @@ const AgregarProducto: NextPage = () => {
 
 	return (
 		<>
-			{/* <Flex position={"absolute"} zIndex={-1} bgColor={"red"} w={"40em"} h={"40em"}>
-				<Flex  />
-			</Flex> */}
-
-			<Flex flexDirection={"row"}>
+			<NavBar />
+			<Flex w={"100%"} justifyContent={"center"} >
 				<Flex
-					width={{ base: "100%", lg: "60%" }}
+					width={{ base: "100%" }}
 					justifyContent={{ base: "center", lg: "start" }}
-					paddingLeft={{ base: "0vw", lg: "6vw" }}
+					paddingLeft={{ base: "0vw"}}
 					paddingBottom={"2em"}
 					flexDirection={"column"}
 				>
-					<Flex justifyContent={"center"} marginTop={"5"} id={"basic"}>
+					<Flex justifyContent={"center"} marginTop={"5"} marginBottom={"4"} id={"basic"}>
 						<Text fontSize={"xx-large"}>Nuevo producto</Text>
 					</Flex>
 					<Formik
@@ -213,9 +212,7 @@ const AgregarProducto: NextPage = () => {
 						}) => (
 							<Form onSubmit={handleSubmit} id="form">
 								<FormObserver
-									setProductDatas={setProductDatas}
 									setBasicError={setBasicError}
-									basicError={basicError}
 								/>
 
 								<CardBasic
@@ -254,7 +251,6 @@ const AgregarProducto: NextPage = () => {
 								<Flex
 									w={"100%"}
 									marginTop={"5"}
-									display={{ base: "flex", lg: "none" }}
 									justifyContent="center"
 									alignItems={"center"}
 									flexDirection={"column"}
@@ -273,62 +269,19 @@ const AgregarProducto: NextPage = () => {
 										<Button
 											marginTop={6}
 											type="submit"
-											ref={formButton}
 											variant="outline"
 											borderColor="#e2e8f0"
 											onClick={handleClickCrearProducto}
 										>
 											Crear producto
 										</Button>
-
 									</Flex>
-								
+									
 								</Flex>
 							</Form>
 						)}
 					</Formik>
 				</Flex>
-				<CardRight
-					productDatas={productDatas}
-					imgs={state.arrayImg.images}
-					firstImg={state.arrayImg.sortImg}
-					refButton={formButton}
-					errors={basicError}
-					errorImg={errorImg}
-					viewErrors={viewErrors}
-					errorSelectedImg={errorSelectedImg}
-				/>
-				{loading && (
-					<Box
-						position={"fixed"}
-						bgColor={"black"}
-						opacity={0.5}
-						w={"100%"}
-						top={"0%"}
-						h={"100%"}
-					>
-						<Flex
-							justifyContent={"center"}
-							height={"100%"}
-							alignItems={"center"}
-						>
-							<Spinner
-								thickness="4px"
-								speed="0.6s"
-								emptyColor="gray.400"
-								color="purple.400"
-								size="xl"
-							/>
-							<button
-								onClick={() => {
-									setLoading(false);
-								}}
-							>
-								false
-							</button>
-						</Flex>
-					</Box>
-				)}
 			</Flex>
 		</>
 	);

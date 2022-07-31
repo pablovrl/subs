@@ -11,6 +11,7 @@ import {
 	DrawerContent,
 	DrawerCloseButton,
 	Text,
+	Image,
 	Link as CLink,
 	Container,
 } from "@chakra-ui/react";
@@ -78,8 +79,8 @@ export default function Navbar() {
 			<Container maxW="container.xl">
 				<Flex alignItems={"center"} justifyContent={"space-between"}>
 					<Link href={"/"}>
-						<CLink px={4}>
-							<Text fontSize={"4xl"}>Logo</Text>
+						<CLink px={4} py={2} >
+                <Image src={"logoSus.png"} w={32} h={"auto"}/>
 						</CLink>
 					</Link>
 					<HStack spacing={"20px"}>
