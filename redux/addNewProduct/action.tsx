@@ -30,4 +30,4 @@ const addCategories = (categories: string[]) => {
 	};
 };
 
-export { addArrayImg, addFirstImg, addSortImg,addCategories };
+export { addArrayImg, addFirstImg, addSortImg, addCategories };

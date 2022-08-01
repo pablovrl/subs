@@ -36,28 +36,28 @@ export default function Errors({
 				</Flex>
 			)}
 			{errors.stock && (
-				<Flex marginLeft={1} marginTop={0.5}>
-					<Text color={"red"}>{errors.stock}</Text>
+				<Flex marginLeft={1} marginTop={0.5} px={5}>
+					<Text color={"red"}>{errors.stock} en el stock del producto.</Text>
 				</Flex>
 			)}
 			{errors.oneMonth && (
-				<Flex marginLeft={1} marginTop={0.5}>
-					<Text color={"red"}>{errors.oneMonth}</Text>
+				<Flex marginLeft={1} marginTop={0.5} px={5}>
+					<Text color={"red"}>{errors.oneMonth} en el precio de un mes del producto.</Text>
 				</Flex>
 			)}
 			{errors.threeMonth && (
-				<Flex marginLeft={1} marginTop={0.5}>
-					<Text color={"red"}>{errors.threeMonth}</Text>
+				<Flex marginLeft={1} marginTop={0.5} px={5}>
+					<Text color={"red"}>{errors.threeMonth} en el precio de tres meses del producto.</Text>
 				</Flex>
 			)}
 			{errors.sixMonth && (
-				<Flex marginLeft={1} marginTop={0.5}>
-					<Text color={"red"}>{errors.sixMonth}</Text>
+				<Flex marginLeft={1} marginTop={0.5} px={5}>
+					<Text color={"red"}>{errors.sixMonth} en el precio de seis meses del producto.</Text>
 				</Flex>
 			)}
 			{errors.twelveMonth && (
-				<Flex marginLeft={1} marginTop={0.5}>
-					<Text color={"red"}>{errors.twelveMonth}</Text>
+				<Flex marginLeft={1} marginTop={0.5} px={5}>
+					<Text color={"red"}>{errors.twelveMonth} en el precio de doce meses del producto.</Text>
 				</Flex>
 			)}
 		</Flex>

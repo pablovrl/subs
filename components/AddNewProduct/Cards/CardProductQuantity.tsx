@@ -7,6 +7,7 @@ import {
 	Box,
 	NumberInput,
 	NumberInputField,
+	Input,
 	Stack,
 } from "@chakra-ui/react";
 
@@ -47,15 +48,12 @@ export default function CardProductQuantify({
 								<Text>Cantidad de stock disponible</Text>
 							</Flex>
 
-							<NumberInput>
-								<NumberInputField
-									placeholder="Número de stock del producto"
-									onChange={handleChange}
-									maxLength={7}
-									name="stock"
-									onBlur={handleBlur}
-								/>
-							</NumberInput>
+							<Input placeholder="Número de stock del producto" 
+								onChange={handleChange}
+								maxLength={7}
+								name={"stock"}
+								onBlur={handleBlur}
+							/>
 
 							{touched.stock && errors.stock && (
 								<Flex w={"88%"} marginLeft={1} marginTop={0.5}>

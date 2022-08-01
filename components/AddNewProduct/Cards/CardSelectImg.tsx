@@ -141,10 +141,10 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 			return (
 				<Flex
 					marginTop={"4"}
-					paddingX={"6"}
+					paddingX={"8"}
 					justifyContent={{ base: "start", md: "center" }}
 				>
-					<Text>Se necesita que ingrese por lo menos una imagen.</Text>
+					<Text>Es necesario que ingrese por lo menos una imagen para escoger la portada del producto.</Text>
 				</Flex>
 			);
 		}

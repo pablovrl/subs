@@ -32,7 +32,7 @@ export default function TextArea({
 				fontSize={fontSizeInput}
 				height={{base: "3em", md: "8em"}}
 				onChange={onChange}
-				resize={"none"}
+				resize="none"
 				placeholder={placeHolder}
 				value={value}
 				onBlur={handleBlur}
