@@ -18,9 +18,10 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import Image from "next/image";
-import {Product} from "../../interfaces/Product";
-import Link from "next/link";
+import Product from "../../interfaces/Product";
 import DrawerEdit from "./DrawerEdit"
+import Swal from 'sweetalert2'
+
 
 export default function Products({
 	filter,
@@ -32,7 +33,7 @@ export default function Products({
 	const [products, setProducts] = useState<Product[]>([]);
 	const [loading, setLoading] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
-	const [productEdit, setProductEdit] = useState()
+	const [productEdit, setProductEdit] = useState();
 
 	useEffect(() => {
 		const getProducts = async () => {
@@ -40,7 +41,7 @@ export default function Products({
 			setProducts(prod.data);
 		};
 		getProducts();
-	}, []);
+	}, [products]);
 
 
 
@@ -92,9 +93,39 @@ export default function Products({
 		);
 
 
-		const handleClickDelete = () => {
-			
+		const handleClickDelete = async (product: any) => {
+
+			Swal.fire({
+				title: '¿Está seguro que desea eliminar este producto?',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonText: 'Si',
+				confirmButtonColor: 'green',
+				cancelButtonColor: 'red',
+				cancelButtonText: `No`,
+			}).then((result) => {
+				/* Read more about isConfirmed, isDenied below */
+				if (result.isConfirmed) {
+					deleteProduct()
+					Swal.fire({
+						position: 'center',
+						icon: 'success',
+						title: 'El producto fue eliminado correctamente',
+						showConfirmButton: false,
+						timer: 1200
+					})
+				}
+			})
+		
+			const deleteProduct = async() => {
+				await axios.delete("/api/producto/"+product.id);
+				
+				const prod = await axios.get("api/producto");
+				setProducts(prod.data);
+			}
 		}
+
+		
 
 	return (
 		<Flex
@@ -131,9 +162,9 @@ export default function Products({
 							<Text>{product.nombre}</Text>
 							
 							<Flex w={"100%"} justifyContent={"space-evenly"} mt={4}>
-								<Button onClick={()=> {handleClickEdit(product)}}>
+								{/* <Button onClick={()=> {handleClickEdit(product)}}>
 									Editar
-								</Button>
+								</Button> */}
 								<Button onClick={()=> {handleClickDelete(product)}}>
 									 Eliminar
 								</Button>

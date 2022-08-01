@@ -3,7 +3,6 @@ import { Box, Container, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Navbar from "../components/Navbar";
 import Products from "../components/EditProduct/Products";
-import FilterInput from "../components/FilterInput";
 
 const editarProducto: NextPage = () => {
 	return (

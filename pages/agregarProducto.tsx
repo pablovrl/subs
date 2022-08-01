@@ -144,9 +144,9 @@ const AgregarProducto: NextPage = () => {
 			Swal.fire({
 				position: "center",
 				icon: "success",
-				title: "Se creó correctamente el producto",
+				title: "El producto se creó correctamente",
 				showConfirmButton: false,
-				timer: 1500,
+				timer: 1200,
 			}).then(() => {
 				redirect();
 				dispatch(addArrayImg([]));
@@ -232,14 +232,14 @@ const AgregarProducto: NextPage = () => {
 
 								<CardAddImg error={errorImg} />
 
+								<CardSelectImg error={errorSelectedImg} />
+
 								<CardProductQuantity
 									errors={errors}
 									touched={touched}
 									handleBlur={handleBlur}
 									handleChange={handleChange}
 								/>
-
-								<CardSelectImg error={errorSelectedImg} />
 
 								<CardPriceProduct
 									errors={errors}

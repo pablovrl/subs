@@ -10,7 +10,6 @@ import {
 	DrawerOverlay,
 	DrawerContent,
 	DrawerCloseButton,
-	Text,
 	Image,
 	Link as CLink,
 	Container,
@@ -75,17 +74,17 @@ export default function Navbar() {
 	);
 
 	return (
-		<Box px={2}>
+		<Box px={2} borderColor={"gray.200"} borderBottomWidth={1} bgColor={"white"}>
 			<Container maxW="container.xl">
 				<Flex alignItems={"center"} justifyContent={"space-between"}>
 					<Link href={"/"}>
 						<CLink px={4} py={2} >
-                <Image src={"logoSus.png"} w={32} h={"auto"}/>
+                <Image src={"logoSus.png"} w={32} h={"auto"} /> 
 						</CLink>
 					</Link>
 					<HStack spacing={"20px"}>
 						<NavbarLink text="Agregar producto" href="/agregarProducto" />
-						<NavbarLink text="Editar producto" href="/editarProducto" />
+						<NavbarLink text="Eliminar producto" href="/editarProducto" />
 						<HStack>
 							<NavbarLink text="Iniciar Sesión" href="/" icon={<FaUserAlt />} />
 						</HStack>
