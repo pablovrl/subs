@@ -32,6 +32,7 @@ export default function Products({
 	const [products, setProducts] = useState<Product[]>([]);
 	const [loading, setLoading] = useState(false);
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const [newProducts, setNewProducts] = useState<Product[]>([]);
 	const [productEdit, setProductEdit] = useState();
 
 	useEffect(() => {
@@ -40,7 +41,7 @@ export default function Products({
 			setProducts(prod.data);
 		};
 		getProducts();
-	}, [products]);
+	}, [newProducts]);
 
 	function handleClickEdit(product: any) {
 		setProductEdit(product);
@@ -113,9 +114,8 @@ export default function Products({
 
 		const deleteProduct = async () => {
 			await axios.delete("/api/producto/" + product.id);
-
 			const prod = await axios.get("api/producto");
-			setProducts(prod.data);
+			setNewProducts(prod.data);
 		};
 	};
 
