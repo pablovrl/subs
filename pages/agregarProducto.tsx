@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Flex, Text, Button, Spinner, Box } from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
+import { Flex, Text, Button } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 import FormObserver from "../components/AddNewProduct/FormObserver";
 
@@ -11,7 +11,7 @@ import FormData from "form-data";
 import imgType from "../interfaces/fileInput";
 import Errors from "../components/AddNewProduct/Errors";
 import { addArrayImg } from "../redux/addNewProduct/action";
-import NavBar from "../components/AddNewProduct/NavBarAddProduct/index"
+import NavBar from "../components/AddNewProduct/NavBarAddProduct/index";
 
 //*Components
 import CardBasic from "../components/AddNewProduct/Cards/CardBasic";
@@ -26,12 +26,12 @@ import Validations from "../components/AddNewProduct/Validations";
 
 const AgregarProducto: NextPage = () => {
 	const router = useRouter();
+	const dispatch = useDispatch();
 	const [errorImg, setErrorImg] = useState(false);
 	const [basicError, setBasicError] = useState();
-	const [loading, setLoading] = useState(false);
 	const [viewErrors, setViewError] = useState(false);
 	const [errorSelectedImg, setErrorSelectedImg] = useState(false);
-	const dispatch = useDispatch();
+	const [createProduct, setCreateProduct] = useState(false);
 	const state = useSelector((state: any) => state);
 	const [productDatas, setProductDatas] = useState({
 		name: "",
@@ -44,7 +44,6 @@ const AgregarProducto: NextPage = () => {
 		sixMonth: "",
 		twelveMonth: "",
 	});
-	const formButton = useRef(null);
 
 	useEffect(() => {
 		if (state.arrayImg.images.length > 0) {
@@ -53,6 +52,7 @@ const AgregarProducto: NextPage = () => {
 
 		if (state.arrayImg.firstImg === true) {
 			setErrorSelectedImg(false);
+			setCreateProduct(false);
 		}
 	}, [state]);
 
@@ -69,17 +69,21 @@ const AgregarProducto: NextPage = () => {
 	};
 
 	const submitForm = (values: MyFormValues) => {
+		if (errorSelectedImg === false) {
+			if (createProduct === false) {
+				if (state.arrayImg.images.length > 0) {
+					setErrorImg(false);
 
-		if (state.arrayImg.images.length > 0) {
-			setErrorImg(false);
-
-			if (state.arrayImg.firstImg === true) {
-				postImg(values);
-			} else {
-				setErrorSelectedImg(true);
+					if (state.arrayImg.firstImg === true) {
+						postImg(values);
+						setCreateProduct(true);
+					} else {
+						setErrorSelectedImg(true);
+					}
+				} else {
+					setErrorImg(true);
+				}
 			}
-		} else {
-			setErrorImg(true);
 		}
 	};
 
@@ -97,6 +101,7 @@ const AgregarProducto: NextPage = () => {
 				"Content-Type": "multipart/form-data",
 			},
 		});
+
 		links = res.data.paths;
 
 		postSortImg(links, values);
@@ -138,9 +143,7 @@ const AgregarProducto: NextPage = () => {
 		};
 
 		try {
-			setLoading(true);
 			await axios.post("/api/producto", body);
-			setLoading(false);
 			Swal.fire({
 				position: "center",
 				icon: "success",
@@ -174,7 +177,6 @@ const AgregarProducto: NextPage = () => {
 			setErrorImg(false);
 			if (state.arrayImg.firstImg === false) {
 				setErrorSelectedImg(true);
-				console.log("lol")
 			} else {
 				setErrorSelectedImg(false);
 			}
@@ -186,15 +188,20 @@ const AgregarProducto: NextPage = () => {
 	return (
 		<>
 			<NavBar />
-			<Flex w={"100%"} justifyContent={"center"} >
+			<Flex w={"100%"} justifyContent={"center"}>
 				<Flex
 					width={{ base: "100%" }}
 					justifyContent={{ base: "center", lg: "start" }}
-					paddingLeft={{ base: "0vw"}}
+					paddingLeft={{ base: "0vw" }}
 					paddingBottom={"2em"}
 					flexDirection={"column"}
 				>
-					<Flex justifyContent={"center"} marginTop={"5"} marginBottom={"4"} id={"basic"}>
+					<Flex
+						justifyContent={"center"}
+						marginTop={"5"}
+						marginBottom={"4"}
+						id={"basic"}
+					>
 						<Text fontSize={"xx-large"}>Nuevo producto</Text>
 					</Flex>
 					<Formik
@@ -202,18 +209,9 @@ const AgregarProducto: NextPage = () => {
 						validationSchema={Validations}
 						onSubmit={submitForm}
 					>
-						{({
-							values,
-							errors,
-							touched,
-							handleSubmit,
-							handleChange,
-							handleBlur,
-						}) => (
-							<Form onSubmit={handleSubmit} id="form">
-								<FormObserver
-									setBasicError={setBasicError}
-								/>
+						{({ values, errors, touched, handleChange, handleBlur }) => (
+							<Form id="form">
+								<FormObserver setBasicError={setBasicError} />
 
 								<CardBasic
 									name={values.name}
@@ -226,9 +224,7 @@ const AgregarProducto: NextPage = () => {
 									touched={touched}
 								/>
 
-								<CardCategories
-									handleChange={handleChange}
-								/>
+								<CardCategories handleChange={handleChange} />
 
 								<CardAddImg error={errorImg} />
 
@@ -276,7 +272,6 @@ const AgregarProducto: NextPage = () => {
 											Crear producto
 										</Button>
 									</Flex>
-									
 								</Flex>
 							</Form>
 						)}
