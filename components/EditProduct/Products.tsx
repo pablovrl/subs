@@ -8,7 +8,7 @@ import {
 	AlertIcon,
 	AlertTitle,
 	AlertDescription,
-  Drawer,
+	Drawer,
 	DrawerOverlay,
 	DrawerContent,
 	DrawerCloseButton,
@@ -19,9 +19,8 @@ import {
 import axios from "axios";
 import Image from "next/image";
 import Product from "../../interfaces/Product";
-import DrawerEdit from "./DrawerEdit"
-import Swal from 'sweetalert2'
-
+import DrawerEdit from "./DrawerEdit";
+import Swal from "sweetalert2";
 
 export default function Products({
 	filter,
@@ -32,7 +31,7 @@ export default function Products({
 }) {
 	const [products, setProducts] = useState<Product[]>([]);
 	const [loading, setLoading] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [productEdit, setProductEdit] = useState();
 
 	useEffect(() => {
@@ -43,13 +42,10 @@ export default function Products({
 		getProducts();
 	}, [products]);
 
-
-
-	function handleClickEdit( product: any){
-		setProductEdit(product)
-		onOpen()
+	function handleClickEdit(product: any) {
+		setProductEdit(product);
+		onOpen();
 	}
-
 
 	if (loading) {
 		return (
@@ -82,50 +78,46 @@ export default function Products({
 			</Alert>
 		);
 
-    const editProduct = () => (
-			<Drawer isOpen={isOpen} onClose={onClose} size="md" placement="left" >
-				<DrawerOverlay />
-				<DrawerContent>
-					<DrawerCloseButton />
-					<DrawerEdit productEdit={productEdit}/>
-				</DrawerContent>
-			</Drawer>
-		);
+	const editProduct = () => (
+		<Drawer isOpen={isOpen} onClose={onClose} size="md" placement="left">
+			<DrawerOverlay />
+			<DrawerContent>
+				<DrawerCloseButton />
+				<DrawerEdit productEdit={productEdit} />
+			</DrawerContent>
+		</Drawer>
+	);
 
-
-		const handleClickDelete = async (product: any) => {
-
-			Swal.fire({
-				title: '¿Está seguro que desea eliminar este producto?',
-				icon: 'warning',
-				showCancelButton: true,
-				confirmButtonText: 'Si',
-				confirmButtonColor: 'green',
-				cancelButtonColor: 'red',
-				cancelButtonText: `No`,
-			}).then((result) => {
-				/* Read more about isConfirmed, isDenied below */
-				if (result.isConfirmed) {
-					deleteProduct()
-					Swal.fire({
-						position: 'center',
-						icon: 'success',
-						title: 'El producto fue eliminado correctamente',
-						showConfirmButton: false,
-						timer: 1200
-					})
-				}
-			})
-		
-			const deleteProduct = async() => {
-				await axios.delete("/api/producto/"+product.id);
-				
-				const prod = await axios.get("api/producto");
-				setProducts(prod.data);
+	const handleClickDelete = async (product: any) => {
+		Swal.fire({
+			title: "¿Está seguro que desea eliminar este producto?",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Si",
+			confirmButtonColor: "green",
+			cancelButtonColor: "red",
+			cancelButtonText: "No",
+		}).then((result) => {
+			/* Read more about isConfirmed, isDenied below */
+			if (result.isConfirmed) {
+				deleteProduct();
+				Swal.fire({
+					position: "center",
+					icon: "success",
+					title: "El producto fue eliminado correctamente",
+					showConfirmButton: false,
+					timer: 1200,
+				});
 			}
-		}
+		});
 
-		
+		const deleteProduct = async () => {
+			await axios.delete("/api/producto/" + product.id);
+
+			const prod = await axios.get("api/producto");
+			setProducts(prod.data);
+		};
+	};
 
 	return (
 		<Flex
@@ -136,44 +128,47 @@ export default function Products({
 		>
 			<SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ md: 3 }}>
 				{products.map((product: Product) => (
-						<Box mb={4} cursor="pointer">
-														{product.images.length > 0 ? (
-								<Box cursor={"pointer"}>
-									<Image
-										loader={() =>
-											`${process.env.URL + "/" + product.images[0].ruta}`
-										}
-										src={`${process.env.URL + "/" + product.images[0].ruta}`}
-										width="600"
-										height="400"
-										objectFit="cover"
-									/>
-								</Box>
-							) : (
-								<img
-									src="https://profesional.tarkett.es/media/img/M/THH_25121917_25131917_25126917_25136917_001.jpg"
-									style={{
-										width: "320px",
-										height: "200px",
-										objectFit: "cover",
-									}}
+					<Box key={product.id} mb={4} cursor="pointer">
+						{product.images.length > 0 ? (
+							<Box cursor={"pointer"}>
+								<Image
+									loader={() =>
+										`${process.env.URL + "/" + product.images[0].ruta}`
+									}
+									src={`${process.env.URL + "/" + product.images[0].ruta}`}
+									width="600"
+									height="400"
+									objectFit="cover"
 								/>
-							)}
-							<Text>{product.nombre}</Text>
-							
-							<Flex w={"100%"} justifyContent={"space-evenly"} mt={4}>
-								{/* <Button onClick={()=> {handleClickEdit(product)}}>
+							</Box>
+						) : (
+							<img
+								src="https://profesional.tarkett.es/media/img/M/THH_25121917_25131917_25126917_25136917_001.jpg"
+								style={{
+									width: "320px",
+									height: "200px",
+									objectFit: "cover",
+								}}
+							/>
+						)}
+						<Text>{product.nombre}</Text>
+
+						<Flex w={"100%"} justifyContent={"space-evenly"} mt={4}>
+							{/* <Button onClick={()=> {handleClickEdit(product)}}>
 									Editar
 								</Button> */}
-								<Button onClick={()=> {handleClickDelete(product)}}>
-									 Eliminar
-								</Button>
-							</Flex>
-						</Box>
-            
+							<Button
+								onClick={() => {
+									handleClickDelete(product);
+								}}
+							>
+								Eliminar
+							</Button>
+						</Flex>
+					</Box>
 				))}
 			</SimpleGrid>
-      {editProduct()}
+			{editProduct()}
 		</Flex>
 	);
 }

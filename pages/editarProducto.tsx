@@ -7,10 +7,10 @@ import Products from "../components/EditProduct/Products";
 const editarProducto: NextPage = () => {
 	return (
 		<Box>
-      <Navbar />
+			<Navbar />
 			<Container maxW="container.lg">
 				<Text mx={"8"} mt={4} fontSize={"2xl"} textAlign={"center"}>
-           Mis productos
+					Mis productos
 				</Text>
 				<Products />
 			</Container>
