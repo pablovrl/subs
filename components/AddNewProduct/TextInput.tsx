@@ -5,6 +5,7 @@ interface InputTextProps {
 	title: string;
 	name: string;
 	placeHolder: string;
+	maxLenght: number,
 	onChange: React.ChangeEventHandler<HTMLInputElement>;
 	value: string;
 	handleBlur: React.FocusEventHandler<HTMLInputElement>;
@@ -17,6 +18,7 @@ export default function InputText({
 	name,
 	placeHolder,
 	onChange,
+	maxLenght,
 	value,
 	handleBlur,
 	fontSizeTitle,
@@ -31,6 +33,7 @@ export default function InputText({
 				name={name}
 				fontSize={fontSizeInput}
 				onChange={onChange}
+				maxLength={maxLenght}
 				height={{base: "2em", md: "3em"}}
 				value={value}
 				placeholder={placeHolder}

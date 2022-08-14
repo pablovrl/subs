@@ -7,6 +7,7 @@ interface TextAreaProps {
 	placeHolder: string;
 	onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
 	value: string;
+	maxLenght: number,
 	handleBlur: React.FocusEventHandler<HTMLTextAreaElement>;
 	fontSizeTitle?: TypographyProps["fontSize"];
 	fontSizeInput?: TypographyProps["fontSize"];
@@ -17,6 +18,7 @@ export default function TextArea({
 	name,
 	placeHolder,
 	onChange,
+	maxLenght,
 	value,
 	handleBlur,
 	fontSizeTitle,
@@ -33,6 +35,7 @@ export default function TextArea({
 				height={{base: "3em", md: "8em"}}
 				onChange={onChange}
 				resize="none"
+				maxLength={maxLenght}
 				placeholder={placeHolder}
 				value={value}
 				onBlur={handleBlur}

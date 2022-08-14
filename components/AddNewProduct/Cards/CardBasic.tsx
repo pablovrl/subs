@@ -51,6 +51,7 @@ export default function cardBasic({
 								title="Nombre"
 								name="name"
 								placeHolder="Ingrese el nombre del producto"
+								maxLenght={100}
 								value={name}
 								handleBlur={handleBlurInput}
 								onChange={handleChangeInput}
@@ -68,6 +69,7 @@ export default function cardBasic({
 								title="Descripción"
 								name="description"
 								placeHolder="Ingrese la descripción del producto"
+								maxLenght={250}
 								value={description}
 								handleBlur={handleBlurTextArea}
 								onChange={handleChangeTextArea}

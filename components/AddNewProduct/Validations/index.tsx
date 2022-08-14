@@ -4,7 +4,7 @@ const validationSchema = yup.object({
 	name: yup
 		.string()
 		.min(3, "El nombre debe contener mínimo 3 letras.")
-		.max(50, "El nombre debe contener menos de 15 letras.")
+		.max(100, "El nombre debe contener menos de 15 letras.")
 		.required("Por favor, ingresa un nombre.")
 		.matches(/^[aA-zZÀ-ÿ\s]+$/, "El nombre solo puede contener letras y espacios."),
 
