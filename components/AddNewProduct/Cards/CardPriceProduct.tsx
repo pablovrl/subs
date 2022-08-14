@@ -5,10 +5,8 @@ import {
 	Flex,
 	Text,
 	Box,
-	NumberInput,
 	Stack,
-	NumberInputField,
-	Input
+	Input,
 } from "@chakra-ui/react";
 
 interface CardPriceProductProps {
@@ -45,7 +43,9 @@ export default function CardPricesProduct({
 
 					<Flex marginTop={"4"} w={"100%"} justifyContent={"center"}>
 						<Text w={{ base: "100%", md: "80%" }} paddingX={"8"}>
-						En esta sección se requiere que agregues los valores correspondientes según la cantidad de meses que se adquiera tu producto.
+							En esta sección se requiere que agregues los valores
+							correspondientes según la cantidad de meses que se adquiera tu
+							producto.
 						</Text>
 					</Flex>
 					<Flex marginTop={"4"} paddingX={"6"} justifyContent={"center"}>
@@ -55,12 +55,13 @@ export default function CardPricesProduct({
 								justifyContent={{ base: "space-between", md: "space-around" }}
 							>
 								<Text marginLeft={{ base: 1, md: 3 }}>1 Mes</Text>
-								<Input placeholder="Precio 1 mes"
-								w={"60%"}
-								onChange={handleChange}
-								maxLength={7}
-								name="oneMonth"
-								onBlur={handleBlur}
+								<Input
+									placeholder="Precio 1 mes"
+									w={"60%"}
+									onChange={handleChange}
+									maxLength={7}
+									name="oneMonth"
+									onBlur={handleBlur}
 								/>
 							</Flex>
 							{touched.oneMonth && errors.oneMonth && (
@@ -79,12 +80,13 @@ export default function CardPricesProduct({
 								justifyContent={{ base: "space-between", md: "space-around" }}
 							>
 								<Text textAlign={"center"}>3 Meses</Text>
-								<Input placeholder="Precio 3 meses"
-								w={"60%"}
-								onChange={handleChange}
-								maxLength={7}
-								name="threeMonth"
-								onBlur={handleBlur}
+								<Input
+									placeholder="Precio 3 meses"
+									w={"60%"}
+									onChange={handleChange}
+									maxLength={7}
+									name="threeMonth"
+									onBlur={handleBlur}
 								/>
 							</Flex>
 							{touched.threeMonth && errors.threeMonth && (
@@ -103,12 +105,13 @@ export default function CardPricesProduct({
 								justifyContent={{ base: "space-between", md: "space-around" }}
 							>
 								<Text textAlign={"center"}>6 Meses</Text>
-								<Input placeholder="Precio 6 meses"
-								w={"60%"}
-								onChange={handleChange}
-								maxLength={7}
-								name="sixMonth"
-								onBlur={handleBlur}
+								<Input
+									placeholder="Precio 6 meses"
+									w={"60%"}
+									onChange={handleChange}
+									maxLength={7}
+									name="sixMonth"
+									onBlur={handleBlur}
 								/>
 							</Flex>
 							{touched.sixMonth && errors.sixMonth && (
@@ -127,12 +130,13 @@ export default function CardPricesProduct({
 								justifyContent={{ base: "space-between", md: "space-around" }}
 							>
 								<Text textAlign={"center"}>12 Meses</Text>
-								<Input placeholder="Precio 12 meses"
-								w={"60%"}
-								onChange={handleChange}
-								maxLength={7}
-								name="twelveMonth"
-								onBlur={handleBlur}
+								<Input
+									placeholder="Precio 12 meses"
+									w={"60%"}
+									onChange={handleChange}
+									maxLength={7}
+									name="twelveMonth"
+									onBlur={handleBlur}
 								/>
 							</Flex>
 							{touched.twelveMonth && errors.twelveMonth && (
