@@ -1,12 +1,10 @@
-import { NextPage } from "next";
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { GetServerSideProps, NextPage } from "next";
+import React, { useState } from "react";
 import axios from "axios";
 import Product from "../../interfaces/Product";
 import PriceBox from "../../components/PriceBox";
 import {
 	Box,
-	Container,
 	Flex,
 	Heading,
 	SimpleGrid,
@@ -16,48 +14,39 @@ import {
 	Button,
 	Divider,
 } from "@chakra-ui/react";
-import Navbar from "../../components/Navbar";
-import FilterInput from "../../components/FilterInput";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
+import Layout from "../../components/Layout";
 
-const ProductDetails: NextPage = () => {
-	const router = useRouter();
-	const { id } = router.query;
-	const [product, setProduct] = React.useState<Product>();
-	const [loading, setLoading] = React.useState(false);
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const id = context.params?.id;
+	const { data } = await axios.get(`/api/producto/${id}`);
+	if (!data) {
+		return {
+			notFound: true,
+		};
+	}
+	return {
+		props: { data },
+	};
+};
+
+const ProductDetails: NextPage = ({ data }: any) => {
 	const [selectedPrice, setSelectedPrice] = useState<number>();
+	const product: Product = data;
 
 	const handleChangePrice = (id: number) => {
 		setSelectedPrice(id);
 	};
 
-	useEffect(() => {
-		const getProduct = async () => {
-			setLoading(true);
-			const res = await axios.get(`/api/producto/${id}`);
-			setProduct(res.data);
-			setLoading(false);
-		};
-		getProduct();
-	}, [id]);
-
-	if (loading || !product) {
-		return (
-			<Box>
-				<h1>Loading...</h1>
-			</Box>
-		);
-	}
+	if (Object.keys(data).length === 0) return <div>hola</div>;
 
 	return (
-		<Box>
-			<Navbar />
-			<Container maxW="container.lg">
-				<FilterInput />
+		<>
+			<Layout>
 				<Grid templateColumns="repeat(5, 1fr)" mt={8} gap={4}>
 					<GridItem colSpan={{ base: 5, md: 3 }}>
 						<Swiper
@@ -89,6 +78,7 @@ const ProductDetails: NextPage = () => {
 							borderColor={"gray.200"}
 							flexDir={"column"}
 						>
+							<Text color="gray.500">{product.categoria[0].nombre}</Text>
 							<Heading>{product.nombre}</Heading>
 							<Text>{product.detalles}</Text>
 							<Divider my={4} />
@@ -109,13 +99,13 @@ const ProductDetails: NextPage = () => {
 								colorScheme={"green"}
 								disabled={selectedPrice ? false : true}
 							>
-								Comprar ahora
+								Suscribirse
 							</Button>
 						</Flex>
 					</GridItem>
 				</Grid>
-			</Container>
-		</Box>
+			</Layout>
+		</>
 	);
 };
 
