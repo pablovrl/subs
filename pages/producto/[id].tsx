@@ -21,39 +21,64 @@ import "swiper/css";
 import "swiper/css/navigation";
 import Layout from "../../components/Layout";
 import Swal from "sweetalert2";
+import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const id = context.params?.id;
 	const { data } = await axios.get(`/api/producto/${id}`);
+	const suscribed = await axios.post("/api/suscribe/check", {
+		suscriptorId: 1,
+		productoId: id,
+	});
+
 	if (!data) {
 		return {
 			notFound: true,
 		};
 	}
 	return {
-		props: { product: data },
+		props: { product: data, suscribed: suscribed.data.suscribed },
 	};
 };
 
 interface Props {
 	product: Product;
+	suscribed: boolean;
 }
 
-const ProductDetails: NextPage<Props> = ({ product }) => {
+const ProductDetails: NextPage<Props> = ({ product, suscribed }) => {
 	const [selectedPrice, setSelectedPrice] = useState<number>();
+	const router = useRouter();
 
 	const handleChangePrice = (id: number) => {
 		setSelectedPrice(id);
 	};
 
-	const onSuscribeClick = () => {
-		Swal.fire({
-			position: "center",
-			icon: "success",
-			title: "Te has suscrito al producto!",
-			showConfirmButton: false,
-			timer: 2000,
-		});
+	const onSuscribeClick = async () => {
+		try {
+			await axios.post("/api/suscribe", {
+				suscriptorId: 1,
+				productoId: product.id,
+				periodoId: selectedPrice,
+			});
+			Swal.fire({
+				position: "center",
+				icon: "success",
+				title: "Te has suscrito al producto!",
+				showConfirmButton: false,
+				timer: 2000,
+			}).then(() => {
+				router.push(`/producto/${product.id}`);
+			});
+		} catch {
+			Swal.fire({
+				position: "center",
+				icon: "error",
+				title: "Ha ocurrido un error, por favor inténtelo nuevamente.",
+				showConfirmButton: false,
+				timer: 2000,
+			});
+		}
 	};
 
 	return (
@@ -105,14 +130,20 @@ const ProductDetails: NextPage<Props> = ({ product }) => {
 								/>
 							))}
 						</SimpleGrid>
-						<Button
-							my="4"
-							colorScheme={"green"}
-							disabled={selectedPrice ? false : true}
-							onClick={onSuscribeClick}
-						>
-							Suscribirse
-						</Button>
+						{!suscribed ? (
+							<Button
+								my="4"
+								colorScheme={"green"}
+								disabled={selectedPrice ? false : true}
+								onClick={onSuscribeClick}
+							>
+								Suscribirse
+							</Button>
+						) : (
+							<Button my="4" colorScheme={"red"} disabled>
+								Ya estás suscrito a este producto
+							</Button>
+						)}
 					</Flex>
 				</GridItem>
 			</Grid>
