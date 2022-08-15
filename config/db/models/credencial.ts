@@ -1,6 +1,7 @@
 import { db } from "../database";
 import { DataTypes } from "sequelize";
 import Vendedor from "./vendedor";
+import Suscriptor from "./suscriptor";
 
 const Credencial = db.define(
 	"credencial",
@@ -32,5 +33,6 @@ const Credencial = db.define(
 );
 
 Credencial.hasMany(Vendedor);
+Credencial.hasMany(Suscriptor);
 
 export default Credencial;

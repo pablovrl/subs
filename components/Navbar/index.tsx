@@ -74,12 +74,17 @@ export default function Navbar() {
 	);
 
 	return (
-		<Box px={2} borderColor={"gray.200"} borderBottomWidth={1} bgColor={"white"}>
+		<Box
+			px={2}
+			borderColor={"gray.200"}
+			borderBottomWidth={1}
+			bgColor={"white"}
+		>
 			<Container maxW="container.xl">
 				<Flex alignItems={"center"} justifyContent={"space-between"}>
 					<Link href={"/"}>
-						<CLink px={4} py={2} >
-                <Image src={"logoSus.png"} w={32} h={"auto"} /> 
+						<CLink px={4} py={2}>
+							<Image src={"../logoSus.png"} w={32} h={"auto"} />
 						</CLink>
 					</Link>
 					<HStack spacing={"20px"}>
