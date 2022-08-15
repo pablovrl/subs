@@ -25,14 +25,17 @@ const checkDatabaseConnection = async () => {
 };
 
 const insertData = async () => {
-	await db.sync();
+	await db.sync({});
 	const crenciales = await Credencial.findAll();
 	if (crenciales.length === 0) {
 		await db.query(
-			"INSERT INTO credencials VALUES (null, 'pablovillarroel135@gmail.com', 'colocolo123', 'cliente');"
+			"INSERT INTO credencials VALUES (null, 'pablovillarroel135@gmail.com', 'colocolo123', 'vendedor'), (null, 'elvis@gmail.com', 'colocolo123', 'cliente');"
 		);
 		await db.query(
-			"INSERT INTO vendedors VALUES (1, 'Pablo Villarroel', 'Pablo Shop', null, 1);"
+			"INSERT INTO vendedors VALUES (null, 'Pablo Villarroel', 'Pablo Shop', null, 1);"
+		);
+		await db.query(
+			"INSERT INTO suscriptors VALUES (null, 'Elvis Rodríguez', '20255000-1', 2);"
 		);
 		await db.query(
 			"INSERT INTO categoria VALUES (null, 'Mascotas'), (null, 'Entretenimiento'), (null, 'Videojuegos'),  (null, 'Juegos de Mesa'), (null, 'Consumibles'), (null, 'Libros'), (null, 'Regalos'), (null, 'Baño y Belleza'), (null, 'Deporte'), (null, 'Adulto');"
