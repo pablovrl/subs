@@ -1,27 +1,17 @@
 import { GetServerSideProps, NextPage } from "next";
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import Product from "../../interfaces/Product";
-import PriceBox from "../../components/PriceBox";
-import {
-	Box,
-	Flex,
-	Heading,
-	SimpleGrid,
-	Text,
-	Grid,
-	GridItem,
-	Button,
-	Divider,
-} from "@chakra-ui/react";
+import { Box, Grid, GridItem } from "@chakra-ui/react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import Layout from "../../components/Layout";
-import Swal from "sweetalert2";
-import { useRouter } from "next/router";
+import SelectPlan from "../../components/SelectPlan";
+import Reviews from "../../components/Reviews";
+import { Valoracion } from "../../interfaces/Valoraciones";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const id = context.params?.id;
@@ -30,6 +20,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		suscriptorId: 1,
 		productoId: id,
 	});
+	const valoraciones = await axios.get(`/api/valoracion/${id}`);
 
 	if (!data) {
 		return {
@@ -37,50 +28,25 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		};
 	}
 	return {
-		props: { product: data, suscribed: suscribed.data.suscribed },
+		props: {
+			product: data,
+			suscribed: suscribed.data.suscribed,
+			valoraciones: valoraciones.data,
+		},
 	};
 };
 
 interface Props {
 	product: Product;
 	suscribed: boolean;
+	valoraciones: Valoracion[];
 }
 
-const ProductDetails: NextPage<Props> = ({ product, suscribed }) => {
-	const [selectedPrice, setSelectedPrice] = useState<number>();
-	const router = useRouter();
-
-	const handleChangePrice = (id: number) => {
-		setSelectedPrice(id);
-	};
-
-	const onSuscribeClick = async () => {
-		try {
-			await axios.post("/api/suscribe", {
-				suscriptorId: 1,
-				productoId: product.id,
-				periodoId: selectedPrice,
-			});
-			Swal.fire({
-				position: "center",
-				icon: "success",
-				title: "Te has suscrito al producto!",
-				showConfirmButton: false,
-				timer: 2000,
-			}).then(() => {
-				router.push(`/producto/${product.id}`);
-			});
-		} catch {
-			Swal.fire({
-				position: "center",
-				icon: "error",
-				title: "Ha ocurrido un error, por favor inténtelo nuevamente.",
-				showConfirmButton: false,
-				timer: 2000,
-			});
-		}
-	};
-
+const ProductDetails: NextPage<Props> = ({
+	product,
+	suscribed,
+	valoraciones,
+}) => {
 	return (
 		<Layout>
 			<Grid templateColumns="repeat(5, 1fr)" mt={8} gap={4}>
@@ -106,47 +72,9 @@ const ProductDetails: NextPage<Props> = ({ product, suscribed }) => {
 						))}
 					</Swiper>
 				</GridItem>
-				<GridItem colSpan={{ base: 5, md: 2 }}>
-					<Flex
-						border={"2px"}
-						p={4}
-						borderRadius="lg"
-						borderColor={"gray.200"}
-						flexDir={"column"}
-					>
-						<Text color="gray.500">{product.categoria[0].nombre}</Text>
-						<Heading>{product.nombre}</Heading>
-						<Text>{product.detalles}</Text>
-						<Divider my={4} />
-						<SimpleGrid columns={2} gap={2}>
-							{product.periodos.map((periodo) => (
-								<PriceBox
-									key={periodo.id}
-									id={periodo.id}
-									currentSelected={selectedPrice}
-									handleChangePrice={handleChangePrice}
-									months={periodo.duracion}
-									price={periodo.precio}
-								/>
-							))}
-						</SimpleGrid>
-						{!suscribed ? (
-							<Button
-								my="4"
-								colorScheme={"green"}
-								disabled={selectedPrice ? false : true}
-								onClick={onSuscribeClick}
-							>
-								Suscribirse
-							</Button>
-						) : (
-							<Button my="4" colorScheme={"red"} disabled>
-								Ya estás suscrito a este producto
-							</Button>
-						)}
-					</Flex>
-				</GridItem>
+				<SelectPlan product={product} suscribed={suscribed} />
 			</Grid>
+			<Reviews valoraciones={valoraciones} />
 		</Layout>
 	);
 };
