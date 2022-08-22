@@ -7,6 +7,7 @@ import Producto from "./producto";
 import Suscribe from "./suscribe";
 import Suscriptor from "./suscriptor";
 import Vendedor from "./vendedor";
+import Valoracion from "./valoracion";
 
 export {
 	Categoria,
@@ -18,4 +19,5 @@ export {
 	Suscribe,
 	Suscriptor,
 	Vendedor,
+	Valoracion,
 };
