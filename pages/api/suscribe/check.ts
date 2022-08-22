@@ -7,11 +7,12 @@ export default async function handler(
 ) {
 	if (req.method === "POST") {
 		const { suscriptorId, productoId } = req.body;
-		const recordExists = await Suscribe.findOne({
+		const record = await Suscribe.findOne({
 			where: { suscriptorId, productoId },
 		});
 
-		const suscribed = recordExists ? true : false;
+		let suscribed = false;
+		if (record) suscribed = record.activa;
 
 		return res.status(200).json({ suscribed });
 	}
