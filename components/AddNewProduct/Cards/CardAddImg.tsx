@@ -31,7 +31,7 @@ export default function CardAddImg({error}:CardAddImgProp) {
 						</Text>
 					</Flex>
 
-					<InputFile error={error} />
+					<InputFile error={error} edit={false} />
 				</Box>
 			</Flex>
 		</>

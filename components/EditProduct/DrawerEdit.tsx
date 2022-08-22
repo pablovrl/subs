@@ -110,7 +110,7 @@ export default function DrawerEdit({ productEdit }: TypeProps) {
 									categories={categories}
 									text="Seleccione la categoría más relacionada con su producto."
 									fontSizeText={"sm"}
-									value={values.category}
+									//value={values.category}
 									onChange={handleChange}
 								/>
 							</Flex>

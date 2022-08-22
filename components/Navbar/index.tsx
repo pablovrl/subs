@@ -29,6 +29,11 @@ export default function Navbar() {
 			const res = await axios.get("/api/categoria");
 			setCategories(res.data);
 		};
+
+		/* const isAdmin = async () => {
+			const res = await axios.get("/api")
+		} */
+
 		getCategories();
 	}, []);
 
@@ -74,17 +79,22 @@ export default function Navbar() {
 	);
 
 	return (
-		<Box px={2} borderColor={"gray.200"} borderBottomWidth={1} bgColor={"white"}>
+		<Box
+			px={2}
+			borderColor={"gray.200"}
+			borderBottomWidth={1}
+			bgColor={"white"}
+		>
 			<Container maxW="container.xl">
 				<Flex alignItems={"center"} justifyContent={"space-between"}>
 					<Link href={"/"}>
-						<CLink px={4} py={2} >
-                <Image src={"logoSus.png"} w={32} h={"auto"} /> 
+						<CLink px={4} py={2}>
+							<Image src={"logoSus.png"} w={32} h={"auto"} />
 						</CLink>
 					</Link>
 					<HStack spacing={"20px"}>
 						<NavbarLink text="Agregar producto" href="/agregarProducto" />
-						<NavbarLink text="Eliminar producto" href="/editarProducto" />
+						<NavbarLink text="Editar producto" href="/menuEditar" />
 						<HStack>
 							<NavbarLink text="Iniciar Sesión" href="/" icon={<FaUserAlt />} />
 						</HStack>

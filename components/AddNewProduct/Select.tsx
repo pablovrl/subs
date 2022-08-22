@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
 	Text,
 	TypographyProps,
@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 
 interface Categoria {
-	id: number;
+	id: string;
 	nombre: string;
 }
 
@@ -17,7 +17,7 @@ interface SelectProps {
 	categories: Categoria[];
 	onChange: React.ChangeEventHandler<HTMLSelectElement>;
 	text: string;
-	value?: any;
+	value?: string;
 	fontSizeTitle?: TypographyProps["fontSize"];
 	fontSizeText?: TypographyProps["fontSize"];
 }
@@ -31,6 +31,12 @@ export default function Select({
 	fontSizeTitle,
 	fontSizeText,
 }: SelectProps) {
+	/* 	useEffect(() => {
+		console.log(value);
+		//console.log(categories.id);
+		
+	}, []); */
+
 	return (
 		<Stack w={{ base: "88%", md: "80%" }}>
 			<Flex marginLeft={2} marginTop={2}>
@@ -41,23 +47,25 @@ export default function Select({
 				name="category"
 				onChange={onChange}
 				w={{ base: "100%", sm: "16em", md: "80%" }}
+				value={value !== undefined ? value : 0}
 			>
-
-				{
-				categories.map((category) => (
-
+				{categories.map((category) =>
 					value !== undefined ? (
-						value.id === category.id ? 
-						(<option key={category.id} value={category.id} selected>
+						value === category.id ? (
+							<option key={category.id} value={category.id}>
+								{category.nombre}
+							</option>
+						) : (
+							<option key={category.id} value={category.id}>
+								{category.nombre}
+							</option>
+						)
+					) : (
+						<option key={category.id} value={category.id}>
 							{category.nombre}
-						</option>) : (<option key={category.id} value={category.id}>
-							{category.nombre}
-						</option>)
-					):(<option key={category.id} value={category.id}>
-						{category.nombre}
-					</option>)
-					
-				))}
+						</option>
+					)
+				)}
 			</SelectCK>
 
 			<Flex paddingLeft={"1"}>

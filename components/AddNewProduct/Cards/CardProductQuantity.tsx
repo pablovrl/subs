@@ -5,14 +5,13 @@ import {
 	Flex,
 	Text,
 	Box,
-	NumberInput,
-	NumberInputField,
 	Input,
 	Stack,
 } from "@chakra-ui/react";
 
 interface CardProductQuantity {
 	handleChange: React.ChangeEventHandler<HTMLInputElement>;
+	value?: string;
 	errors: FormikErrors<MyFormValues>;
 	touched: FormikTouched<MyFormValues>;
 	handleBlur: React.FocusEventHandler<HTMLInputElement>;
@@ -21,6 +20,7 @@ interface CardProductQuantity {
 export default function CardProductQuantify({
 	handleChange,
 	errors,
+	value,
 	touched,
 	handleBlur,
 }: CardProductQuantity) {
@@ -50,6 +50,7 @@ export default function CardProductQuantify({
 
 							<Input placeholder="Número de stock del producto" 
 								onChange={handleChange}
+								value={value}
 								maxLength={7}
 								name={"stock"}
 								onBlur={handleBlur}

@@ -6,22 +6,23 @@ import { addFirstImg, addSortImg } from "../../../redux/addNewProduct/action";
 import { useDispatch } from "react-redux";
 
 interface CardSelectImgProps {
-	error: boolean;
+	error: boolean;	
 }
 
 export default function CardSelectImg({ error }: CardSelectImgProps) {
 	const dispatch = useDispatch();
-	const state = useSelector((state: any) => state.arrayImg.images);
+	const allImages = useSelector((state: any) => state.arrayImg.images);
 	const [images, setImages] = useState([]);
 	const [imgSelected, setImgSelected] = useState<imgType>();
 
 	useEffect(() => {
-		setImages(state);
+		console.log(allImages);
 
+		setImages(allImages);
 		const verifyImg = () => {
 			let found = false;
-			for (let i = 0; i < state.length; i++) {
-				if (state[i] === imgSelected) {
+			for (let i = 0; i < allImages.length; i++) {
+				if (allImages[i] === imgSelected) {
 					found = true;
 				}
 			}
@@ -31,18 +32,16 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 		};
 
 		verifyImg();
-	}, [state]);
+	}, [allImages]);
 
 	useEffect(() => {
 		const sortImg = () => {
 			const newArrayImg = [];
-
 			if (imgSelected === undefined) {
 				dispatch(addFirstImg(false));
 				dispatch(addSortImg([]));
 			} else {
 				dispatch(addFirstImg(true));
-
 				newArrayImg[0] = imgSelected;
 
 				for (let i = 0; i < images.length; i++) {
@@ -54,9 +53,10 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 			}
 		};
 		sortImg();
-	}, [imgSelected, state]);
+	}, [imgSelected, allImages]);
 
 	const handleClickImg = (img: imgType) => {
+		console.log(img);
 		setImgSelected(img);
 	};
 
@@ -68,7 +68,7 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 						{imgSelected !== undefined ? (
 							<Image
 								src={imgSelected.preview}
-								alt={imgSelected.img.name}
+								alt="imagen"
 								borderRadius={8}
 								w={"80%"}
 								h={"50%"}
@@ -91,13 +91,17 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 								<GridItem key={img.preview} colSpan={1} h="12">
 									{img === imgSelected ? (
 										<Flex w={"100%"} h={"100%"} justifyContent={"center"}>
-											<Flex borderWidth={4} borderColor={"red"} borderRadius={10}>
+											<Flex
+												borderWidth={4}
+												borderColor={"red"}
+												borderRadius={10}
+											>
 												<Image
 													src={img.preview}
 													borderRadius={6}
 													borderWidth={4}
 													borderColor={"red"}
-													alt={img.img.name}
+													alt="imagen"
 													onClick={() => handleClickImg(img)}
 													objectFit={"contain"}
 												/>
@@ -108,7 +112,7 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 											<Flex>
 												<Image
 													src={img.preview}
-													alt={img.img.name}
+													alt="imagen"
 													borderRadius={6}
 													onClick={() => handleClickImg(img)}
 													objectFit={"contain"}
@@ -125,7 +129,12 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 
 					{error === true ? (
 						<Flex w={"100%"} justifyContent={"center"}>
-							<Flex w={"88%"} paddingX={3} marginTop={6} justifyContent={"center"}>
+							<Flex
+								w={"88%"}
+								paddingX={3}
+								marginTop={6}
+								justifyContent={"center"}
+							>
 								<Text color={"red"}>
 									Por favor, seleccione una imagen para la portada de su
 									producto.
@@ -144,7 +153,10 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 					paddingX={"8"}
 					justifyContent={{ base: "start", md: "center" }}
 				>
-					<Text>Es necesario que ingrese por lo menos una imagen para escoger la portada del producto.</Text>
+					<Text>
+						Es necesario que ingrese por lo menos una imagen para escoger la
+						portada del producto.
+					</Text>
 				</Flex>
 			);
 		}
@@ -154,7 +166,7 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 		<>
 			<Flex marginTop={"5"} justifyContent={"center"}>
 				<Box
-					w={{base: "21em",sm:"26em", md: "30em" ,lg: "48vw"}}
+					w={{ base: "21em", sm: "26em", md: "30em", lg: "48vw" }}
 					boxShadow={"md"}
 					justifyContent={"center"}
 					borderRadius={"10px"}

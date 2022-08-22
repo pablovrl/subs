@@ -1,24 +1,44 @@
-import React, { useState, useEffect, MouseEventHandler } from "react";
+import React, { useState, useEffect } from "react";
 import { Flex, Grid, GridItem, Image, Text, Button } from "@chakra-ui/react";
 import DropZoneComponent from "./InputFile";
 import FileInput from "../../../interfaces/fileInput";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addArrayImg } from "../../../redux/addNewProduct/action";
 
 interface FileInputProps {
 	error: boolean;
+	edit: boolean;
 }
 
-export default function fileInput({ error }: FileInputProps) {
+export default function fileInput({ error, edit }: FileInputProps) {
 	const [files, setFiles] = useState<FileInput[]>([]);
+	const images = useSelector((store: any) => store.arrayImg.images);
 	const dispatch = useDispatch();
 
+
+	//* agregar nuevas fotos al estado redux
 	useEffect(() => {
-		if (files.length !== 0) {
+		if (files.length !== 0 ) {
 			dispatch(addArrayImg(files));
 		}
-	}, [files]);
+	}, [files]); 
 
+
+	//* mostrar fotos guardadas 
+	useEffect(() => {
+		console.log(images);
+		
+		if (files.length === 0) {
+			setFiles(images);
+			console.log("no se encontraron imagen");
+		} else {
+			console.log(" se encontraron imagenes");
+		} 
+	}, [images]);
+
+
+	
+	
 	const handleClick = (id: number) => {
 		const newFiles: FileInput[] = [];
 
@@ -91,7 +111,8 @@ export default function fileInput({ error }: FileInputProps) {
 						color={"red"}
 						width={{ base: "84%", md: "20em" }}
 					>
-						Solo se permiten un máximo de 4 imágenes que sean de tipo JPG, JPEG o PNG.
+						Solo se permiten un máximo de 4 imágenes que sean de tipo JPG, JPEG
+						o PNG.
 					</Text>
 				</Flex>
 			) : (

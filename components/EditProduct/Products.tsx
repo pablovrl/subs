@@ -1,51 +1,49 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Dispatch } from "react";
 import {
-	Box,
-	Button,
 	Flex,
-	Text,
 	Alert,
 	AlertIcon,
 	AlertTitle,
 	AlertDescription,
-	Drawer,
-	DrawerOverlay,
-	DrawerContent,
-	DrawerCloseButton,
-	useDisclosure,
-	SimpleGrid,
 	Spinner,
 } from "@chakra-ui/react";
 import axios from "axios";
-import Image from "next/image";
 import Product from "../../interfaces/Product";
-import DrawerEdit from "./DrawerEdit";
+import GridItems from "./GridItems";
+import EditProduct from "./index";
+
+
 import Swal from "sweetalert2";
 
-export default function Products({
-	filter,
-	query,
-}: {
-	filter?: string | string[];
-	query?: string | string[];
-}) {
+interface propsProduct{
+	edit: boolean,
+	setEdit: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function Products({edit,setEdit}:propsProduct) {
 	const [products, setProducts] = useState<Product[]>([]);
-	const [loading, setLoading] = useState(false);
-	const { isOpen, onOpen, onClose } = useDisclosure();
+	const [loading, setLoading] = useState(true);
 	const [newProducts, setNewProducts] = useState<Product[]>([]);
-	const [productEdit, setProductEdit] = useState();
+	const [productEdit, setProductEdit] = useState<Product>();
 
 	useEffect(() => {
 		const getProducts = async () => {
 			const prod = await axios.get("api/producto");
 			setProducts(prod.data);
+			setLoading(false);
 		};
+
 		getProducts();
 	}, [newProducts]);
 
-	function handleClickEdit(product: any) {
+
+
+
+	function handleClickEdit(product: Product) {
+		setEdit(true);
 		setProductEdit(product);
-		onOpen();
+
+		//onOpen();
 	}
 
 	if (loading) {
@@ -56,7 +54,7 @@ export default function Products({
 		);
 	}
 
-	if (products.length === 0)
+	if (products.length === 0 && !loading)
 		return (
 			<Alert
 				mt={4}
@@ -70,7 +68,7 @@ export default function Products({
 			>
 				<AlertIcon boxSize="40px" mr={0} />
 				<AlertTitle mt={4} mb={1} fontSize="lg">
-					No hay productos :(
+					No se encontraron productos
 				</AlertTitle>
 				<AlertDescription maxWidth="sm">
 					Lamentablemente no tenemos productos disponibles en estos momentos,
@@ -78,16 +76,6 @@ export default function Products({
 				</AlertDescription>
 			</Alert>
 		);
-
-	const editProduct = () => (
-		<Drawer isOpen={isOpen} onClose={onClose} size="md" placement="left">
-			<DrawerOverlay />
-			<DrawerContent>
-				<DrawerCloseButton />
-				<DrawerEdit productEdit={productEdit} />
-			</DrawerContent>
-		</Drawer>
-	);
 
 	const handleClickDelete = async (product: any) => {
 		Swal.fire({
@@ -126,49 +114,15 @@ export default function Products({
 			direction={"column"}
 			alignItems="center"
 		>
-			<SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ md: 3 }}>
-				{products.map((product: Product) => (
-					<Box key={product.id} mb={4} cursor="pointer">
-						{product.images.length > 0 ? (
-							<Box cursor={"pointer"}>
-								<Image
-									loader={() =>
-										`${process.env.URL + "/" + product.images[0].ruta}`
-									}
-									src={`${process.env.URL + "/" + product.images[0].ruta}`}
-									width="600"
-									height="400"
-									objectFit="cover"
-								/>
-							</Box>
-						) : (
-							<img
-								src="https://profesional.tarkett.es/media/img/M/THH_25121917_25131917_25126917_25136917_001.jpg"
-								style={{
-									width: "320px",
-									height: "200px",
-									objectFit: "cover",
-								}}
-							/>
-						)}
-						<Text>{product.nombre}</Text>
-
-						<Flex w={"100%"} justifyContent={"space-evenly"} mt={4}>
-							{/* <Button onClick={()=> {handleClickEdit(product)}}>
-									Editar
-								</Button> */}
-							<Button
-								onClick={() => {
-									handleClickDelete(product);
-								}}
-							>
-								Eliminar
-							</Button>
-						</Flex>
-					</Box>
-				))}
-			</SimpleGrid>
-			{editProduct()}
+			{edit === false ? (
+				<GridItems
+					products={products}
+					handleEdit={handleClickEdit}
+					handleDelete={handleClickDelete}
+				/>
+			) : (
+				<EditProduct productEdit={productEdit}/>
+			)}
 		</Flex>
 	);
 }

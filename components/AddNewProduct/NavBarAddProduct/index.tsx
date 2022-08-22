@@ -4,13 +4,24 @@ import {
 	Flex,
 	HStack,
 	Image,
+	Button,
 	Link as CLink,
 	Container,
 } from "@chakra-ui/react";
 import NavbarLink from "../../Navbar/NavbarLink";
 import Link from "next/link";
+import {useDispatch} from "react-redux";
+import {addArrayImg} from "../../../redux/addNewProduct/action";
 
-export default function NavBarAddProduct() {
+interface propsNav {
+	edit: boolean;
+	setEdit?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function NavBarAddProduct({ edit, setEdit }: propsNav) {
+
+	const dispatch = useDispatch();
+	
 	return (
 		<Box borderColor={"gray.200"} borderBottomWidth={1} bgColor={"white"}>
 			<Container maxW="container.xl">
@@ -21,7 +32,22 @@ export default function NavBarAddProduct() {
 						</CLink>
 					</Link>
 					<HStack spacing={"20px"}>
-						<NavbarLink text="Volver" href="/" />
+						{edit === false ? (
+							<NavbarLink text="Volver" href="/" />
+						) : (
+							<Button
+								colorScheme="teal"
+								variant="ghost"
+								onClick={() => {
+									if(setEdit !== undefined){
+										dispatch(addArrayImg([]));
+										setEdit(false);
+									}
+								}}
+							>
+								Volver
+							</Button>
+						)}
 					</HStack>
 				</Flex>
 			</Container>
