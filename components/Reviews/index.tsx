@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Heading, Text } from "@chakra-ui/react";
 import { Valoracion } from "../../interfaces/Valoraciones";
 import StarsRating from "react-star-rate";
+import ReviewModal from "../ReviewModal";
 
 const Reviews = ({ valoraciones }: { valoraciones: Valoracion[] }) => {
 	return (
@@ -9,6 +10,7 @@ const Reviews = ({ valoraciones }: { valoraciones: Valoracion[] }) => {
 			<Heading size="lg" my="4">
 				Opiniones sobre el producto
 			</Heading>
+			<ReviewModal />
 			{valoraciones.map((val) => (
 				<Box key={val.id} mb={4} width="40rem">
 					<StarsRating
