@@ -1,51 +1,59 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import {
-	Vendedor,
-	Categoria,
-	Producto,
-	Periodo,
-	Image,
-} from "../../../config/db/models";
-import { Identifier } from "sequelize/types";
 import fs from "fs";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
 	if (req.method === "GET") {
-		const id = req.query.id as Identifier;
-		try {
-			const producto = await Producto.findByPk(id, {
-				include: [Categoria, Vendedor, Image, Periodo],
-			});
-			return res.json(producto);
-		} catch (error) {
-			return res.status(500).json(error);
+		const id = req.query.id;
+		if (typeof id === "string") {
+			try {
+				const producto = await prisma.producto.findFirst({
+					where: { id: parseInt(id, 10) },
+					include: {
+						categorias: { include: { categoria: true } },
+						images: true,
+						periodo: true,
+						vendedor: true,
+					},
+				});
+				return res.json(producto);
+			} catch (error) {
+				return res.status(500).json(error);
+			}
 		}
 	}
 
 	if (req.method === "DELETE") {
-		const id = req.query.id as Identifier;
-		try {
-			const producto: any = await Producto.findByPk(id, {
-				include: [Image],
+		const id = req.query.id;
+		console.log(id);
+		if (typeof id === "string") {
+			const producto = await prisma.producto.findUnique({
+				where: { id: parseInt(id, 10) },
+				include: { images: true },
 			});
 
-			producto.images.forEach((element: any) => {
-				try {
-					const path = "./public/" + element.ruta;
-					fs.unlinkSync(path);
-				} catch (error) {
-					console.error("la imagen no existe");
-				}
-			});
+			if (producto) {
+				producto.images.forEach((image) => {
+					try {
+						const path = "./public/" + image.ruta;
+						fs.unlinkSync(path);
+					} catch (error) {
+						console.log("Image does not exist");
+					}
+				});
 
-			await producto.destroy();
-
-			return res.json({ mensaje: "producto eliminado correctamente" });
-		} catch (error) {
-			return res.status(404).json({ mensaje: "producto no existe" });
+				await prisma.periodo.deleteMany({ where: { productoId: producto.id } });
+				await prisma.pertenece.deleteMany({
+					where: { productoId: producto.id },
+				});
+				await prisma.image.deleteMany({ where: { productoId: producto.id } });
+				await prisma.producto.delete({ where: { id: producto.id } });
+			}
 		}
+		return res.status(404).json({ mensaje: "producto no existe" });
 	}
 }

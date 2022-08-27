@@ -1,14 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import {
-	Producto,
-	Categoria,
-	Vendedor,
-	Image,
-	Periodo,
-	Pertenece,
-} from "../../../config/db/models";
-import { Op } from "sequelize";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export default async function handler(
 	req: NextApiRequest,
@@ -18,87 +12,68 @@ export default async function handler(
 		const { nombre, detalles, stock, categoriaId, imagenes, periodos } =
 			req.body;
 
-		const producto = {
-			nombre,
-			detalles,
-			stock,
-		};
+		const useImages: string[] = imagenes;
+		const usePeriodos: { duracion: string; precio: number }[] = periodos;
 
-		try {
-			const newProducto: any = await Producto.create({
-				...producto,
-				vendedorId: 1,
-			});
-			await Pertenece.create({
-				categoriumId: categoriaId,
-				productoId: newProducto.id,
-			});
+		const imagesArray = useImages.map((img: string, i) => ({
+			ruta: img,
+			posicion: i,
+		}));
 
-			imagenes.forEach((img: string, i: number) => {
-				Image.create({
-					ruta: img,
-					posicion: i + 1,
-					productoId: newProducto.id,
-				});
-			});
+		const periodosArray = usePeriodos.map((periodo) => ({
+			duracion: periodo.duracion,
+			precio: periodo.precio,
+		}));
 
-			if (periodos) {
-				periodos.forEach((periodo: { duracion: string; precio: number }) => {
-					Periodo.create({
-						duracion: periodo.duracion,
-						precio: periodo.precio,
-						productoId: newProducto.id,
-					});
-				});
-			}
-
-			return res.status(201).json(newProducto);
-		} catch (error) {
-			return res.status(500).json(error);
-		}
+		const newProducto = await prisma.producto.create({
+			data: {
+				nombre,
+				detalles,
+				stock,
+				vendedor: { connect: { id: 1 } },
+				categorias: { create: { categoria: { connect: { id: categoriaId } } } },
+				images: { create: imagesArray },
+				periodo: { create: periodosArray },
+			},
+		});
+		return res.status(201).json(newProducto);
 	}
 
 	const categoryId = req.query.categoria;
 	const search = req.query.nombre;
 
-	if (categoryId) {
-		const productos = await Producto.findAll({
-			include: [
-				{ model: Categoria, where: { id: categoryId } },
-				Vendedor,
-				Image,
-			],
-		});
-		return res.json(productos);
-	}
-
-	if (search) {
-		const productsByName = await Producto.findAll({
-			include: [{ model: Categoria }, Vendedor, Image],
+	if (categoryId && typeof categoryId === "string") {
+		const productos = await prisma.producto.findMany({
 			where: {
-				nombre: {
-					[Op.substring]: `%${search}%`,
-				},
+				categorias: { some: { categoriaId: parseInt(categoryId, 10) } },
+			},
+			include: {
+				vendedor: true,
+				images: true,
+				categorias: true,
 			},
 		});
-
-		const productsByCategory = await Producto.findAll({
-			include: [
-				{
-					model: Categoria,
-					where: { nombre: { [Op.substring]: `%${search}%` } },
-				},
-				Vendedor,
-				Image,
-			],
-		});
-
-		const productos = [...productsByName, ...productsByCategory];
 		return res.json(productos);
 	}
 
-	const productos = await Producto.findAll({
-		include: [Categoria, Vendedor, Image, Periodo],
+	if (search && typeof search === "string") {
+		const productos = await prisma.producto.findMany({
+			where: {
+				nombre: {
+					contains: search,
+				},
+			},
+			include: {
+				categorias: true,
+				vendedor: true,
+				images: true,
+			},
+		});
+		return res.json(productos);
+	}
+
+	const productos = await prisma.producto.findMany({
+		include: { images: true, categorias: true, periodo: true, vendedor: true },
 	});
 	return res.json(productos);
 }

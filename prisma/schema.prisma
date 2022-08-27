@@ -1,0 +1,110 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider = "mysql"
+  url = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model Credencial {
+  id Int @id @default(autoincrement())
+  email String
+  password String
+  tipoUsuario TipoUsuario 
+  suscriptor Suscriptor?
+  vendedor Vendedor?
+}
+
+model Suscriptor {
+  id Int @id @default(autoincrement())
+  nombreCompleto String
+  rut String
+  credencial Credencial @relation(fields: [credencialId], references: [id])
+  credencialId Int @unique
+  suscribes Suscribe[]
+}
+
+model Vendedor {
+  id Int @id @default(autoincrement())
+  nombreCompleto String
+  nombreTienda String
+  imagenTienda String
+  credencial Credencial @relation(fields: [credencialId], references: [id])
+  credencialId Int @unique
+  productos Producto[]
+}
+
+model Producto {
+  id Int @id @default(autoincrement())
+  nombre String
+  detalles String
+  stock Int
+  vendedor Vendedor @relation(fields: [vendedorId], references: [id])
+  vendedorId Int
+  periodo Periodo[]
+  categorias Pertenece[]
+  images Image[]
+  suscribes Suscribe[]
+}
+
+model Periodo {
+  id Int @id @default(autoincrement())
+  duracion String
+  precio Int
+  producto Producto @relation(fields: [productoId], references: [id])
+  productoId Int
+  suscribes Suscribe[]
+}
+
+model Categoria {
+  id Int @id @default(autoincrement())
+  nombre String
+  productos Pertenece[]
+}
+
+model Pertenece {
+  producto Producto @relation(fields: [productoId], references: [id])
+  productoId Int 
+  categoria Categoria @relation(fields: [categoriaId], references: [id])
+  categoriaId Int 
+
+  @@id([productoId, categoriaId])
+}
+
+model Image {
+  id Int @id @default(autoincrement())
+  ruta String
+  posicion Int
+  producto Producto @relation(fields: [productoId], references: [id])
+  productoId Int
+}
+
+model Suscribe {
+  id Int @id @default(autoincrement())
+  producto Producto @relation(fields: [productoId], references: [id])
+  productoId Int
+  suscriptor Suscriptor @relation(fields: [suscriptorId], references: [id])
+  suscriptorId Int
+  periodo Periodo @relation(fields: [periodoId], references: [id])
+  periodoId Int
+  valoraciones Valoracion[]
+}
+
+model Valoracion {
+  id Int @id @default(autoincrement())
+  titulo String
+  comentario String
+  estrellas Float
+  suscribe Suscribe @relation(fields: [suscribeId], references: [id]) 
+  suscribeId Int
+}
+
+enum TipoUsuario {
+  cliente
+  vendedor
+}

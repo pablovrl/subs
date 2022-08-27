@@ -10,7 +10,6 @@ const Reviews = ({ valoraciones }: { valoraciones: Valoracion[] }) => {
 			<Heading size="lg" my="4">
 				Opiniones sobre el producto
 			</Heading>
-			<ReviewModal />
 			{valoraciones.map((val) => (
 				<Box key={val.id} mb={4} width="40rem">
 					<StarsRating

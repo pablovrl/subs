@@ -62,12 +62,12 @@ const SelectPlan = ({ product, suscribed }: Props) => {
 				borderColor={"gray.200"}
 				flexDir={"column"}
 			>
-				<Text color="gray.500">{product.categoria[0].nombre}</Text>
+				<Text color="gray.500">{product.categorias[0].categoria.nombre}</Text>
 				<Heading>{product.nombre}</Heading>
 				<Text>{product.detalles}</Text>
 				<Divider my={4} />
 				<SimpleGrid columns={2} gap={2}>
-					{product.periodos.map((periodo) => (
+					{product.periodo.map((periodo) => (
 						<PriceBox
 							key={periodo.id}
 							id={periodo.id}

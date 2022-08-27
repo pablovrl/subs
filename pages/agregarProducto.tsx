@@ -119,25 +119,25 @@ const AgregarProducto: NextPage = () => {
 		const body = {
 			nombre: values.name,
 			detalles: values.description,
-			stock: values.stock,
+			stock: parseInt(values.stock, 10),
 			categoriaId: categoriaId,
 			imagenes: links,
 			periodos: [
 				{
 					duracion: "1",
-					precio: values.oneMonth,
+					precio: parseInt(values.oneMonth, 10),
 				},
 				{
 					duracion: "3",
-					precio: values.threeMonth,
+					precio: parseInt(values.threeMonth, 10),
 				},
 				{
 					duracion: "6",
-					precio: values.sixMonth,
+					precio: parseInt(values.sixMonth, 10),
 				},
 				{
 					duracion: "12",
-					precio: values.twelveMonth,
+					precio: parseInt(values.twelveMonth, 10),
 				},
 			],
 		};

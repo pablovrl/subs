@@ -6,7 +6,7 @@ interface Product {
 	detalles: string;
 	stock: number;
 	vendedorId: number;
-	categoria: Category[];
+	categorias: Category[];
 	vendedor: {
 		id: number;
 		nombreCompleto: string;
@@ -18,7 +18,7 @@ interface Product {
 		ruta: string;
 		posicion: number;
 	}[];
-	periodos: {
+	periodo: {
 		id: number;
 		duracion: string;
 		precio: number;

@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Suscribe } from "../../../config/db/models";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
 export default async function handler(
 	req: NextApiRequest,
@@ -7,13 +8,14 @@ export default async function handler(
 ) {
 	if (req.method === "POST") {
 		const { suscriptorId, productoId } = req.body;
-		const record = await Suscribe.findOne({
-			where: { suscriptorId, productoId },
+		const recordExists = await prisma.suscribe.findFirst({
+			where: {
+				suscriptorId: parseInt(suscriptorId, 10),
+				productoId: parseInt(productoId, 10),
+			},
 		});
 
-		let suscribed = false;
-		if (record) suscribed = record.activa;
-
+		const suscribed = recordExists ? true : false;
 		return res.status(200).json({ suscribed });
 	}
 }
