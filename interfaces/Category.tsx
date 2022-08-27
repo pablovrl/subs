@@ -1,6 +1,10 @@
 interface Category {
-	id: number;
-	nombre: string;
+	productoId: number;
+	categoriaId: number;
+	categoria: {
+		id: number;
+		nombre: string;
+	};
 }
 
 export default Category;
