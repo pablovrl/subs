@@ -142,6 +142,7 @@ const AgregarProducto: NextPage = () => {
 			],
 		};
 
+		console.log(body);
 		try {
 			await axios.post("/api/producto", body);
 			Swal.fire({
@@ -164,7 +165,7 @@ const AgregarProducto: NextPage = () => {
 					timer: 1500,
 				});
 			}
-		}
+		} 
 	};
 
 	const redirect = () => {
@@ -224,7 +225,7 @@ const AgregarProducto: NextPage = () => {
 									touched={touched}
 								/>
 
-								<CardCategories handleChange={handleChange} />
+								<CardCategories handleChange={handleChange} value={values.category} />
 
 								<CardAddImg error={errorImg} />
 

@@ -26,13 +26,13 @@ export default function fileInput({ error, edit }: FileInputProps) {
 
 	//* mostrar fotos guardadas 
 	useEffect(() => {
-		console.log(images);
+		//console.log(images);
 		
 		if (files.length === 0) {
 			setFiles(images);
-			console.log("no se encontraron imagen");
+			//console.log("no se encontraron imagen");
 		} else {
-			console.log(" se encontraron imagenes");
+			//console.log(" se encontraron imagenes");
 		} 
 	}, [images]);
 

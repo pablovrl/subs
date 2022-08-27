@@ -6,7 +6,7 @@ import { addFirstImg, addSortImg } from "../../../redux/addNewProduct/action";
 import { useDispatch } from "react-redux";
 
 interface CardSelectImgProps {
-	error: boolean;	
+	error: boolean;
 }
 
 export default function CardSelectImg({ error }: CardSelectImgProps) {
@@ -49,6 +49,8 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 						newArrayImg.push(images[i]);
 					}
 				}
+
+				//console.log(newArrayImg);
 				dispatch(addSortImg(newArrayImg));
 			}
 		};
