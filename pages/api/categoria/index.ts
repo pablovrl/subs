@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Categoria } from "../../../config/db/models";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
 export default async function handler(
 	req: NextApiRequest,
@@ -7,13 +8,12 @@ export default async function handler(
 ) {
 	if (req.method === "POST") {
 		try {
-			const categoria = await Categoria.create(req.body);
-			return res.status(201).json(categoria);
+			return res.status(201).json({});
 		} catch (error) {
 			return res.status(500).json(error);
 		}
 	} else {
-		const categorias = await Categoria.findAll();
+		const categorias = await prisma.categoria.findMany();
 		return res.status(200).json(categorias);
 	}
 }

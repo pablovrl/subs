@@ -1,4 +1,4 @@
-import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import { Box, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { AiOutlineSearch } from "react-icons/ai";
 import React, { useState } from "react";
 import Router from "next/router";
@@ -12,19 +12,21 @@ const FilterInput = () => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<InputGroup>
-				<InputLeftElement pointerEvents={"none"}>
-					<AiOutlineSearch size="25" />
-				</InputLeftElement>
-				<Input
-					value={value}
-					type="text"
-					onChange={(e) => setValue(e.target.value)}
-					placeholder="Aquí puedes buscar productos de tu interés :)"
-				/>
-			</InputGroup>
-		</form>
+		<Box mt="4">
+			<form onSubmit={handleSubmit}>
+				<InputGroup>
+					<InputLeftElement pointerEvents={"none"}>
+						<AiOutlineSearch size="25" />
+					</InputLeftElement>
+					<Input
+						value={value}
+						type="text"
+						onChange={(e) => setValue(e.target.value)}
+						placeholder="Aquí puedes buscar productos de tu interés :)"
+					/>
+				</InputGroup>
+			</form>
+		</Box>
 	);
 };
 

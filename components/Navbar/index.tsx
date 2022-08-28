@@ -54,12 +54,12 @@ export default function Navbar() {
 				{categories.map((categorie) => (
 					<Box
 						py={1}
-						key={categorie.id}
+						key={categorie.categoria.id}
 						_hover={{ backgroundColor: "#B8F1B0" }}
 					>
 						<NavbarLink
-							text={categorie.nombre}
-							href={`/buscar/categoria?query=${categorie.id}`}
+							text={categorie.categoria.nombre}
+							href={`/buscar/categoria?query=${categorie.categoria.id}`}
 							fontSize={"2xl"}
 						/>
 					</Box>
@@ -89,7 +89,7 @@ export default function Navbar() {
 				<Flex alignItems={"center"} justifyContent={"space-between"}>
 					<Link href={"/"}>
 						<CLink px={4} py={2}>
-							<Image src={"logoSus.png"} w={32} h={"auto"} />
+							<Image src={"../logoSus.png"} w={32} h={"auto"} />
 						</CLink>
 					</Link>
 					<HStack spacing={"20px"}>
