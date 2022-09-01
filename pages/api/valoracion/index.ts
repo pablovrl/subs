@@ -11,6 +11,12 @@ export default async function handler(
 		return res.status(200).json(valoraciones);
 	} else if (req.method === "POST") {
 		const { suscribeId, estrellas, titulo, comentario } = req.body;
+
+		const isReviewed = await prisma.valoracion.findFirst({
+			where: { suscribe: { id: suscribeId } },
+		});
+
+		if (isReviewed) return res.status(400).send({});
 		const valoracion = await prisma.valoracion.create({
 			data: {
 				estrellas,
