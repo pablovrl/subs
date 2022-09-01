@@ -47,6 +47,12 @@ const ProductDetails: NextPage<Props> = ({
 	suscribed,
 	valoraciones,
 }) => {
+	let isReviewed = false;
+	if (typeof suscribed === "number") {
+		const reviewed = valoraciones.find((rev) => rev.suscribeId === suscribed);
+		isReviewed = reviewed ? true : false;
+	}
+
 	return (
 		<Layout>
 			<Grid templateColumns="repeat(5, 1fr)" mt={8} gap={4}>
@@ -72,7 +78,11 @@ const ProductDetails: NextPage<Props> = ({
 						))}
 					</Swiper>
 				</GridItem>
-				<SelectPlan product={product} suscribed={suscribed} />
+				<SelectPlan
+					product={product}
+					suscribed={suscribed}
+					isReviewed={isReviewed}
+				/>
 			</Grid>
 			<Reviews valoraciones={valoraciones} />
 		</Layout>
