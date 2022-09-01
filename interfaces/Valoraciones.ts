@@ -3,4 +3,5 @@ export interface Valoracion {
 	estrellas: string;
 	titulo: string;
 	comentario: string;
+	suscribeId: number;
 }
