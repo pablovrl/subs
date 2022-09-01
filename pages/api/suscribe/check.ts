@@ -15,7 +15,8 @@ export default async function handler(
 			},
 		});
 
-		const suscribed = recordExists ? true : false;
-		return res.status(200).json({ suscribed });
+		if (recordExists)
+			return res.status(200).json({ suscribed: recordExists.id });
+		return res.status(200).json({ suscribed: false });
 	}
 }

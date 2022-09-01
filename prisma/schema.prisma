@@ -92,6 +92,16 @@ model Suscribe {
   suscriptorId Int
   periodo Periodo @relation(fields: [periodoId], references: [id])
   periodoId Int
+  valoraciones Valoracion[]
+}
+
+model Valoracion {
+  id Int @id @default(autoincrement())
+  titulo String
+  comentario String
+  estrellas Float
+  suscribe Suscribe @relation(fields: [suscribeId], references: [id]) 
+  suscribeId Int
 }
 
 enum TipoUsuario {
