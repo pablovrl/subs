@@ -7,24 +7,35 @@ import {
 	SimpleGrid,
 	GridItem,
 	Button,
+	Box,
+	Alert,
+	AlertTitle,
+	AlertDescription,
+	useDisclosure,
 } from "@chakra-ui/react";
 import Product from "../../interfaces/Product";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import PriceBox from "../PriceBox";
+import ReviewModal from "../ReviewModal";
 
 interface Props {
 	product: Product;
-	suscribed: boolean;
+	suscribed: boolean | number;
+	isReviewed: boolean;
 }
 
-const SelectPlan = ({ product, suscribed }: Props) => {
+const SelectPlan = ({ product, suscribed, isReviewed }: Props) => {
 	const [selectedPrice, setSelectedPrice] = useState<number>();
+	const { isOpen, onOpen, onClose } = useDisclosure();
 	const handleChangePrice = (id: number) => {
 		setSelectedPrice(id);
 	};
 	const router = useRouter();
+	const reloadPage = () => {
+		router.push(`/producto/${product.id}`);
+	};
 
 	const onSuscribeClick = async () => {
 		try {
@@ -40,7 +51,7 @@ const SelectPlan = ({ product, suscribed }: Props) => {
 				showConfirmButton: false,
 				timer: 2000,
 			}).then(() => {
-				router.push(`/producto/${product.id}`);
+				reloadPage();
 			});
 		} catch {
 			Swal.fire({
@@ -88,11 +99,32 @@ const SelectPlan = ({ product, suscribed }: Props) => {
 						Suscribirse
 					</Button>
 				) : (
-					<Button my="4" colorScheme={"red"} disabled>
-						Ya estás suscrito a este producto
-					</Button>
+					<>
+						<Alert mt={4} status="success">
+							<Box>
+								<AlertTitle>Ya estás suscrito a este producto!</AlertTitle>
+								<AlertDescription>
+									Deja una reseña para ayudar a otros compradores.
+								</AlertDescription>
+							</Box>
+						</Alert>
+						<Button
+							mt="4"
+							colorScheme={"green"}
+							onClick={onOpen}
+							isDisabled={isReviewed}
+						>
+							Dejar una reseña
+						</Button>
+					</>
 				)}
 			</Flex>
+			<ReviewModal
+				reloadPage={reloadPage}
+				isOpen={isOpen}
+				onClose={onClose}
+				suscribeId={suscribed}
+			/>
 		</GridItem>
 	);
 };
