@@ -94,8 +94,8 @@ const ProductDetails: NextPage<Props> = ({ product, suscribed }) => {
 							<SwiperSlide key={image.id}>
 								<Box px={14}>
 									<Image
-										loader={() => `${process.env.URL}/${image.ruta}`}
-										src={`${process.env.URL}/${image.ruta}`}
+										loader={() => `${process.env.URL}/api/image/${image.ruta}`}
+										src={`${process.env.URL}/api/image/${image.ruta}`}
 										width={720}
 										height={700}
 										objectFit="cover"
