@@ -2,19 +2,22 @@ import { SimpleGrid, Box, Text, Flex, Button } from "@chakra-ui/react";
 import React from "react";
 import Image from "next/image";
 import Product from "../../interfaces/Product";
-import {useDispatch} from "react-redux";
-import {addArrayImg} from "../../redux/addNewProduct/action";
-
-
+import { useDispatch } from "react-redux";
+import { addArrayImg } from "../../redux/addNewProduct/action";
 
 interface propsProduct {
-  products: Product[],
-  handleDelete: any,
-  handleEdit:any
+	products: Product[];
+	handleDelete: any;
+	handleEdit: any;
+	handleActivate: any
 }
 
-export default function GridItem({products, handleEdit, handleDelete}: propsProduct) {
-
+export default function GridItem({
+	products,
+	handleEdit,
+	handleActivate,
+	handleDelete,
+}: propsProduct) {
 	const dispatch = useDispatch();
 
 	return (
@@ -47,6 +50,7 @@ export default function GridItem({products, handleEdit, handleDelete}: propsProd
 
 					<Flex w={"100%"} justifyContent={"space-evenly"} mt={4}>
 						<Button
+							colorScheme={"blue"}
 							onClick={() => {
 								dispatch(addArrayImg([]));
 								handleEdit(product);
@@ -54,9 +58,20 @@ export default function GridItem({products, handleEdit, handleDelete}: propsProd
 						>
 							Editar
 						</Button>
+						{product.activo === true ? (
+							<Button onClick={()=>{
+								handleActivate(false, product.id);
+							}}>Desactivar</Button>
+						) : (
+							<Button onClick={()=> {
+								handleActivate(true, product.id);
+							}}>Activar</Button>
+						)}
+
 						<Button
+							colorScheme={"red"}
 							onClick={() => {
-								//handleClickDelete(product);
+								handleDelete(product);
 							}}
 						>
 							Eliminar

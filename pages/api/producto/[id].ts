@@ -27,6 +27,19 @@ export default async function handler(
 		}
 	}
 
+	if (req.method === "PUT") {
+		const id = req.query.id;
+		const data = req.body;
+
+		if (typeof id === "string") {
+			const producto = await prisma.producto.update({
+				where: { id: parseInt(id, 10) },
+				data: { ...data },
+			});
+			return res.status(200).json(producto);
+		}
+	}
+
 	if (req.method === "DELETE") {
 		const id = req.query.id;
 		console.log(id);

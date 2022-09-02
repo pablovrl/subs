@@ -12,6 +12,7 @@ export default async function handler(
 		const { nombre, detalles, stock, categoriaId, imagenes, periodos } =
 			req.body;
 
+		//console.log(activo);
 		const useImages: string[] = imagenes;
 		const usePeriodos: { duracion: string; precio: number }[] = periodos;
 
