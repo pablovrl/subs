@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Dispatch } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	Flex,
 	Alert,
@@ -12,15 +12,14 @@ import Product from "../../interfaces/Product";
 import GridItems from "./GridItems";
 import EditProduct from "./index";
 
-
 import Swal from "sweetalert2";
 
-interface propsProduct{
-	edit: boolean,
-	setEdit: React.Dispatch<React.SetStateAction<boolean>>
+interface propsProduct {
+	edit: boolean;
+	setEdit: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Products({edit,setEdit}:propsProduct) {
+export default function Products({ edit, setEdit }: propsProduct) {
 	const [products, setProducts] = useState<Product[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [newProducts, setNewProducts] = useState<Product[]>([]);
@@ -29,6 +28,7 @@ export default function Products({edit,setEdit}:propsProduct) {
 	useEffect(() => {
 		const getProducts = async () => {
 			const prod = await axios.get("api/producto");
+			console.log(prod.data);
 			setProducts(prod.data);
 			setLoading(false);
 		};
@@ -36,16 +36,68 @@ export default function Products({edit,setEdit}:propsProduct) {
 		getProducts();
 	}, [newProducts]);
 
-
-
-
 	function handleClickEdit(product: Product) {
 		setEdit(true);
 		setProductEdit(product);
-
-		//onOpen();
 	}
 
+	function handleActivate(active: boolean, id: number) {
+
+		if(active === true){
+			productActivate(true, id);
+			
+		}else{
+			productActivate(false, id);
+		}
+	}
+
+	const productActivate = async (active: boolean, id: number) => {
+
+		if(active === false){
+			Swal.fire({
+				title: "¿Está seguro que desea desactivar este producto?",
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonText: "Si",
+				confirmButtonColor: "green",
+				cancelButtonColor: "red",
+				cancelButtonText: "No",
+			}).then((result) => {
+				if (result.isConfirmed) {
+					putActivateProduct(active,id);
+					Swal.fire({
+						position: "center",
+						icon: "success",
+						title: "El producto fue desactivado correctamente",
+						showConfirmButton: false,
+						timer: 1200,
+					});
+				}
+			});
+		}else{
+			putActivateProduct(active,id);
+			Swal.fire({
+				position: "center",
+				icon: "success",
+				title: "El producto fue activado correctamente",
+				showConfirmButton: false,
+				timer: 1200,
+			});
+		}
+
+		
+	};
+
+	const putActivateProduct = async(active: boolean, id: number) => {
+		const body = {
+			"activo": active
+		};
+
+		axios.put("/api/producto/" + id, body);
+		const prod = await axios.get("api/producto");
+		setNewProducts(prod.data);
+	};
+ 
 	if (loading) {
 		return (
 			<Flex h="40rem" alignItems="center" justifyContent="center">
@@ -119,9 +171,10 @@ export default function Products({edit,setEdit}:propsProduct) {
 					products={products}
 					handleEdit={handleClickEdit}
 					handleDelete={handleClickDelete}
+					handleActivate={handleActivate}
 				/>
 			) : (
-				<EditProduct productEdit={productEdit}/>
+				<EditProduct productEdit={productEdit} />
 			)}
 		</Flex>
 	);
