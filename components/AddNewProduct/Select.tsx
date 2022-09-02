@@ -42,22 +42,23 @@ export default function Select({
 				onChange={onChange}
 				w={{ base: "100%", sm: "16em", md: "80%" }}
 			>
-
-				{
-				categories.map((category) => (
-
+				{categories.map((category) =>
 					value !== undefined ? (
-						value.id === category.id ? 
-						(<option key={category.id} value={category.id} selected>
+						value.id === category.id ? (
+							<option key={category.id} value={category.id} selected>
+								{category.nombre}
+							</option>
+						) : (
+							<option key={category.id} value={category.id}>
+								{category.nombre}
+							</option>
+						)
+					) : (
+						<option key={category.id} value={category.id}>
 							{category.nombre}
-						</option>) : (<option key={category.id} value={category.id}>
-							{category.nombre}
-						</option>)
-					):(<option key={category.id} value={category.id}>
-						{category.nombre}
-					</option>)
-					
-				))}
+						</option>
+					)
+				)}
 			</SelectCK>
 
 			<Flex paddingLeft={"1"}>

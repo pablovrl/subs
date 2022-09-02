@@ -28,22 +28,11 @@ const AgregarProducto: NextPage = () => {
 	const router = useRouter();
 	const dispatch = useDispatch();
 	const [errorImg, setErrorImg] = useState(false);
-	const [basicError, setBasicError] = useState();
+	const [, setBasicError] = useState();
 	const [viewErrors, setViewError] = useState(false);
 	const [errorSelectedImg, setErrorSelectedImg] = useState(false);
 	const [createProduct, setCreateProduct] = useState(false);
 	const state = useSelector((state: any) => state);
-	const [productDatas, setProductDatas] = useState({
-		name: "",
-		description: "",
-		images: state.arrayImg.images,
-		category: "1",
-		stock: "",
-		oneMonth: "",
-		threeMonth: "",
-		sixMonth: "",
-		twelveMonth: "",
-	});
 
 	useEffect(() => {
 		if (state.arrayImg.images.length > 0) {

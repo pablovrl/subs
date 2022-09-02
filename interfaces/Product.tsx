@@ -1,4 +1,11 @@
-import Category from "./Category";
+interface Category {
+	productoId: number;
+	categoriaId: number;
+	categoria: {
+		id: number;
+		nombre: string;
+	};
+}
 
 interface Product {
 	id: number;

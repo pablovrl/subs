@@ -91,7 +91,11 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 								<GridItem key={img.preview} colSpan={1} h="12">
 									{img === imgSelected ? (
 										<Flex w={"100%"} h={"100%"} justifyContent={"center"}>
-											<Flex borderWidth={4} borderColor={"red"} borderRadius={10}>
+											<Flex
+												borderWidth={4}
+												borderColor={"red"}
+												borderRadius={10}
+											>
 												<Image
 													src={img.preview}
 													borderRadius={6}
@@ -125,7 +129,12 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 
 					{error === true ? (
 						<Flex w={"100%"} justifyContent={"center"}>
-							<Flex w={"88%"} paddingX={3} marginTop={6} justifyContent={"center"}>
+							<Flex
+								w={"88%"}
+								paddingX={3}
+								marginTop={6}
+								justifyContent={"center"}
+							>
 								<Text color={"red"}>
 									Por favor, seleccione una imagen para la portada de su
 									producto.
@@ -144,7 +153,10 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 					paddingX={"8"}
 					justifyContent={{ base: "start", md: "center" }}
 				>
-					<Text>Es necesario que ingrese por lo menos una imagen para escoger la portada del producto.</Text>
+					<Text>
+						Es necesario que ingrese por lo menos una imagen para escoger la
+						portada del producto.
+					</Text>
 				</Flex>
 			);
 		}
@@ -154,7 +166,7 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 		<>
 			<Flex marginTop={"5"} justifyContent={"center"}>
 				<Box
-					w={{base: "21em",sm:"26em", md: "30em" ,lg: "48vw"}}
+					w={{ base: "21em", sm: "26em", md: "30em", lg: "48vw" }}
 					boxShadow={"md"}
 					justifyContent={"center"}
 					borderRadius={"10px"}

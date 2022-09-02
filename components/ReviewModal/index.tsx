@@ -63,36 +63,37 @@ const ReviewModal = ({ isOpen, onClose, suscribeId, reloadPage }: Props) => {
 			formData.title.trim().length === 0 ||
 			formData.description.trim().length === 0 ||
 			formData.stars === 0
-		)
+		) {
 			toast({
 				title: "Por favor, complete todos los campos solicitados.",
 				status: "error",
 				position: "top",
 				duration: 3000,
 			});
-
-		try {
-			await axios.post("/api/valoracion", {
-				titulo: formData.title,
-				comentario: formData.description,
-				estrellas: formData.stars,
-				suscribeId,
-			});
-			onClose();
-			toast({
-				title: "Su reseña ha sido enviada satisfactoriamente :).",
-				status: "success",
-				position: "top",
-				duration: 3000,
-			});
-			reloadPage();
-		} catch (error) {
-			toast({
-				title: "Su reseña no ha sido enviada :(.",
-				status: "error",
-				position: "top",
-				duration: 3000,
-			});
+		} else {
+			try {
+				await axios.post("/api/valoracion", {
+					titulo: formData.title,
+					comentario: formData.description,
+					estrellas: formData.stars,
+					suscribeId,
+				});
+				onClose();
+				toast({
+					title: "Su reseña ha sido enviada satisfactoriamente :).",
+					status: "success",
+					position: "top",
+					duration: 3000,
+				});
+				reloadPage();
+			} catch (error) {
+				toast({
+					title: "Su reseña no ha sido enviada :(.",
+					status: "error",
+					position: "top",
+					duration: 3000,
+				});
+			}
 		}
 	};
 

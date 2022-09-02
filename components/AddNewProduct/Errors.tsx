@@ -12,19 +12,19 @@ export default function Errors({
 	errorSelectedImg,
 }: ErrorsProps) {
 	return (
-		<Flex flexDirection={"column"} w={"100%"} alignItems={"center"} >
+		<Flex flexDirection={"column"} w={"100%"} alignItems={"center"}>
 			{errors.name && (
 				<Flex marginLeft={1} marginTop={0.5}>
 					<Text color={"red"}>{errors.name}</Text>
 				</Flex>
 			)}
 			{errors.description && (
-				<Flex  marginLeft={1} marginTop={0.5}>
+				<Flex marginLeft={1} marginTop={0.5}>
 					<Text color={"red"}>{errors.description}</Text>
 				</Flex>
 			)}
 			{errorImg && (
-				<Flex  marginLeft={1} marginTop={0.5}>
+				<Flex marginLeft={1} marginTop={0.5}>
 					<Text color={"red"}>Por favor, introduzca una imagen.</Text>
 				</Flex>
 			)}
@@ -42,22 +42,30 @@ export default function Errors({
 			)}
 			{errors.oneMonth && (
 				<Flex marginLeft={1} marginTop={0.5} px={5}>
-					<Text color={"red"}>{errors.oneMonth} en el precio de un mes del producto.</Text>
+					<Text color={"red"}>
+						{errors.oneMonth} en el precio de un mes del producto.
+					</Text>
 				</Flex>
 			)}
 			{errors.threeMonth && (
 				<Flex marginLeft={1} marginTop={0.5} px={5}>
-					<Text color={"red"}>{errors.threeMonth} en el precio de tres meses del producto.</Text>
+					<Text color={"red"}>
+						{errors.threeMonth} en el precio de tres meses del producto.
+					</Text>
 				</Flex>
 			)}
 			{errors.sixMonth && (
 				<Flex marginLeft={1} marginTop={0.5} px={5}>
-					<Text color={"red"}>{errors.sixMonth} en el precio de seis meses del producto.</Text>
+					<Text color={"red"}>
+						{errors.sixMonth} en el precio de seis meses del producto.
+					</Text>
 				</Flex>
 			)}
 			{errors.twelveMonth && (
 				<Flex marginLeft={1} marginTop={0.5} px={5}>
-					<Text color={"red"}>{errors.twelveMonth} en el precio de doce meses del producto.</Text>
+					<Text color={"red"}>
+						{errors.twelveMonth} en el precio de doce meses del producto.
+					</Text>
 				</Flex>
 			)}
 		</Flex>

@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import fs from "fs";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Image } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export default async function handler(
@@ -37,7 +37,7 @@ export default async function handler(
 			});
 
 			if (producto) {
-				producto.images.forEach((image) => {
+				producto.images.forEach((image: Image) => {
 					try {
 						const path = "./public/" + image.ruta;
 						fs.unlinkSync(path);
