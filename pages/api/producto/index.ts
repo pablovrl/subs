@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "@prisma/client";
+import { Image, Periodo, PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -9,19 +9,18 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	if (req.method === "POST") {
-		const { nombre, detalles, stock, categoriaId, imagenes, periodos } =
+		const { nombre, detalles, stock, categoriaId } =
 			req.body;
 
-		//console.log(activo);
-		const useImages: string[] = imagenes;
-		const usePeriodos: { duracion: string; precio: number }[] = periodos;
+		const imagenes = req.body.imagenes as Image[];
+		const periodos = req.body.periodos as Periodo[];
 
-		const imagesArray = useImages.map((img: string, i) => ({
+		const imagesArray = imagenes.map((img: any, i: number) => ({
 			ruta: img,
 			posicion: i,
 		}));
 
-		const periodosArray = usePeriodos.map((periodo) => ({
+		const periodosArray = periodos.map((periodo) => ({
 			duracion: periodo.duracion,
 			precio: periodo.precio,
 		}));
