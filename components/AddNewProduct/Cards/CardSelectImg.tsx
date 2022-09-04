@@ -16,8 +16,6 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 	const [imgSelected, setImgSelected] = useState<imgType>();
 
 	useEffect(() => {
-		//console.log(allImages);
-
 		setImages(allImages);
 		const verifyImg = () => {
 			let found = false;
@@ -50,7 +48,6 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 					}
 				}
 
-				//console.log(newArrayImg);
 				dispatch(addSortImg(newArrayImg));
 			}
 		};
@@ -58,7 +55,6 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 	}, [imgSelected, allImages]);
 
 	const handleClickImg = (img: imgType) => {
-		//console.log(img);
 		setImgSelected(img);
 	};
 

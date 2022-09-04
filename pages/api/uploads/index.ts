@@ -17,7 +17,6 @@ apiRoute.post(
 		res: NextApiResponse
 	) => {
 		const files = req.files;
-		console.log(files);
 		if (!files) return res.status(400).send("No file uploaded");
 		return res.json({ paths: files.map((file) => "uploads/" + file.filename) });
 	}

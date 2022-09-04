@@ -41,20 +41,15 @@ export default function Products({ edit, setEdit }: propsProduct) {
 	}
 
 	function handleActivate(active: boolean, id: number) {
-
-		//console.log(active);
-
-		if(active === true){
+		if (active === true) {
 			productActivate(true, id);
-			
-		}else{
+		} else {
 			productActivate(false, id);
 		}
 	}
 
 	const productActivate = async (active: boolean, id: number) => {
-
-		if(active === false){
+		if (active === false) {
 			Swal.fire({
 				title: "¿Está seguro que desea desactivar este producto?",
 				icon: "warning",
@@ -65,7 +60,7 @@ export default function Products({ edit, setEdit }: propsProduct) {
 				cancelButtonText: "No",
 			}).then((result) => {
 				if (result.isConfirmed) {
-					putActivateProduct(active,id);
+					putActivateProduct(active, id);
 					Swal.fire({
 						position: "center",
 						icon: "success",
@@ -75,8 +70,8 @@ export default function Products({ edit, setEdit }: propsProduct) {
 					});
 				}
 			});
-		}else{
-			putActivateProduct(active,id);
+		} else {
+			putActivateProduct(active, id);
 			Swal.fire({
 				position: "center",
 				icon: "success",
@@ -85,20 +80,18 @@ export default function Products({ edit, setEdit }: propsProduct) {
 				timer: 1200,
 			});
 		}
-
-		
 	};
 
-	const putActivateProduct = async(active: boolean, id: number) => {
+	const putActivateProduct = async (active: boolean, id: number) => {
 		const body = {
-			"activo": active
+			activo: active,
 		};
 
 		await axios.put("/api/producto/" + id, body);
 		const prod = await axios.get("api/producto");
 		setNewsProducts(prod.data);
 	};
- 
+
 	if (loading) {
 		return (
 			<Flex h="40rem" alignItems="center" justifyContent="center">
@@ -156,7 +149,7 @@ export default function Products({ edit, setEdit }: propsProduct) {
 	const deleteProduct = async (id: number) => {
 		await axios.delete("/api/producto/" + id);
 		const prod = await axios.get("api/producto");
-		
+
 		setNewsProducts(prod.data);
 	};
 
@@ -175,7 +168,10 @@ export default function Products({ edit, setEdit }: propsProduct) {
 					handleActivate={handleActivate}
 				/>
 			) : (
-				<EditProduct  setNewsProducts={setNewsProducts} productEdit={productEdit} />
+				<EditProduct
+					setNewsProducts={setNewsProducts}
+					productEdit={productEdit}
+				/>
 			)}
 		</Flex>
 	);
