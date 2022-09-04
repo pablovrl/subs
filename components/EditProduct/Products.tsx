@@ -22,13 +22,12 @@ interface propsProduct {
 export default function Products({ edit, setEdit }: propsProduct) {
 	const [products, setProducts] = useState<Product[]>([]);
 	const [loading, setLoading] = useState(true);
-	const [newProducts, setNewProducts] = useState<Product[]>([]);
+	const [newProducts, setNewsProducts] = useState<Product[]>([]);
 	const [productEdit, setProductEdit] = useState<Product>();
 
 	useEffect(() => {
 		const getProducts = async () => {
 			const prod = await axios.get("api/producto");
-			console.log(prod.data);
 			setProducts(prod.data);
 			setLoading(false);
 		};
@@ -42,6 +41,8 @@ export default function Products({ edit, setEdit }: propsProduct) {
 	}
 
 	function handleActivate(active: boolean, id: number) {
+
+		//console.log(active);
 
 		if(active === true){
 			productActivate(true, id);
@@ -93,9 +94,9 @@ export default function Products({ edit, setEdit }: propsProduct) {
 			"activo": active
 		};
 
-		axios.put("/api/producto/" + id, body);
+		await axios.put("/api/producto/" + id, body);
 		const prod = await axios.get("api/producto");
-		setNewProducts(prod.data);
+		setNewsProducts(prod.data);
 	};
  
 	if (loading) {
@@ -139,9 +140,8 @@ export default function Products({ edit, setEdit }: propsProduct) {
 			cancelButtonColor: "red",
 			cancelButtonText: "No",
 		}).then((result) => {
-			/* Read more about isConfirmed, isDenied below */
 			if (result.isConfirmed) {
-				deleteProduct();
+				deleteProduct(product.id);
 				Swal.fire({
 					position: "center",
 					icon: "success",
@@ -151,12 +151,13 @@ export default function Products({ edit, setEdit }: propsProduct) {
 				});
 			}
 		});
+	};
 
-		const deleteProduct = async () => {
-			await axios.delete("/api/producto/" + product.id);
-			const prod = await axios.get("api/producto");
-			setNewProducts(prod.data);
-		};
+	const deleteProduct = async (id: number) => {
+		await axios.delete("/api/producto/" + id);
+		const prod = await axios.get("api/producto");
+		
+		setNewsProducts(prod.data);
 	};
 
 	return (
@@ -174,7 +175,7 @@ export default function Products({ edit, setEdit }: propsProduct) {
 					handleActivate={handleActivate}
 				/>
 			) : (
-				<EditProduct productEdit={productEdit} />
+				<EditProduct  setNewsProducts={setNewsProducts} productEdit={productEdit} />
 			)}
 		</Flex>
 	);
