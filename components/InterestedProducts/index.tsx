@@ -86,10 +86,9 @@ export default function InterestedProducts({
 								{product.images.length > 0 ? (
 									<Box cursor={"pointer"}>
 										<Image
-											loader={() =>
-												`${process.env.URL + "/" + product.images[0].ruta}`
-											}
-											src={`${process.env.URL + "/" + product.images[0].ruta}`}
+											src={`${
+												process.env.URL + "/api/image/" + product.images[0].ruta
+											}`}
 											width="600"
 											height="400"
 											objectFit="cover"

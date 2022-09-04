@@ -9,7 +9,7 @@ interface propsProduct {
 	products: Product[];
 	handleDelete: any;
 	handleEdit: any;
-	handleActivate: any
+	handleActivate: any;
 }
 
 export default function GridItem({
@@ -27,10 +27,9 @@ export default function GridItem({
 					{product.images.length > 0 ? (
 						<Box cursor={"pointer"}>
 							<Image
-								loader={() =>
-									`${process.env.URL + "/" + product.images[0].ruta}`
-								}
-								src={`${process.env.URL + "/" + product.images[0].ruta}`}
+								src={`${
+									process.env.URL + "/api/image/" + product.images[0].ruta
+								}`}
 								width="600"
 								height="400"
 								objectFit="cover"
@@ -59,13 +58,21 @@ export default function GridItem({
 							Editar
 						</Button>
 						{product.activo === true ? (
-							<Button onClick={()=>{
-								handleActivate(false, product.id);
-							}}>Desactivar</Button>
+							<Button
+								onClick={() => {
+									handleActivate(false, product.id);
+								}}
+							>
+								Desactivar
+							</Button>
 						) : (
-							<Button onClick={()=> {
-								handleActivate(true, product.id);
-							}}>Activar</Button>
+							<Button
+								onClick={() => {
+									handleActivate(true, product.id);
+								}}
+							>
+								Activar
+							</Button>
 						)}
 
 						<Button
