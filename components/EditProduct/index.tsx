@@ -1,33 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { Flex, Text, Button, Spinner } from "@chakra-ui/react";
+import { Flex, Text, Button } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useRouter } from "next/router";
 import FormData from "form-data";
-import imgType from "../interfaces/fileInput";
-import Errors from "../components/AddNewProduct/Errors";
-import { addArrayImg } from "../redux/addNewProduct/action";
-import NavBar from "../components/AddNewProduct/NavBarAddProduct/index";
+import Errors from "../AddNewProduct/Errors";
+import { addArrayImg } from "../../redux/addNewProduct/action";
 
 //*Components
-import CardBasic from "../components/AddNewProduct/Cards/CardBasic";
-import CardProductQuantity from "../components/AddNewProduct/Cards/CardProductQuantity";
-import CardPriceProduct from "../components/AddNewProduct/Cards/CardPriceProduct";
-import CardCategories from "../components/AddNewProduct/Cards/CardAddCategories";
-import CardAddImg from "../components/AddNewProduct/Cards/CardAddImg";
-import CardSelectImg from "../components/AddNewProduct/Cards/CardSelectImg";
-import MyFormValues from "../interfaces/MyFormValues";
-import type { NextPage } from "next";
-import Validations from "../components/AddNewProduct/Validations";
+import CardBasic from "../AddNewProduct/Cards/CardBasic";
+import CardProductQuantity from "../AddNewProduct/Cards/CardProductQuantity";
+import CardPriceProduct from "../AddNewProduct/Cards/CardPriceProduct";
+import CardCategories from "../AddNewProduct/Cards/CardAddCategories";
+import CardAddImg from "../AddNewProduct/Cards/CardAddImg";
+import CardSelectImg from "../AddNewProduct/Cards/CardSelectImg";
+import MyFormValues from "../../interfaces/MyFormValues";
+import Validations from "../AddNewProduct/Validations";
+import { useRouter } from "next/router";
 
-const AgregarProducto: NextPage = () => {
-	const router = useRouter();
+const EditProduct = ({ productEdit, setNewsProducts }: any) => {
 	const dispatch = useDispatch();
-	const [loading, setLoading] = useState(true);
+	const router = useRouter();
 	const [errorImg, setErrorImg] = useState(false);
+
 	const [viewErrors, setViewError] = useState(false);
 	const [errorSelectedImg, setErrorSelectedImg] = useState(false);
 	const [createProduct, setCreateProduct] = useState(false);
@@ -45,24 +42,30 @@ const AgregarProducto: NextPage = () => {
 	}, [state]);
 
 	useEffect(() => {
-		if(state.user.email === "" || state.user.typeUser === "cliente"){
-			router.push("/");
-		}else{
-			setLoading(false);
-		}
+		const files = productEdit.images;
+		const addPreviewImg: any = [];
+
+		files.map((img: any) => {
+			addPreviewImg.push({
+				id: img.id,
+				productoId: img.productoId,
+				preview: img.ruta,
+			});
+		});
+
+		dispatch(addArrayImg(addPreviewImg));
 	}, []);
-	
 
 	const initialValues: MyFormValues = {
-		name: "",
-		description: "",
+		name: productEdit.nombre,
+		description: productEdit.detalles,
 		images: state.arrayImg.images,
-		category: "1",
-		stock: "0",
-		oneMonth: "0",
-		threeMonth: "0",
-		sixMonth: "0",
-		twelveMonth: "0",
+		category: productEdit.categorias[0].categoriaId,
+		stock: productEdit.stock,
+		oneMonth: productEdit.periodo[0].precio,
+		threeMonth: productEdit.periodo[1].precio,
+		sixMonth: productEdit.periodo[2].precio,
+		twelveMonth: productEdit.periodo[3].precio,
 	};
 
 	const submitForm = (values: MyFormValues) => {
@@ -88,10 +91,16 @@ const AgregarProducto: NextPage = () => {
 		const data = new FormData();
 		const images = state.arrayImg.sortImg;
 		let links = [];
+		const imgs = [];
+		const imgOld = [];
 
-		images.map((img: imgType, i: number) => {
-			data.append("file", images[i].img);
-		});
+		for (let i = 0; i < images.length; i++) {
+			if (images[i].img !== undefined) {
+				data.append("file", images[i].img);
+			} else {
+				imgOld.push(images[i].preview);
+			}
+		}
 
 		const res = await axios.post("/api/uploads", data, {
 			headers: {
@@ -99,10 +108,29 @@ const AgregarProducto: NextPage = () => {
 			},
 		});
 
-
 		links = res.data.paths;
 
-		postSortImg(links, values);
+		if (images[0].img !== undefined) {
+			let cont = 0;
+			for (let i = 0; i < links.length; i++) {
+				imgs.push(links[i]);
+			}
+			for (let i = links.length; i < imgOld.length + links.length; i++) {
+				imgs.push(imgOld[cont]);
+				cont++;
+			}
+		} else {
+			let cont = 0;
+			for (let i = 0; i < imgOld.length; i++) {
+				imgs.push(imgOld[i]);
+			}
+			for (let i = imgOld.length; i < links.length + imgOld.length; i++) {
+				imgs.push(links[cont]);
+				cont++;
+			}
+		}
+
+		postSortImg(imgs, values);
 	};
 
 	const postSortImg = async (links: any, values: MyFormValues) => {
@@ -141,12 +169,14 @@ const AgregarProducto: NextPage = () => {
 		};
 
 		try {
-			await axios.post("/api/producto", body);
+			await axios.put("/api/producto/" + productEdit.id, body);
+			const prod = await axios.get("api/producto");
+			setNewsProducts(prod);
 			router.push("/");
 			Swal.fire({
 				position: "center",
 				icon: "success",
-				title: "El producto se creó correctamente",
+				title: "El producto se editó correctamente",
 				showConfirmButton: false,
 				timer: 1200,
 			}).then(() => {
@@ -157,15 +187,15 @@ const AgregarProducto: NextPage = () => {
 				Swal.fire({
 					position: "center",
 					icon: "error",
-					title: "Hubo un error en la creación del producto",
+					title: "Hubo un error al editar el producto",
 					showConfirmButton: false,
 					timer: 1500,
 				});
 			}
-		} 
+		}
 	};
 
-	const handleClickCrearProducto = () => {
+	const handleClickEditarProducto = () => {
 		setViewError(true);
 		if (state.arrayImg.images.length > 0) {
 			setErrorImg(false);
@@ -179,17 +209,8 @@ const AgregarProducto: NextPage = () => {
 		}
 	};
 
-	if (loading) {
-		return (
-			<Flex h="100vh" alignItems="center" justifyContent="center">
-				<Spinner size="xl" />
-			</Flex>
-		);
-	}
-
 	return (
 		<>
-			<NavBar edit={false} />
 			<Flex w={"100%"} justifyContent={"center"}>
 				<Flex
 					width={{ base: "100%" }}
@@ -204,7 +225,7 @@ const AgregarProducto: NextPage = () => {
 						marginBottom={"4"}
 						id={"basic"}
 					>
-						<Text fontSize={"xx-large"}>Nuevo producto</Text>
+						<Text fontSize={"xx-large"}>Editar producto</Text>
 					</Flex>
 					<Formik
 						initialValues={initialValues}
@@ -213,7 +234,7 @@ const AgregarProducto: NextPage = () => {
 					>
 						{({ values, errors, touched, handleChange, handleBlur }) => (
 							<Form id="form">
-
+					
 								<CardBasic
 									name={values.name}
 									description={values.description}
@@ -225,7 +246,10 @@ const AgregarProducto: NextPage = () => {
 									touched={touched}
 								/>
 
-								<CardCategories handleChange={handleChange} value={values.category} />
+								<CardCategories
+									handleChange={handleChange}
+									value={values.category}
+								/>
 
 								<CardAddImg error={errorImg} />
 
@@ -233,6 +257,7 @@ const AgregarProducto: NextPage = () => {
 
 								<CardProductQuantity
 									errors={errors}
+									value={values.stock}
 									touched={touched}
 									handleBlur={handleBlur}
 									handleChange={handleChange}
@@ -243,6 +268,10 @@ const AgregarProducto: NextPage = () => {
 									touched={touched}
 									handleBlur={handleBlur}
 									handleChange={handleChange}
+									oneMounth={values.oneMonth}
+									threeMounth={values.threeMonth}
+									sixMounth={values.sixMonth}
+									twelveMounth={values.twelveMonth}
 								/>
 
 								<Flex
@@ -268,9 +297,9 @@ const AgregarProducto: NextPage = () => {
 											type="submit"
 											variant="outline"
 											borderColor="#e2e8f0"
-											onClick={handleClickCrearProducto}
+											onClick={handleClickEditarProducto}
 										>
-											Crear producto
+											Editar producto
 										</Button>
 									</Flex>
 								</Flex>
@@ -283,4 +312,4 @@ const AgregarProducto: NextPage = () => {
 	);
 };
 
-export default AgregarProducto;
+export default EditProduct;

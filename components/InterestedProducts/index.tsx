@@ -75,36 +75,40 @@ export default function InterestedProducts({
 			alignItems="center"
 		>
 			<SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ md: 3 }}>
-				{products.map((product: Product) => (
-					<Link key={product.id} href={`/producto/${product.id}`}>
-						<Box mb={4} cursor="pointer">
-							{product.images.length > 0 ? (
-								<Box cursor={"pointer"}>
-									<Image
-										loader={() =>
-											`${process.env.URL + "/api/image/" + product.images[0].ruta}`
-										}
-										src={`${process.env.URL + "/api/image/" + product.images[0].ruta}`}
-										width="600"
-										height="400"
-										objectFit="cover"
+				{products.map((product: Product) =>
+					product.activo ? (
+						<Link key={product.id} href={`/producto/${product.id}`}>
+							<Box mb={4} cursor="pointer">
+								{product.images.length > 0 ? (
+									<Box cursor={"pointer"}>
+										<Image
+											loader={() =>
+												`${process.env.URL + "/" + product.images[0].ruta}`
+											}
+											src={`${process.env.URL + "/" + product.images[0].ruta}`}
+											width="600"
+											height="400"
+											objectFit="cover"
+										/>
+									</Box>
+								) : (
+									<img
+										src="https://profesional.tarkett.es/media/img/M/THH_25121917_25131917_25126917_25136917_001.jpg"
+										style={{
+											width: "320px",
+											height: "200px",
+											objectFit: "cover",
+										}}
 									/>
-								</Box>
-							) : (
-								<img
-									src="https://profesional.tarkett.es/media/img/M/THH_25121917_25131917_25126917_25136917_001.jpg"
-									style={{
-										width: "320px",
-										height: "200px",
-										objectFit: "cover",
-									}}
-								/>
-							)}
-							<Text>{product.nombre}</Text>
-							<Text fontSize={"xs"}>por {product.vendedor.nombreTienda}</Text>
-						</Box>
-					</Link>
-				))}
+								)}
+								<Text>{product.nombre}</Text>
+								<Text fontSize={"xs"}>por {product.vendedor.nombreTienda}</Text>
+							</Box>
+						</Link>
+					) : (
+						""
+					)
+				)}
 			</SimpleGrid>
 		</Flex>
 	);

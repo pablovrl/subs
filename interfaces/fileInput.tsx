@@ -1,6 +1,6 @@
 interface fileInput {
 	id: number;
-	img: File;
+	img?: File;
 	preview: string;
 }
 

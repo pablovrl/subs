@@ -7,6 +7,7 @@ interface Product {
 	stock: number;
 	vendedorId: number;
 	categorias: Category[];
+	activo: boolean
 	vendedor: {
 		id: number;
 		nombreCompleto: string;

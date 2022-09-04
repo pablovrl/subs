@@ -5,16 +5,21 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addCategories } from "../../../redux/addNewProduct/action";
 
-interface CardAddCategoriesProps {
-	handleChange: React.ChangeEventHandler<HTMLSelectElement>;
-}
+
 interface Categoria {
-	id: number;
+	id: string;
 	nombre: string;
 }
 
+interface CardAddCategoriesProps {
+	handleChange: React.ChangeEventHandler<HTMLSelectElement>;
+	value?: string;
+}
+
+
 export default function CardAddCategories({
 	handleChange,
+	value
 }: CardAddCategoriesProps) {
 	const [categories, setCategories] = useState<Categoria[]>([]);
 	const dispatch = useDispatch();
@@ -27,6 +32,7 @@ export default function CardAddCategories({
 		};
 
 		getCategoria();
+		
 	}, []);
 	return (
 		<>
@@ -50,6 +56,7 @@ export default function CardAddCategories({
 						<Select
 							title="Categoría principal"
 							categories={categories}
+							value={value}
 							text="Seleccione la categoría más relacionada con su producto."
 							fontSizeText={"sm"}
 							onChange={handleChange}
