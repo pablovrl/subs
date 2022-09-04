@@ -117,7 +117,7 @@ export default async function handler(
 
 	if (req.method === "DELETE") {
 		const id = req.query.id;
-		console.log(id);
+
 		if (typeof id === "string") {
 			const producto = await prisma.producto.findUnique({
 				where: { id: parseInt(id, 10) },
@@ -140,7 +140,8 @@ export default async function handler(
 				});
 				await prisma.image.deleteMany({ where: { productoId: producto.id } });
 				await prisma.producto.delete({ where: { id: producto.id } });
-			}
+
+				return res.status(200).json({ mensaje: "producto eliminado correctamente"});			}
 		}
 		return res.status(404).json({ mensaje: "producto no existe" });
 	}
