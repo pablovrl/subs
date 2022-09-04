@@ -18,9 +18,8 @@ export default function NavbarLink({
 	return (
 		<Link href={href}>
 			<CLink
-				pl={8}
+				px={1.5}
 				display={"flex"}
-				alignItems={"center"}
 				_hover={{ textDecoration: "none" }}
 			>
 				{icon && <Box mr={2}>{icon}</Box>}
