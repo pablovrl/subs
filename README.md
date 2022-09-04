@@ -15,23 +15,23 @@
 ## Configuraciones de Ejecución para Entorno de Desarrollo/Producción
 
 ##Clonar repositorio
-Clonar el repositorio en su máquina local:
+Clonamos el repositorio en su máquina local:
 ```bash
 git clone https://github.com/pablovrl/subs.git
 ```
 
 ## Docker
-Con una terminal situarse en la raíz del proyecto y ejecutar:
+Con una terminal nos situamos en la raíz del proyecto y ejecutar:
 ```bash
 docker build -t subs .
 ```
-Una vez construida la imagen, lanzar un contenedor que contenga el código clonado anteriormente: 
+Una vez construida la imagen, lanzamos un contenedor que contenga el código clonado anteriormente: 
 ```bash
 docker run -ti -p 3000:3000 -v ${PWD}:/app subs
 ```
 
 ## Instalar dependencias
-Una vez dentro del docker vamos a la raiz del proyecto:
+Una vez dentro del container de docker vamos a la raiz del proyecto:
 ```bash
 cd app
 ```
@@ -41,7 +41,7 @@ yarn
 ```
 
 ### Base de Datos
-Crear archivo `.env` en la raíz del proyecto, y agregar la siguiente variable de entorno con las credenciales de la base de datos a ocupar:
+Creamos un archivo `.env` en la raíz del proyecto, y agreamos la siguiente variable de entorno con las credenciales de nuestra base de datos:
 ```env
 DATABASE_URL='mysql://user:password@host/db_name'
 ```
