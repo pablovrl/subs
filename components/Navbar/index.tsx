@@ -61,6 +61,7 @@ export default function Navbar() {
 				{categories.map((categorie) => (
 					<Box
 						py={1}
+						pl={10}
 						key={categorie.id}
 						_hover={{ backgroundColor: "#B8F1B0" }}
 					>
@@ -94,8 +95,11 @@ export default function Navbar() {
 			confirmButtonText: "Iniciar Sesión",
 			//focusConfirm: false,
 			preConfirm: async () => {
-				let email = document.getElementById("email").value;
-				let password = document.getElementById("password").value;
+				const email = (document.getElementById("email") as HTMLInputElement)
+					.value;
+				const password = (
+					document.getElementById("password") as HTMLInputElement
+				).value;
 
 				if (!email || !password) {
 					Swal.showValidationMessage("Introduzca su usuario y su contraseña");
@@ -151,10 +155,11 @@ export default function Navbar() {
 
 	const userLogin = () => {
 		if (user.email !== "") {
-
 			return (
 				<Flex p={2} style={{ cursor: "pointer" }} onClick={handleClickSignOff}>
-					<Text fontSize={{ base: "xs", sm: "sm", md: "md" }}>Cerrar Sesión</Text>
+					<Text fontSize={{ base: "xs", sm: "sm", md: "md" }}>
+						Cerrar Sesión
+					</Text>
 				</Flex>
 			);
 		} else {
