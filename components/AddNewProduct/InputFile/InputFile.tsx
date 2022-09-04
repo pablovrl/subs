@@ -46,46 +46,33 @@ export default function FileInput({ setFile, files }: FileInputProps) {
 
 			onDrop: (acceptedFiles: File[]) => {
 				if (acceptedFiles[0] !== undefined) {
-					for (let i = 0; i < acceptedFiles.length; i++) {
-						if (acceptedFiles[i].size <= 5000000) {
-							if (files.length < 4) {
-								let id = 0;
-								for (let i = 0; i < acceptedFiles.length; i++) {
-									if (files.length > 0) {
-										id = files[files.length - 1].id + i + 1;
-									} else {
-										id = i + 1;
-									}
-
-									setFile((old) => [
-										...old,
-										{
-											id: id,
-											img: acceptedFiles[i],
-											preview: URL.createObjectURL(acceptedFiles[i]),
-											state: false,
-										},
-									]);
-								}
+					if (files.length < 4) {
+						let id = 0;
+						for (let i = 0; i < acceptedFiles.length; i++) {
+							if (files.length > 0) {
+								id = files[files.length - 1].id + i + 1;
 							} else {
-								Swal.fire({
-									icon: "error",
-									title: "Error",
-									text: "Alcanzaste el límite de imágenes",
-									confirmButtonColor: "#3085d6",
-									confirmButtonText: "Volver",
-								});
+								id = i + 1;
 							}
-						}else{
-							Swal.fire({
-								icon: "error",
-								title: "Error",
-								text: "Se encontró una imagen con un peso superior a 5MB",
-								confirmButtonColor: "#3085d6",
-								confirmButtonText: "Volver",
-							});
 
+							setFile((old) => [
+								...old,
+								{
+									id: id,
+									img: acceptedFiles[i],
+									preview: URL.createObjectURL(acceptedFiles[i]),
+									state: false,
+								},
+							]);
 						}
+					} else {
+						Swal.fire({
+							icon: "error",
+							title: "Error",
+							text: "Alcanzaste el límite de imágenes",
+							confirmButtonColor: "#3085d6",
+							confirmButtonText: "Volver",
+						});
 					}
 				} else {
 					Swal.fire({
