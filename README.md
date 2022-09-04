@@ -1,34 +1,77 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# susCL
 
-## Getting Started
+**susCL** es un software web de tipo **marketplace**, que facilita la compra y venta de productos mediante un pago de suscripción, ayudando a emprendedores la promoción de su producto y la gestión de las ventas del mismo, y por otro lado, beneficiar a los compradores, dándoles un sólo lugar donde pueden administrar las suscripciones de sus productos favoritos.
 
-First, run the development server:
+## Software Stack
 
+**susCL** es una aplicación web que se ejecuta sobre el siguiente software:
+
+- Ubuntu 18.04
+- NodeJS 16.15.0
+- PrismaCLI 4.3.1
+- MySQL
+- Yarn
+
+## Configuraciones de Ejecución para Entorno de Desarrollo/Producción
+
+##Clonar repositorio
+Clonar el repositorio en su máquina local:
 ```bash
-npm run dev
-# or
-yarn dev
+git clone https://github.com/pablovrl/subs.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Docker
+Con una terminal situarse en la raíz del proyecto y ejecutar:
+```bash
+docker build -t subs .
+```
+Una vez construida la imagen, lanzar un contenedor que contenga el código clonado anteriormente: 
+```bash
+docker run -ti -p 80:80 -v ${PWD}:/app subs
+```
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Instalar dependencias
+Una vez dentro del docker vamos a la raiz del proyecto:
+```bash
+cd app
+```
+Instalamos las dependencias ocupando yarn:
+```bash
+yarn
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Base de Datos
+Crear archivo `.env` en la raíz del proyecto, y agregar la siguiente variable de entorno con las credenciales de la base de datos a ocupar:
+```env
+DATABASE_URL='mysql://user:password@host/db_name'
+```
+Hacemos la migración de la base de datos para crear las tablas:
+```bash
+npx prisma db push
+```
+Poblamos la base de datos:
+```bash
+npx prisma db seed
+```
+### Build para producción
+Creamos una versión para producción
+```bash
+yarn build
+```
+Ahora sólo nos queda ejecutar nuestro proyecto con:
+```bash
+yarn start
+```
+Vamos a nuestro navegador y accedemos a la siguiente url [subs](http://localhost:3000 "subs").
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Tecnologías utilizadas
+- [TypeScript](https://www.typescriptlang.org/) - Lenguaje de programación.
+- [React](https://es.reactjs.org/) - Biblioteca para construir interfaces de usuario.
+- [Next.js](https://nextjs.org "Next.js") - Framework de React que incluye su propio servidor.
+- [Chakra UI](https://chakra-ui.com/ "Chakra UI") - Librería de componentes UI para react.
+- [Prisma](https://prisma.io "Prisma") - ORM que nos permite comunicar nuestro servidor con la base de datos.
+- [Yarn](https://yarnpkg.com/ "Yarn") - Administrador de dependencias de node.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Contribuidores del proyecto
+- Integrante: Pablo Sebastián Villarroel Antillanca - pablo.villarroel1901@alumnos.ubiobio.cl
+- Integrante: Elvis Aarón Rodríguez Durán - elvis.rodriguez1901@alumnos.ubiobio.cl
