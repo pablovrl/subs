@@ -27,7 +27,7 @@ docker build -t subs .
 ```
 Una vez construida la imagen, lanzar un contenedor que contenga el código clonado anteriormente: 
 ```bash
-docker run -ti -p 80:80 -v ${PWD}:/app subs
+docker run -ti -p 3000:3000 -v ${PWD}:/app subs
 ```
 
 ## Instalar dependencias
