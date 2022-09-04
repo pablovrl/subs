@@ -24,12 +24,26 @@ export default function InterestedProducts({
 }) {
 	const [products, setProducts] = useState<Product[]>([]);
 	const [loading, setLoading] = useState(false);
+	const [notFoundProducts, setNotFoundProducts] = useState(false); 
 
 	useEffect(() => {
 		const getProducts = async () => {
 			setLoading(true);
 			const link = filter ? `api/producto?${filter}=${query}` : "api/producto";
 			const prod = await axios.get(link);
+			let cont = 0;
+
+
+			prod.data.map((pd:any) => {
+				if(pd.activo === false){
+					cont++;
+				}
+			});
+
+			if(cont === prod.data.length){
+				setNotFoundProducts(true);
+			}
+			
 			setProducts(prod.data);
 			setLoading(false);
 		};
@@ -44,7 +58,7 @@ export default function InterestedProducts({
 		);
 	}
 
-	if (products.length === 0)
+	if (products.length === 0 || notFoundProducts)
 		return (
 			<Alert
 				mt={4}
