@@ -253,7 +253,7 @@ const EditProduct = ({ productEdit, setNewsProducts }: any) => {
 
 								<CardAddImg error={errorImg} edit={true}/>
 
-								<CardSelectImg error={errorSelectedImg} />
+								<CardSelectImg error={errorSelectedImg} edit={true}/>
 
 								<CardProductQuantity
 									errors={errors}

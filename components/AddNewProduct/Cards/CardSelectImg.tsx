@@ -7,9 +7,10 @@ import { useDispatch } from "react-redux";
 
 interface CardSelectImgProps {
 	error: boolean;
+	edit: boolean;
 }
 
-export default function CardSelectImg({ error }: CardSelectImgProps) {
+export default function CardSelectImg({ error, edit }: CardSelectImgProps) {
 	const dispatch = useDispatch();
 	const allImages = useSelector((state: any) => state.arrayImg.images);
 	const [images, setImages] = useState([]);
@@ -64,13 +65,23 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 				<>
 					<Flex justifyContent={"center"} alignItems={"center"} marginTop={"5"}>
 						{imgSelected !== undefined ? (
-							<Image
-								src={imgSelected.preview}
-								alt="imagen"
-								borderRadius={8}
-								w={"60%"}
-								h={"60%"}
-							/>
+							edit ? (
+								<Image
+									src={"/api/image/" + imgSelected.preview}
+									alt="imagen"
+									borderRadius={8}
+									w={"60%"}
+									h={"60%"}
+								/>
+							) : (
+								<Image
+									src={imgSelected.preview}
+									alt="imagen"
+									borderRadius={8}
+									w={"60%"}
+									h={"60%"}
+								/>
+							)
 						) : (
 							<Flex w={"100%"} justifyContent={"center"} marginY={"20"}>
 								<Text>Aún no se selecciona la portada.</Text>
@@ -94,27 +105,49 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 												borderColor={"red"}
 												borderRadius={10}
 											>
-												<Image
-													src={img.preview}
-													borderRadius={6}
-													borderWidth={4}
-													borderColor={"red"}
-													alt="imagen"
-													onClick={() => handleClickImg(img)}
-													objectFit={"contain"}
-												/>
+												{edit ? (
+													<Image
+														src={"/api/image/" + img.preview}
+														borderRadius={6}
+														borderWidth={4}
+														borderColor={"red"}
+														alt="imagen"
+														onClick={() => handleClickImg(img)}
+														objectFit={"contain"}
+													/>
+												) : (
+													<Image
+														src={img.preview}
+														borderRadius={6}
+														borderWidth={4}
+														borderColor={"red"}
+														alt="imagen"
+														onClick={() => handleClickImg(img)}
+														objectFit={"contain"}
+													/>
+												)}
 											</Flex>
 										</Flex>
 									) : (
 										<Flex w={"100%"} h={"100%"} justifyContent={"center"}>
 											<Flex>
-												<Image
-													src={img.preview}
-													alt="imagen"
-													borderRadius={6}
-													onClick={() => handleClickImg(img)}
-													objectFit={"contain"}
-												/>
+												{edit ? (
+													<Image
+														src={"/api/image/" + img.preview}
+														alt="imagen"
+														borderRadius={6}
+														onClick={() => handleClickImg(img)}
+														objectFit={"contain"}
+													/>
+												) : (
+													<Image
+														src={img.preview}
+														alt="imagen"
+														borderRadius={6}
+														onClick={() => handleClickImg(img)}
+														objectFit={"contain"}
+													/>
+												)}
 											</Flex>
 										</Flex>
 									)}

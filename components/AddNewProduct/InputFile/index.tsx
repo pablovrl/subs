@@ -10,7 +10,7 @@ interface FileInputProps {
 	edit: boolean;
 }
 
-export default function fileInput({ error }: FileInputProps) {
+export default function fileInput({ error,edit }: FileInputProps) {
 	const [files, setFiles] = useState<FileInput[]>([]);
 	const images = useSelector((store: any) => store.arrayImg.images);
 	const dispatch = useDispatch();
@@ -79,13 +79,24 @@ export default function fileInput({ error }: FileInputProps) {
 									>
 										x
 									</Button>
-									<Image
-										key={file.id}
-										src={file.preview}
-										width="100%"
-										height="100%"
-										objectFit="cover"
-									/>
+
+									{edit ? (
+										<Image
+											key={file.id}
+											src={"/api/image/" + file.preview}
+											width="100%"
+											height="100%"
+											objectFit="cover"
+										/>
+									) : (
+										<Image
+											key={file.id}
+											src={file.preview}
+											width="100%"
+											height="100%"
+											objectFit="cover"
+										/>
+									)}
 								</Flex>
 							</Flex>
 						</GridItem>
