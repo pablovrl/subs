@@ -15,30 +15,21 @@ export default function fileInput({ error, edit }: FileInputProps) {
 	const images = useSelector((store: any) => store.arrayImg.images);
 	const dispatch = useDispatch();
 
-
 	//* agregar nuevas fotos al estado redux
 	useEffect(() => {
-		if (files.length !== 0 ) {
+		if (files.length !== 0) {
 			dispatch(addArrayImg(files));
 		}
-	}, [files]); 
+	}, [files]);
 
-
-	//* mostrar fotos guardadas 
+	//* mostrar fotos guardadas
 	useEffect(() => {
-		//console.log(images);
 		
 		if (files.length === 0) {
 			setFiles(images);
-			//console.log("no se encontraron imagen");
-		} else {
-			//console.log(" se encontraron imagenes");
 		} 
 	}, [images]);
 
-
-	
-	
 	const handleClick = (id: number) => {
 		const newFiles: FileInput[] = [];
 
@@ -75,21 +66,33 @@ export default function fileInput({ error, edit }: FileInputProps) {
 				{files.length !== 0 ? (
 					files.map((file) => (
 						<GridItem key={file.id} colSpan={1} h={16}>
-							<Flex w={"100%"} h={"100%"} justifyContent={"center"}>
-								<Button
-									bgColor={"red"}
-									color={"white"}
-									borderRadius={100}
-									position={"absolute"}
-									marginTop={{ base: "0.4em", sm: "-0.5", md: "-2" }}
-									marginLeft={{ base: "3.8em", sm: "5.5em", md: "7em" }}
-									size={"xs"}
-									onClick={() => handleClick(file.id)}
-								>
-									x
-								</Button>
-
-								<Image key={file.id} src={file.preview} objectFit={"contain"} />
+							<Flex
+								w={"100%"}
+								h={"100%"}
+								justifyContent={"center"}
+							>
+								<Flex w={"80%"} justifyContent={"center"}>
+									
+									<Button
+										bgColor={"red"}
+										color={"white"}
+										borderRadius={100}
+										position={"absolute"}
+										marginTop={{ base: "-0.7em", sm: "-1%", md: "-1%" }}
+										marginLeft={{ base: "3.8em", sm: "12%", md: "7.5%" }}
+										size={"xs"}
+										onClick={() => handleClick(file.id)}
+									>
+										x
+									</Button>
+									<Image
+										key={file.id}
+										src={file.preview}
+										width="100%"
+										height="100%"
+										objectFit="cover"
+									/>
+								</Flex>
 							</Flex>
 						</GridItem>
 					))

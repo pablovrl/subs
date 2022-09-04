@@ -31,11 +31,6 @@ export default function Select({
 	fontSizeTitle,
 	fontSizeText,
 }: SelectProps) {
-	/* 	useEffect(() => {
-		console.log(value);
-		//console.log(categories.id);
-		
-	}, []); */
 
 	return (
 		<Stack w={{ base: "88%", md: "80%" }}>

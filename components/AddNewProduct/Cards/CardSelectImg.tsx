@@ -16,7 +16,7 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 	const [imgSelected, setImgSelected] = useState<imgType>();
 
 	useEffect(() => {
-		console.log(allImages);
+		//console.log(allImages);
 
 		setImages(allImages);
 		const verifyImg = () => {
@@ -58,7 +58,7 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 	}, [imgSelected, allImages]);
 
 	const handleClickImg = (img: imgType) => {
-		console.log(img);
+		//console.log(img);
 		setImgSelected(img);
 	};
 
@@ -72,8 +72,8 @@ export default function CardSelectImg({ error }: CardSelectImgProps) {
 								src={imgSelected.preview}
 								alt="imagen"
 								borderRadius={8}
-								w={"80%"}
-								h={"50%"}
+								w={"60%"}
+								h={"60%"}
 							/>
 						) : (
 							<Flex w={"100%"} justifyContent={"center"} marginY={"20"}>
