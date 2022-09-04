@@ -43,35 +43,49 @@ export default function FileInput({ setFile, files }: FileInputProps) {
 				"image/jpeg": [],
 				"image/png": [],
 			},
+
 			onDrop: (acceptedFiles: File[]) => {
 				if (acceptedFiles[0] !== undefined) {
-					if (files.length < 4) {
-						let id = 0;
-						for (let i = 0; i < acceptedFiles.length; i++) {
-							if (files.length > 0) {
-								id = files[files.length-1].id + i + 1;
-							} else {
-								id = i + 1;
-							}
+					for (let i = 0; i < acceptedFiles.length; i++) {
+						if (acceptedFiles[i].size <= 5000000) {
+							if (files.length < 4) {
+								let id = 0;
+								for (let i = 0; i < acceptedFiles.length; i++) {
+									if (files.length > 0) {
+										id = files[files.length - 1].id + i + 1;
+									} else {
+										id = i + 1;
+									}
 
-							setFile((old) => [
-								...old,
-								{
-									id: id,
-									img: acceptedFiles[i],
-									preview: URL.createObjectURL(acceptedFiles[i]),
-									state: false,
-								},
-							]);
+									setFile((old) => [
+										...old,
+										{
+											id: id,
+											img: acceptedFiles[i],
+											preview: URL.createObjectURL(acceptedFiles[i]),
+											state: false,
+										},
+									]);
+								}
+							} else {
+								Swal.fire({
+									icon: "error",
+									title: "Error",
+									text: "Alcanzaste el límite de imágenes",
+									confirmButtonColor: "#3085d6",
+									confirmButtonText: "Volver",
+								});
+							}
+						}else{
+							Swal.fire({
+								icon: "error",
+								title: "Error",
+								text: "Se encontró una imagen con un peso superior a 5MB",
+								confirmButtonColor: "#3085d6",
+								confirmButtonText: "Volver",
+							});
+
 						}
-					} else {
-						Swal.fire({
-							icon: "error",
-							title: "Error",
-							text: "Alcanzaste el límite de imágenes",
-							confirmButtonColor: "#3085d6",
-							confirmButtonText: "Volver",
-						});
 					}
 				} else {
 					Swal.fire({
@@ -97,12 +111,15 @@ export default function FileInput({ setFile, files }: FileInputProps) {
 
 	return (
 		<>
-			<Flex {...getRootProps({ style,})} width={{base: "84%", md: "22em"}} paddingY={{base: 5, md: 35}} marginX={{base: 10}} >
+			<Flex
+				{...getRootProps({ style })}
+				width={{ base: "84%", md: "22em" }}
+				paddingY={{ base: 5, md: 35 }}
+				marginX={{ base: 10 }}
+			>
 				<Flex>
-					<input
-						{...getInputProps()}
-					/>
-					<Flex flexDirection={"column"} alignItems={"center"} >
+					<input {...getInputProps()} />
+					<Flex flexDirection={"column"} alignItems={"center"}>
 						<Image src="./addPhoto.png" w={14} h={14} />
 						<Text marginTop={2} textAlign={"center"}>
 							Suelte o haga clic aquí para cargar las imágenes de su producto.
