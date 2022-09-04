@@ -251,7 +251,7 @@ const EditProduct = ({ productEdit, setNewsProducts }: any) => {
 									value={values.category}
 								/>
 
-								<CardAddImg error={errorImg} />
+								<CardAddImg error={errorImg} edit={true}/>
 
 								<CardSelectImg error={errorSelectedImg} />
 

@@ -227,7 +227,7 @@ const AgregarProducto: NextPage = () => {
 
 								<CardCategories handleChange={handleChange} value={values.category} />
 
-								<CardAddImg error={errorImg} />
+								<CardAddImg error={errorImg} edit={false}/>
 
 								<CardSelectImg error={errorSelectedImg} />
 

@@ -4,9 +4,10 @@ import InputFile from "../InputFile";
 
 interface CardAddImgProp {
 	error: boolean
+	edit: boolean
 }
 
-export default function CardAddImg({error}:CardAddImgProp) {
+export default function CardAddImg({error, edit}:CardAddImgProp) {
 	return (
 		<>
 			<Flex marginTop={"5"} justifyContent={"center"}>
@@ -31,7 +32,7 @@ export default function CardAddImg({error}:CardAddImgProp) {
 						</Text>
 					</Flex>
 
-					<InputFile error={error} edit={false} />
+					<InputFile error={error} edit={edit} />
 				</Box>
 			</Flex>
 		</>
