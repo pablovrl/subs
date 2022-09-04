@@ -1,4 +1,5 @@
-# susCL
+# ![image](https://user-images.githubusercontent.com/62177255/188337689-f9367ee2-3041-4598-8d57-e8c0df556d75.png)
+
 
 **susCL** es un software web de tipo **marketplace**, que facilita la compra y venta de productos mediante un pago de suscripción, ayudando a emprendedores la promoción de su producto y la gestión de las ventas del mismo, y por otro lado, beneficiar a los compradores, dándoles un sólo lugar donde pueden administrar las suscripciones de sus productos favoritos.
 
