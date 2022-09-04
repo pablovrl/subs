@@ -1,5 +1,11 @@
 import imgType from "../../interfaces/fileInput";
 
+interface user {
+	email: string,
+	typeUser: string;
+}
+
+
 const addArrayImg = (img: imgType[]) => {
 	return {
 		type: "addArrayImg",
@@ -30,4 +36,15 @@ const addCategories = (categories: string[]) => {
 	};
 };
 
-export { addArrayImg, addFirstImg, addSortImg, addCategories };
+
+//* user
+
+const addUser = (user: user) => {
+	return {
+		type: "addUser",
+		addEmail: user.email,
+		addTypeUser: user.typeUser
+	};
+};
+
+export { addArrayImg, addFirstImg, addSortImg, addCategories, addUser};
