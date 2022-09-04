@@ -111,7 +111,7 @@ export default async function handler(
 				}
 			}
 
-			return res.status(200).json({mensaje: "producto editado"});
+			return res.status(200).json({ mensaje: "producto editado" });
 		}
 	}
 
@@ -141,7 +141,10 @@ export default async function handler(
 				await prisma.image.deleteMany({ where: { productoId: producto.id } });
 				await prisma.producto.delete({ where: { id: producto.id } });
 
-				return res.status(200).json({ mensaje: "producto eliminado correctamente"});			}
+				return res
+					.status(200)
+					.json({ mensaje: "producto eliminado correctamente" });
+			}
 		}
 		return res.status(404).json({ mensaje: "producto no existe" });
 	}
