@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
 	Text,
 	TypographyProps,
@@ -31,7 +31,6 @@ export default function Select({
 	fontSizeTitle,
 	fontSizeText,
 }: SelectProps) {
-
 	return (
 		<Stack w={{ base: "88%", md: "80%" }}>
 			<Flex marginLeft={2} marginTop={2}>

@@ -10,7 +10,7 @@ interface FileInputProps {
 	edit: boolean;
 }
 
-export default function fileInput({ error, edit }: FileInputProps) {
+export default function fileInput({ error }: FileInputProps) {
 	const [files, setFiles] = useState<FileInput[]>([]);
 	const images = useSelector((store: any) => store.arrayImg.images);
 	const dispatch = useDispatch();
@@ -24,10 +24,9 @@ export default function fileInput({ error, edit }: FileInputProps) {
 
 	//* mostrar fotos guardadas
 	useEffect(() => {
-		
 		if (files.length === 0) {
 			setFiles(images);
-		} 
+		}
 	}, [images]);
 
 	const handleClick = (id: number) => {
@@ -66,13 +65,8 @@ export default function fileInput({ error, edit }: FileInputProps) {
 				{files.length !== 0 ? (
 					files.map((file) => (
 						<GridItem key={file.id} colSpan={1} h={16}>
-							<Flex
-								w={"100%"}
-								h={"100%"}
-								justifyContent={"center"}
-							>
+							<Flex w={"100%"} h={"100%"} justifyContent={"center"}>
 								<Flex w={"80%"} justifyContent={"center"}>
-									
 									<Button
 										bgColor={"red"}
 										color={"white"}
