@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Flex, Text, Button } from "@chakra-ui/react";
+import { Flex, Text, Button, Spinner } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
-import FormObserver from "../components/AddNewProduct/FormObserver";
 
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
@@ -27,23 +26,12 @@ import Validations from "../components/AddNewProduct/Validations";
 const AgregarProducto: NextPage = () => {
 	const router = useRouter();
 	const dispatch = useDispatch();
+	const [loading, setLoading] = useState(true);
 	const [errorImg, setErrorImg] = useState(false);
-	const [basicError, setBasicError] = useState();
 	const [viewErrors, setViewError] = useState(false);
 	const [errorSelectedImg, setErrorSelectedImg] = useState(false);
 	const [createProduct, setCreateProduct] = useState(false);
 	const state = useSelector((state: any) => state);
-	const [productDatas, setProductDatas] = useState({
-		name: "",
-		description: "",
-		images: state.arrayImg.images,
-		category: "1",
-		stock: "",
-		oneMonth: "",
-		threeMonth: "",
-		sixMonth: "",
-		twelveMonth: "",
-	});
 
 	useEffect(() => {
 		if (state.arrayImg.images.length > 0) {
@@ -55,6 +43,15 @@ const AgregarProducto: NextPage = () => {
 			setCreateProduct(false);
 		}
 	}, [state]);
+
+	useEffect(() => {
+		if(state.user.email === "" || state.user.typeUser === "cliente"){
+			router.push("/");
+		}else{
+			setLoading(false);
+		}
+	}, []);
+	
 
 	const initialValues: MyFormValues = {
 		name: "",
@@ -102,6 +99,7 @@ const AgregarProducto: NextPage = () => {
 			},
 		});
 
+
 		links = res.data.paths;
 
 		postSortImg(links, values);
@@ -142,9 +140,9 @@ const AgregarProducto: NextPage = () => {
 			],
 		};
 
-		console.log(body);
 		try {
 			await axios.post("/api/producto", body);
+			router.push("/");
 			Swal.fire({
 				position: "center",
 				icon: "success",
@@ -152,7 +150,6 @@ const AgregarProducto: NextPage = () => {
 				showConfirmButton: false,
 				timer: 1200,
 			}).then(() => {
-				redirect();
 				dispatch(addArrayImg([]));
 			});
 		} catch (error: any) {
@@ -168,10 +165,6 @@ const AgregarProducto: NextPage = () => {
 		} 
 	};
 
-	const redirect = () => {
-		router.push("/");
-	};
-
 	const handleClickCrearProducto = () => {
 		setViewError(true);
 		if (state.arrayImg.images.length > 0) {
@@ -185,6 +178,14 @@ const AgregarProducto: NextPage = () => {
 			setErrorImg(true);
 		}
 	};
+
+	if (loading) {
+		return (
+			<Flex h="100vh" alignItems="center" justifyContent="center">
+				<Spinner size="xl" />
+			</Flex>
+		);
+	}
 
 	return (
 		<>
@@ -212,7 +213,6 @@ const AgregarProducto: NextPage = () => {
 					>
 						{({ values, errors, touched, handleChange, handleBlur }) => (
 							<Form id="form">
-								<FormObserver setBasicError={setBasicError} />
 
 								<CardBasic
 									name={values.name}
