@@ -15,13 +15,13 @@
 
 ## Configuraciones de Ejecución para Entorno de Desarrollo/Producción
 
-##Clonar repositorio
+### Clonar repositorio
 Clonamos el repositorio en su máquina local:
 ```bash
 git clone https://github.com/pablovrl/subs.git
 ```
 
-## Docker
+### Docker
 Con una terminal nos situamos en la raíz del proyecto y ejecutar:
 ```bash
 docker build -t subs .
@@ -31,7 +31,7 @@ Una vez construida la imagen, lanzamos un contenedor que contenga el código clo
 docker run -ti -p 3000:3000 -v ${PWD}:/app subs
 ```
 
-## Instalar dependencias
+### Instalar dependencias
 Una vez dentro del container de docker vamos a la raiz del proyecto:
 ```bash
 cd app
@@ -54,7 +54,14 @@ Poblamos la base de datos:
 ```bash
 npx prisma db seed
 ```
-### Build para producción
+### Iniciar entorno para desarrollo
+Iniciamos el proyecto en modo desarrollador:
+```bash
+yarn dev
+```
+Y listo, ahora vamos a nuestro navegador y accedemos a la siguiente url: [subs](http://localhost:3000 "subs").
+
+### Iniciar entorno para producción
 Creamos una versión para producción
 ```bash
 yarn build
@@ -63,7 +70,7 @@ Ahora sólo nos queda ejecutar nuestro proyecto con:
 ```bash
 yarn start
 ```
-Vamos a nuestro navegador y accedemos a la siguiente url [subs](http://localhost:3000 "subs").
+Y así ya tenemos nuestra aplicación lista para un enterno de producción, finalmente vamos a nuestro navegador y accedemos a la siguiente url: [subs](http://localhost:3000 "subs").
 
 ## Tecnologías utilizadas
 - [TypeScript](https://www.typescriptlang.org/) - Lenguaje de programación.
