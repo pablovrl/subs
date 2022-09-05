@@ -1,6 +1,5 @@
-import { SimpleGrid, Box, Text, Flex, Button } from "@chakra-ui/react";
+import { SimpleGrid, Box, Text, Flex, Button, Image } from "@chakra-ui/react";
 import React from "react";
-import Image from "next/image";
 import Product from "../../interfaces/Product";
 import { useDispatch } from "react-redux";
 import { addArrayImg } from "../../redux/addNewProduct/action";
@@ -30,8 +29,7 @@ export default function GridItem({
 								src={`${
 									process.env.URL + "/api/image/" + product.images[0].ruta
 								}`}
-								width="600"
-								height="400"
+								height="250"
 								objectFit="cover"
 							/>
 						</Box>
