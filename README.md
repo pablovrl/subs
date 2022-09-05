@@ -56,11 +56,6 @@ Poblamos la base de datos:
 ```bash
 npx prisma db seed
 ```
-### Credenciales de acceso
-| Correo electrónico | Contraseña | Tipo Usuario |
-|--------------------|------------|--------------|
-|vendedor@vendedor.com| vendedor|vendedor|
-|cliente@cliente.com|cliente|cliente| 
 
 ### Iniciar entorno para desarrollo
 Iniciamos el proyecto en modo desarrollador:
@@ -79,6 +74,12 @@ Ahora sólo nos queda ejecutar nuestro proyecto con:
 yarn start
 ```
 Y así ya tenemos nuestra aplicación lista para un enterno de producción, finalmente vamos a nuestro navegador y accedemos a la siguiente url: [subs](http://localhost:3000 "subs").
+
+### Credenciales de acceso
+| Correo electrónico | Contraseña | Tipo Usuario |
+|--------------------|------------|--------------|
+|vendedor@vendedor.com| vendedor|vendedor|
+|cliente@cliente.com|cliente|cliente| 
 
 ## Tecnologías utilizadas
 - [TypeScript](https://www.typescriptlang.org/) - Lenguaje de programación.
