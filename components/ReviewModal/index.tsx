@@ -23,6 +23,7 @@ interface Props {
 	onClose: () => void;
 	suscribeId: number | boolean;
 	reloadPage: () => void;
+	userType?: string;
 }
 
 interface FormData {
@@ -31,7 +32,13 @@ interface FormData {
 	description: string;
 }
 
-const ReviewModal = ({ isOpen, onClose, suscribeId, reloadPage }: Props) => {
+const ReviewModal = ({
+	isOpen,
+	onClose,
+	suscribeId,
+	reloadPage,
+	userType,
+}: Props) => {
 	const [formData, setFormData] = useState<FormData>({
 		stars: 1,
 		title: "",
@@ -59,6 +66,16 @@ const ReviewModal = ({ isOpen, onClose, suscribeId, reloadPage }: Props) => {
 	};
 
 	const submitReview = async () => {
+		if (userType !== "cliente") {
+			toast({
+				title: "Error",
+				description: "No puedes calificar un producto si no eres cliente",
+				status: "error",
+				duration: 5000,
+				isClosable: true,
+			});
+			return;
+		}
 		if (
 			formData.title.trim().length === 0 ||
 			formData.description.trim().length === 0 ||
