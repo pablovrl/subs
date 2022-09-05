@@ -42,7 +42,7 @@ model Vendedor {
 model Producto {
   id Int @id @default(autoincrement())
   nombre String
-  detalles String
+  detalles String @db.VarChar(255)
   stock Int
   activo Boolean @default(true) 
   vendedor Vendedor @relation(fields: [vendedorId], references: [id])
@@ -55,7 +55,7 @@ model Producto {
 
 model Periodo {
   id Int @id @default(autoincrement())
-  duracion String
+  duracion String 
   precio Int
   producto Producto @relation(fields: [productoId], references: [id])
   productoId Int
