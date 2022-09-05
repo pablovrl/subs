@@ -56,6 +56,12 @@ Poblamos la base de datos:
 ```bash
 npx prisma db seed
 ```
+### Credenciales de acceso
+| Correo electrónico | Contraseña | Tipo Usuario |
+|--------------------|------------|--------------|
+|vendedor@vendedor.com| vendedor|vendedor|
+|cliente@cliente.com|cliente|cliente| 
+
 ### Iniciar entorno para desarrollo
 Iniciamos el proyecto en modo desarrollador:
 ```bash
