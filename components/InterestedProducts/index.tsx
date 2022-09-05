@@ -9,9 +9,9 @@ import {
 	AlertDescription,
 	SimpleGrid,
 	Spinner,
+	Image,
 } from "@chakra-ui/react";
 import axios from "axios";
-import Image from "next/image";
 import Product from "../../interfaces/Product";
 import Link from "next/link";
 
@@ -89,8 +89,7 @@ export default function InterestedProducts({
 											src={`${
 												process.env.URL + "/api/image/" + product.images[0].ruta
 											}`}
-											width="600"
-											height="400"
+											height={"250px"}
 											objectFit="cover"
 										/>
 									</Box>
