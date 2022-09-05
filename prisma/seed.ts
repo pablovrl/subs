@@ -5,13 +5,13 @@ async function main() {
 	const credencials = await prisma.credencial.createMany({
 		data: [
 			{
-				email: "pablovillarroel135@gmail.com",
-				password: "colocolo123",
+				email: "vendedor@vendedor.com",
+				password: "vendedor",
 				tipoUsuario: "vendedor",
 			},
 			{
-				email: "elvis@gmail.com",
-				password: "colocolo123",
+				email: "cliente@cliente.com",
+				password: "cliente",
 				tipoUsuario: "cliente",
 			},
 		],
