@@ -80,7 +80,8 @@ export default function fileInput({ error,edit }: FileInputProps) {
 										x
 									</Button>
 
-									{edit ? (
+									{edit && !file.preview.includes("blob") ? (
+
 										<Image
 											key={file.id}
 											src={"/api/image/" + file.preview}

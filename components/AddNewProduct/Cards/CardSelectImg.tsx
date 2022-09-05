@@ -65,7 +65,7 @@ export default function CardSelectImg({ error, edit }: CardSelectImgProps) {
 				<>
 					<Flex justifyContent={"center"} alignItems={"center"} marginTop={"5"}>
 						{imgSelected !== undefined ? (
-							edit ? (
+							edit && !imgSelected.preview.includes("blob") ? (
 								<Image
 									src={"/api/image/" + imgSelected.preview}
 									alt="imagen"
@@ -105,7 +105,7 @@ export default function CardSelectImg({ error, edit }: CardSelectImgProps) {
 												borderColor={"red"}
 												borderRadius={10}
 											>
-												{edit ? (
+												{edit && !img.preview.includes("blob")? (
 													<Image
 														src={"/api/image/" + img.preview}
 														borderRadius={6}
@@ -131,7 +131,7 @@ export default function CardSelectImg({ error, edit }: CardSelectImgProps) {
 									) : (
 										<Flex w={"100%"} h={"100%"} justifyContent={"center"}>
 											<Flex>
-												{edit ? (
+												{edit && !img.preview.includes("blob")? (
 													<Image
 														src={"/api/image/" + img.preview}
 														alt="imagen"
