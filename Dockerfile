@@ -29,12 +29,14 @@ RUN source $NVM_DIR/nvm.sh \
     && nvm alias default $NODE_VERSION \
     && nvm use default
 
-# install yarn
+# install yarn and pm2
 RUN npm i -g yarn 
+RUN npm i -g pm2 
 
 # confirm installation
 RUN yarn -v
 RUN node -v
 RUN npm -v
+RUN pm2 -v
 
 EXPOSE 3000
