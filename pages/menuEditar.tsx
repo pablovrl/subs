@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Container, Spinner, Flex } from "@chakra-ui/react";
+import { Box, Container, Spinner, Flex, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Navbar from "../components/Navbar";
 import { useRouter } from "next/router";
@@ -38,6 +38,9 @@ const editarProducto: NextPage = () => {
 			) : (
 				<NavbarEdit edit={true} setEdit={setEdit} />
 			)}
+			<Text mx={"8"} mt={8} fontSize={"2xl"} textAlign={"center"}>
+				Mis Productos
+			</Text>
 			<Container maxW="container.lg">
 				<Products edit={edit} setEdit={setEdit} />
 			</Container>

@@ -212,12 +212,12 @@ export default function Navbar() {
 						{user.typeUser !== "cliente" && user.typeUser !== "" ? (
 							<>
 								<NavbarLink
-									text="Agregar producto"
+									text="Agregar Producto"
 									href="/agregarProducto"
 									fontSize={{ base: "xs", sm: "sm", md: "md" }}
 								/>
 								<NavbarLink
-									text="Editar producto"
+									text="Editar Productos"
 									href="/menuEditar"
 									fontSize={{ base: "xs", sm: "sm", md: "md" }}
 								/>
