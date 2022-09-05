@@ -71,7 +71,7 @@ yarn build
 ```
 Ahora sólo nos queda ejecutar nuestro proyecto con:
 ```bash
-yarn start
+pm2 start yarn --name "nextjs" -- start
 ```
 Y así ya tenemos nuestra aplicación lista para un enterno de producción, finalmente vamos a nuestro navegador y accedemos a la siguiente url: [subs](http://localhost:3000 "subs").
 
