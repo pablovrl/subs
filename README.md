@@ -22,17 +22,17 @@ git clone https://github.com/pablovrl/subs.git
 ```
 
 ### Docker
-Con una terminal nos situamos en la raíz del proyecto y ejecutar:
+Con una terminal nos situamos en la raíz del proyecto y ejecutamos:
 ```bash
 docker build -t subs .
 ```
-Una vez construida la imagen, lanzamos un contenedor que contenga el código clonado anteriormente: 
+Una vez construida la imagen, lanzamos un contenedor que contenga el código clonado anteriormente, aún estando en la raíz del proyecto: 
 ```bash
 docker run -ti -p 3000:3000 -v ${PWD}:/app subs
 ```
 
 ### Instalar dependencias
-Una vez dentro del container de docker vamos a la raiz del proyecto:
+Una vez dentro del contenedor de docker vamos a la raiz del proyecto:
 ```bash
 cd app
 ```
