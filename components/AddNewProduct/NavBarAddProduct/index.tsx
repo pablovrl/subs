@@ -33,7 +33,7 @@ export default function NavBarAddProduct({ edit, setEdit }: propsNav) {
 					</Link>
 					<HStack spacing={"20px"}>
 						{edit === false ? (
-							<NavbarLink text="Volver" href="/" />
+							<NavbarLink text="Volver" href="/" onClick={()=>{dispatch(addArrayImg([]));}}/>
 						) : (
 							<Button
 								colorScheme="teal"
