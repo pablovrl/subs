@@ -42,9 +42,11 @@ yarn
 ```
 
 ### Base de Datos
-Creamos un archivo `.env` en la raíz del proyecto, y agreamos la siguiente variable de entorno con las credenciales de nuestra base de datos:
+Creamos un archivo `.env` en la raíz del proyecto, y agregamos las siguientes variables de entorno:
 ```env
 DATABASE_URL='mysql://user:password@host/db_name'
+URL=http://localhost:3000
+
 ```
 Hacemos la migración de la base de datos para crear las tablas:
 ```bash
