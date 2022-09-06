@@ -21,7 +21,16 @@ Clonamos el repositorio en su máquina local:
 git clone https://github.com/pablovrl/subs.git
 ```
 
-### Docker
+### Configuración de Base de Datos
+Creamos un archivo `.env` en la raíz del proyecto, y agregamos las siguientes variables de entorno:
+- DATABASE_URL: Debe ingresar el string de conexión con las credenciales de la base de datos (debe ser mysql).
+- URL: Debe ingresar la URL en la que será desplegada la aplicación (en este caso el localhost).
+```env
+DATABASE_URL='mysql://user:password@host/db_name'
+URL=http://localhost:3000
+```
+
+### Docker (Entorno de Desarrollo)
 Con una terminal nos situamos en la raíz del proyecto y ejecutamos:
 ```bash
 docker build -t subs .
@@ -31,7 +40,31 @@ Una vez construida la imagen, lanzamos un contenedor que contenga el código clo
 docker run -ti -p 3000:3000 -v ${PWD}:/subs subs
 ```
 
-### Actualizar e instalar dependencias (siendo root)
+Una vez dentro del contenedor entramos a la raíz del proyecto
+```bash
+cd subs
+```
+
+Instalamos las dependencias ocupando yarn:
+```bash
+yarn
+```
+Hacemos la migración de la base de datos para crear las tablas:
+```bash
+npx prisma db push
+```
+Poblamos la base de datos:
+```bash
+npx prisma db seed
+```
+
+Iniciamos el proyecto en modo desarrollador:
+```bash
+yarn dev
+```
+Y ya tendríamos corriendo el proyecto en modo desarrollador.
+
+### Entorno de Producción (siendo root)
 #### Actualizar paquetes del sistema operativo
 ```bash
 apt update && apt upgrade
@@ -66,15 +99,6 @@ Instalamos las dependencias ocupando yarn:
 ```bash
 yarn
 ```
-
-### Configuración de Base de Datos
-Creamos un archivo `.env` en la raíz del proyecto, y agregamos las siguientes variables de entorno:
-- DATABASE_URL: Debe ingresar el string de conexión con las credenciales de la base de datos (debe ser mysql).
-- URL: Debe ingresar la URL en la que será desplegada la aplicación (en este caso el localhost).
-```env
-DATABASE_URL='mysql://user:password@host/db_name'
-URL=http://localhost:3000
-```
 Hacemos la migración de la base de datos para crear las tablas:
 ```bash
 npx prisma db push
@@ -83,14 +107,6 @@ Poblamos la base de datos:
 ```bash
 npx prisma db seed
 ```
-
-### Iniciar entorno para desarrollo
-Iniciamos el proyecto en modo desarrollador:
-```bash
-yarn dev
-```
-
-### Iniciar entorno para producción
 Creamos una versión para producción
 ```bash
 yarn build
