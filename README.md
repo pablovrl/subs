@@ -28,25 +28,52 @@ docker build -t subs .
 ```
 Una vez construida la imagen, lanzamos un contenedor que contenga el código clonado anteriormente, aún estando en la raíz del proyecto: 
 ```bash
-docker run -ti -p 3000:3000 -v ${PWD}:/app subs
+docker run -ti -p 3000:3000 -v ${PWD}:/subs subs
 ```
 
-### Instalar dependencias
-Una vez dentro del contenedor de docker vamos a la raiz del proyecto:
+### Actualizar e instalar dependencias (siendo root)
+#### Actualizar paquetes del sistema operativo
 ```bash
-cd app
+apt update && apt upgrade
 ```
+#### Instalar curl
+```bash
+apt install curl
+```
+
+#### Instalar nvm (para luego instalar node 16.15.0)
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+```
+
+#### Instalar nodejs 16.15.0
+```bash
+nvm install 16.15.0
+nvm use 16.15.0
+```
+
+#### Instalar yarn
+```bash
+npm i -g yarn
+```
+
+#### Ingresamos a la raíz del proyecto
+```bash
+cd directorio-del-proyecto
+```
+
 Instalamos las dependencias ocupando yarn:
 ```bash
 yarn
 ```
 
-### Base de Datos
+### Configuración de Base de Datos
 Creamos un archivo `.env` en la raíz del proyecto, y agregamos las siguientes variables de entorno:
+- DATABASE_URL: Debe ingresar el string de conexión con las credenciales de la base de datos (debe ser mysql).
+- URL: Debe ingresar la URL en la que será desplegada la aplicación (en este caso el localhost).
 ```env
 DATABASE_URL='mysql://user:password@host/db_name'
 URL=http://localhost:3000
-
 ```
 Hacemos la migración de la base de datos para crear las tablas:
 ```bash
@@ -62,7 +89,6 @@ Iniciamos el proyecto en modo desarrollador:
 ```bash
 yarn dev
 ```
-Y listo, ahora vamos a nuestro navegador y accedemos a la siguiente url: [subs](http://localhost:3000 "subs").
 
 ### Iniciar entorno para producción
 Creamos una versión para producción
@@ -73,7 +99,7 @@ Ahora sólo nos queda ejecutar nuestro proyecto con:
 ```bash
 pm2 start yarn --name "nextjs" -- start
 ```
-Y así ya tenemos nuestra aplicación lista para un enterno de producción, finalmente vamos a nuestro navegador y accedemos a la siguiente url: [subs](http://localhost:3000 "subs").
+Y así ya tenemos nuestra aplicación lista para un enterno de producción.
 
 ### Credenciales de acceso
 | Correo electrónico | Contraseña | Tipo Usuario |
