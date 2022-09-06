@@ -4,7 +4,7 @@ import Navbar from "../Navbar";
 import FilterInput from "../FilterInput";
 
 const Layout = ({ children }: { children: React.ReactNode }) => (
-	<Box>
+	<Box pb={10}>
 		<Navbar />
 		<Container maxW="container.lg">
 			<FilterInput />
