@@ -84,9 +84,10 @@ nvm install 16.15.0
 nvm use 16.15.0
 ```
 
-#### Instalar yarn
+#### Instalar yarn y pm2
 ```bash
 npm i -g yarn
+npm i -g pm2
 ```
 
 #### Ingresamos a la raíz del proyecto
