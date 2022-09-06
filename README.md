@@ -15,38 +15,38 @@
 
 ## Configuraciones de Ejecución para Entorno de Desarrollo/Producción
 
-### Clonar repositorio
 Clonamos el repositorio en su máquina local:
 ```bash
 git clone https://github.com/pablovrl/subs.git
 ```
 
-### Docker
+### Configuración de Base de Datos
+Creamos un archivo `.env` en la raíz del proyecto, y agregamos las siguientes variables de entorno:
+- DATABASE_URL: Debe ingresar el string de conexión con las credenciales de la base de datos (debe ser mysql).
+- URL: Debe ingresar la URL en la que será desplegada la aplicación (en este caso el localhost).
+```env
+DATABASE_URL='mysql://user:password@host/db_name'
+URL=http://localhost:3000
+```
+
+### Docker (Entorno de Desarrollo)
 Con una terminal nos situamos en la raíz del proyecto y ejecutamos:
 ```bash
 docker build -t subs .
 ```
-Una vez construida la imagen, lanzamos un contenedor que contenga el código clonado anteriormente, aún estando en la raíz del proyecto: 
+Una vez construida la imagen, lanzamos un contenedor que contenga el código clonado anteriormente:
 ```bash
-docker run -ti -p 3000:3000 -v ${PWD}:/app subs
+docker run -ti -p 3000:3000 -v ${PWD}:/subs subs
 ```
 
-### Instalar dependencias
-Una vez dentro del contenedor de docker vamos a la raiz del proyecto:
+Una vez dentro del contenedor entramos a la raíz del proyecto:
 ```bash
-cd app
+cd subs
 ```
+
 Instalamos las dependencias ocupando yarn:
 ```bash
 yarn
-```
-
-### Base de Datos
-Creamos un archivo `.env` en la raíz del proyecto, y agregamos las siguientes variables de entorno (la URL debe ser la dirección por la que se accederá a la página desde el navegador, en este caso ocuparemos el puerto 3000 del localhost):
-```env
-DATABASE_URL='mysql://user:password@host/db_name'
-URL=http://localhost:3000
-
 ```
 Hacemos la migración de la base de datos para crear las tablas:
 ```bash
@@ -57,14 +57,56 @@ Poblamos la base de datos:
 npx prisma db seed
 ```
 
-### Iniciar entorno para desarrollo
 Iniciamos el proyecto en modo desarrollador:
 ```bash
 yarn dev
 ```
-Y listo, ahora vamos a nuestro navegador y accedemos a la siguiente url: [subs](http://localhost:3000 "subs").
+Y ya tendríamos corriendo el proyecto en modo desarrollador.
 
-### Iniciar entorno para producción
+### Entorno de Producción (siendo root)
+#### Actualizar paquetes del sistema operativo
+```bash
+apt update && apt upgrade
+```
+#### Instalar curl
+```bash
+apt install curl
+```
+
+#### Instalar nvm (para luego instalar node 16.15.0)
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+```
+
+#### Instalar nodejs 16.15.0
+```bash
+nvm install 16.15.0
+nvm use 16.15.0
+```
+
+#### Instalar yarn y pm2
+```bash
+npm i -g yarn
+npm i -g pm2
+```
+
+#### Ingresamos a la raíz del proyecto
+```bash
+cd directorio-del-proyecto
+```
+
+Instalamos las dependencias ocupando yarn:
+```bash
+yarn
+```
+Hacemos la migración de la base de datos para crear las tablas:
+```bash
+npx prisma db push
+```
+Poblamos la base de datos:
+```bash
+npx prisma db seed
+```
 Creamos una versión para producción
 ```bash
 yarn build
@@ -73,7 +115,7 @@ Ahora sólo nos queda ejecutar nuestro proyecto con:
 ```bash
 pm2 start yarn --name "nextjs" -- start
 ```
-Y así ya tenemos nuestra aplicación lista para un enterno de producción, finalmente vamos a nuestro navegador y accedemos a la siguiente url: [subs](http://localhost:3000 "subs").
+Y así ya tenemos nuestra aplicación lista para un enterno de producción.
 
 ### Credenciales de acceso
 | Correo electrónico | Contraseña | Tipo Usuario |
