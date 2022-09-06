@@ -42,7 +42,7 @@ yarn
 ```
 
 ### Base de Datos
-Creamos un archivo `.env` en la raíz del proyecto, y agregamos las siguientes variables de entorno:
+Creamos un archivo `.env` en la raíz del proyecto, y agregamos las siguientes variables de entorno (la URL debe ser la dirección por la que se accederá a la página desde el navegador, en este caso ocuparemos el puerto 3000 del localhost):
 ```env
 DATABASE_URL='mysql://user:password@host/db_name'
 URL=http://localhost:3000
