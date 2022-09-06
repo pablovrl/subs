@@ -15,7 +15,6 @@
 
 ## Configuraciones de Ejecución para Entorno de Desarrollo/Producción
 
-### Clonar repositorio
 Clonamos el repositorio en su máquina local:
 ```bash
 git clone https://github.com/pablovrl/subs.git
@@ -35,12 +34,12 @@ Con una terminal nos situamos en la raíz del proyecto y ejecutamos:
 ```bash
 docker build -t subs .
 ```
-Una vez construida la imagen, lanzamos un contenedor que contenga el código clonado anteriormente, aún estando en la raíz del proyecto: 
+Una vez construida la imagen, lanzamos un contenedor que contenga el código clonado anteriormente:
 ```bash
 docker run -ti -p 3000:3000 -v ${PWD}:/subs subs
 ```
 
-Una vez dentro del contenedor entramos a la raíz del proyecto
+Una vez dentro del contenedor entramos a la raíz del proyecto:
 ```bash
 cd subs
 ```
